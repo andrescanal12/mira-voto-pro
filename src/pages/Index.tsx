@@ -2,7 +2,6 @@ import { useState } from "react";
 import { BarChart3, Database, Phone, FileDown } from "lucide-react";
 import Header from "@/components/Header";
 import ContadorRegresivo from "@/components/ContadorRegresivo";
-import ExcelUploader from "@/components/ExcelUploader";
 import DashboardCards from "@/components/DashboardCards";
 import TablaBaseDatos from "@/components/TablaBaseDatos";
 import PendientesModule from "@/components/PendientesModule";
@@ -22,7 +21,7 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
 ];
 
 const Index = () => {
-  const { voters, loadVoters, updateVoterStatus, updateVoterComment, clearData } = useVoters();
+  const { voters, updateVoterStatus, updateVoterComment } = useVoters();
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
 
@@ -50,13 +49,6 @@ const Index = () => {
 
       {/* Main content */}
       <main className="container mx-auto px-4 py-6 space-y-6 max-w-7xl">
-        {/* Excel uploader */}
-        <ExcelUploader
-          onLoad={loadVoters}
-          hasData={voters.length > 0}
-          onClear={clearData}
-        />
-
         {/* Tab navigation */}
         <nav className="flex gap-1 bg-card border border-border rounded-2xl p-1 overflow-x-auto" role="tablist">
           {tabs.map((tab) => (
@@ -65,11 +57,10 @@ const Index = () => {
               onClick={() => setActiveTab(tab.id)}
               role="tab"
               aria-selected={activeTab === tab.id}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
-                activeTab === tab.id
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.id
                   ? "bg-primary text-primary-foreground shadow-lg"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
+                }`}
             >
               <tab.icon className="h-4 w-4" />
               {tab.label}
