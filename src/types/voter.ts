@@ -1,4 +1,4 @@
-export type VoterStatus = "Pendiente de llamar" | "Ya votó" | "No va votar";
+export type VoterStatus = "Aún no ha venido" | "Pendiente de llamar" | "Ya votó" | "No va votar";
 
 export interface Voter {
   id: string;

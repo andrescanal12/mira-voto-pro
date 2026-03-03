@@ -85,27 +85,79 @@
 /* Colombian flag stripe */
 .colombia-stripe {
   height: 4px;
-  background: linear-gradient(
-    to right,
-    hsl(48, 100%, 50%) 0%,
-    hsl(48, 100%, 50%) 50%,
-    hsl(222, 88%, 35%) 50%,
-    hsl(222, 88%, 35%) 75%,
-    hsl(0, 85%, 50%) 75%,
-    hsl(0, 85%, 50%) 100%
-  );
+  background: linear-gradient(to right,
+      hsl(48, 100%, 50%) 0%,
+      hsl(48, 100%, 50%) 50%,
+      hsl(222, 88%, 35%) 50%,
+      hsl(222, 88%, 35%) 75%,
+      hsl(0, 85%, 50%) 75%,
+      hsl(0, 85%, 50%) 100%);
 }
 
-/* Decorative patterns */
+/* ── MIRA – Fondo oficial con orbs animados ── */
 .mira-bg-pattern {
-  background-image:
-    radial-gradient(circle at 10% 20%, hsl(43, 94%, 49%, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 90% 80%, hsl(43, 94%, 49%, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, hsl(222, 88%, 35%, 0.1) 0%, transparent 70%);
+  background-color: #00289f;
+  background-image: linear-gradient(180deg, #00289f 0%, #001f7a 50%, #001560 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Orbs */
+.mira-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.6;
+  animation: mira-float 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mira-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #0052cc 0%, transparent 70%);
+  top: -250px;
+  right: -250px;
+  animation-delay: 0s;
+}
+
+.mira-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #667eea 0%, transparent 70%);
+  bottom: -200px;
+  left: -200px;
+  animation-delay: -5s;
+}
+
+.mira-orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #4facfe 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  animation-delay: -10s;
+}
+
+@keyframes mira-float {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-50px, 50px) scale(0.9);
+  }
 }
 
 .gold-circle-decoration {
-  border: 2px solid hsl(43, 94%, 49%, 0.3);
+  border: 2px solid hsla(43, 94%, 49%, 0.3);
   border-radius: 50%;
 }
 
@@ -114,13 +166,16 @@
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: hsl(222, 60%, 12%);
+  background: #001560;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: hsl(222, 40%, 30%);
+  background: #0052cc;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(43, 94%, 49%);
+  background: #fbba00;
 }

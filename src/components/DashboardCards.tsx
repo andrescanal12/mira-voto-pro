@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Users, CheckCircle2, Phone, XCircle } from "lucide-react";
+import { Users, CheckCircle2, Phone, XCircle, Clock } from "lucide-react";
 import { Voter } from "@/types/voter";
 
 interface Props {
@@ -9,10 +9,11 @@ interface Props {
 const DashboardCards = ({ voters }: Props) => {
   const stats = useMemo(() => {
     const total = voters.length;
+    const noVino = voters.filter((v) => v.estado === "Aún no ha venido").length;
     const yaVoto = voters.filter((v) => v.estado === "Ya votó").length;
     const pendientes = voters.filter((v) => v.estado === "Pendiente de llamar").length;
     const noVota = voters.filter((v) => v.estado === "No va votar").length;
-    return { total, yaVoto, pendientes, noVota };
+    return { total, noVino, yaVoto, pendientes, noVota };
   }, [voters]);
 
   const cards = [
@@ -24,6 +25,13 @@ const DashboardCards = ({ voters }: Props) => {
       bgColor: "bg-accent/10",
     },
     {
+      label: "Aún No Han Venido",
+      value: stats.noVino,
+      icon: Clock,
+      color: "text-blue-400",
+      bgColor: "bg-blue-400/10",
+    },
+    {
       label: "Ya Votaron",
       value: stats.yaVoto,
       icon: CheckCircle2,
@@ -31,7 +39,7 @@ const DashboardCards = ({ voters }: Props) => {
       bgColor: "bg-success/10",
     },
     {
-      label: "Pendientes de Llamar",
+      label: "Falta Llamar",
       value: stats.pendientes,
       icon: Phone,
       color: "text-warning",
@@ -79,6 +87,7 @@ const DashboardCards = ({ voters }: Props) => {
           </h3>
           <div className="space-y-3">
             {[
+              { label: "Aún No Han Venido", value: stats.noVino, cls: "bg-blue-400" },
               { label: "Ya Votaron", value: stats.yaVoto, cls: "bg-success" },
               { label: "Pendientes", value: stats.pendientes, cls: "bg-warning" },
               { label: "No Van a Votar", value: stats.noVota, cls: "bg-destructive" },

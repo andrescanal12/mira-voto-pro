@@ -51,9 +51,8 @@ for (let i = headerIdx + 1; i < lines.length; i++) {
     if (nombre.toLowerCase().includes("total")) continue;
 
     const estadoInsc = (cols[11] || "").trim().toUpperCase();
-    let estado;
-    if (estadoInsc === "COMPLETO") estado = "Ya votó";
-    else estado = "Pendiente de llamar";
+    let estado = "Aún no ha venido"; // Estado por defecto para el día D
+
 
     voters.push({
         id: `voter-${cedula}-${i}`,

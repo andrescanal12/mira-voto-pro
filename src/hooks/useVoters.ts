@@ -17,7 +17,16 @@ export function useVoters() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        if (parsed && parsed.length >= 100) return parsed;
+        // Comprobación de versión para forzar recarga (nuevo estado añadido)
+        if (parsed && parsed.length >= 100 && parsed[0].estado) {
+          // Si ninguno tiene el nuevo estado "Aún no ha venido" pero existen en la base, 
+          // probablemente son datos viejos, pero para asegurar, forzamos recargar "BASE_VOTERS"
+          const hasNewState = parsed.some((v: Voter) => v.estado === "Aún no ha venido");
+          if (!hasNewState) {
+            return BASE_VOTERS;
+          }
+          return parsed;
+        }
       } catch {
         // ignore
       }

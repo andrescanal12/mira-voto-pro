@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Clock } from "lucide-react";
 
-// Día de elecciones Colombia 2026 - 31 de mayo 2026
-const ELECTION_DATE = new Date("2026-05-31T07:00:00-05:00");
+// Cierre de urnas: 8 de marzo de 2026 a las 16:00 (hora España)
+const ELECTION_DATE = new Date("2026-03-08T16:00:00+01:00");
 
 const ContadorRegresivo = () => {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
@@ -27,25 +26,42 @@ const ContadorRegresivo = () => {
 
   const units = [
     { label: "DÍAS", value: timeLeft.dias },
-    { label: "HRS", value: timeLeft.horas },
+    { label: "HORAS", value: timeLeft.horas },
     { label: "MIN", value: timeLeft.minutos },
     { label: "SEG", value: timeLeft.segundos },
   ];
 
   return (
-    <div className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-3 flex items-center gap-3">
-      <Clock className="h-4 w-4 text-accent shrink-0" />
-      <div className="flex items-center gap-1">
+    <div style={{
+      background: "linear-gradient(135deg, rgba(10,35,130,0.8) 0%, rgba(0,25,100,0.9) 100%)",
+      border: "1.5px solid rgba(255,255,255,0.15)",
+      backdropFilter: "blur(6px)",
+      boxShadow: "0 6px 16px rgba(0,0,20,0.5)",
+      borderRadius: "0.5rem",
+      padding: "0.6rem 1.2rem",
+      display: "inline-flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "0.3rem"
+    }}>
+      <div style={{ color: "white", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.8px", opacity: 0.95, textTransform: "uppercase" }}>
+        Faltan para las elecciones
+      </div>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: "0.4rem" }}>
         {units.map((u, i) => (
-          <div key={u.label} className="flex items-center gap-1">
-            <div className="bg-primary rounded-lg px-2 py-1 min-w-[2.2rem] text-center">
-              <span className="text-sm md:text-base font-bold text-primary-foreground tabular-nums">
+          <div key={u.label} style={{ display: "flex", alignItems: "flex-start" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <span style={{ color: "white", fontSize: "1.6rem", fontWeight: 800, lineHeight: 1 }}>
                 {String(u.value).padStart(2, "0")}
               </span>
+              <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.55rem", fontWeight: 600, marginTop: "0.2rem", letterSpacing: "0.5px" }}>
+                {u.label}
+              </span>
             </div>
-            <span className="text-[10px] text-muted-foreground font-medium">{u.label}</span>
             {i < units.length - 1 && (
-              <span className="text-accent font-bold mx-0.5">:</span>
+              <span style={{ color: "white", fontSize: "1.2rem", fontWeight: 700, margin: "0 0.3rem", alignSelf: "flex-start", opacity: 0.8, paddingTop: "0.1rem" }}>
+                :
+              </span>
             )}
           </div>
         ))}

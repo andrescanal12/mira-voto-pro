@@ -12,7 +12,7 @@ const PAGE_SIZE = 15;
 
 const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) => {
   const pendientes = useMemo(
-    () => voters.filter((v) => v.estado === "Pendiente de llamar"),
+    () => voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido"),
     [voters]
   );
 
@@ -105,7 +105,8 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                   className="bg-muted border border-border rounded-xl px-2 py-1.5 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
                   aria-label={`Estado de ${voter.nombre}`}
                 >
-                  <option value="Pendiente de llamar">⏳ Pendiente de llamar</option>
+                  <option value="Aún no ha venido">⏳ Aún no ha venido</option>
+                  <option value="Pendiente de llamar">📞 Falta llamar</option>
                   <option value="Ya votó">✅ Ya votó</option>
                   <option value="No va votar">❌ No va votar</option>
                 </select>

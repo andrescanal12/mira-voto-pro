@@ -10,6 +10,7 @@ interface Props {
 const PAGE_SIZE = 20;
 
 const statusColors: Record<VoterStatus, string> = {
+  "Aún no ha venido": "bg-blue-500/20 text-blue-400",
   "Ya votó": "bg-success/20 text-success",
   "Pendiente de llamar": "bg-warning/20 text-warning",
   "No va votar": "bg-destructive/20 text-destructive",
@@ -75,7 +76,8 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
           aria-label="Filtrar por estado"
         >
           <option value="">Todos los estados</option>
-          <option value="Pendiente de llamar">Pendiente de llamar</option>
+          <option value="Aún no ha venido">Aún no ha venido</option>
+          <option value="Pendiente de llamar">Falta llamar</option>
           <option value="Ya votó">Ya votó</option>
           <option value="No va votar">No va votar</option>
         </select>

@@ -14,7 +14,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -29,7 +29,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -44,7 +44,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -59,7 +59,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -74,7 +74,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -89,7 +89,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -104,7 +104,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -119,7 +119,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -134,7 +134,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -149,7 +149,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -164,7 +164,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -179,7 +179,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -194,7 +194,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -209,7 +209,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -224,7 +224,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -239,7 +239,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -254,7 +254,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -269,7 +269,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -284,7 +284,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -299,7 +299,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -314,7 +314,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -329,7 +329,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -344,7 +344,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -359,7 +359,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -374,7 +374,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "No",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -389,7 +389,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -404,7 +404,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -419,7 +419,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -434,7 +434,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -449,7 +449,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -464,7 +464,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -479,7 +479,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -494,7 +494,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -509,7 +509,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -524,7 +524,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -539,7 +539,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -554,7 +554,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -569,7 +569,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -584,7 +584,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -599,7 +599,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -614,7 +614,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -629,7 +629,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -644,7 +644,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -659,7 +659,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -674,7 +674,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -689,7 +689,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -704,7 +704,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -719,7 +719,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -734,7 +734,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -749,7 +749,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -764,7 +764,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -779,7 +779,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -794,7 +794,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -809,7 +809,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -824,7 +824,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -839,7 +839,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -854,7 +854,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -869,7 +869,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -884,7 +884,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -899,7 +899,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -914,7 +914,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -929,7 +929,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -944,7 +944,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -959,7 +959,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -974,7 +974,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -989,7 +989,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1004,7 +1004,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1019,7 +1019,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1034,7 +1034,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1049,7 +1049,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1064,7 +1064,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1079,7 +1079,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1094,7 +1094,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1109,7 +1109,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1124,7 +1124,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1139,7 +1139,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1154,7 +1154,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1169,7 +1169,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1184,7 +1184,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1199,7 +1199,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1214,7 +1214,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1229,7 +1229,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1244,7 +1244,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1259,7 +1259,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1274,7 +1274,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1289,7 +1289,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1304,7 +1304,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1319,7 +1319,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1334,7 +1334,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1349,7 +1349,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1364,7 +1364,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1379,7 +1379,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1394,7 +1394,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1409,7 +1409,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1424,7 +1424,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1439,7 +1439,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1454,7 +1454,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1469,7 +1469,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1484,7 +1484,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1499,7 +1499,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1514,7 +1514,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1529,7 +1529,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1544,7 +1544,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1559,7 +1559,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1574,7 +1574,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1589,7 +1589,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1604,7 +1604,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1619,7 +1619,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1634,7 +1634,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1649,7 +1649,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1664,7 +1664,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1679,7 +1679,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1694,7 +1694,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1709,7 +1709,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1724,7 +1724,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1739,7 +1739,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1754,7 +1754,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1769,7 +1769,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1784,7 +1784,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1799,7 +1799,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1814,7 +1814,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1829,7 +1829,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1844,7 +1844,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1859,7 +1859,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1874,7 +1874,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1889,7 +1889,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1904,7 +1904,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1919,7 +1919,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1934,7 +1934,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1949,7 +1949,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "No",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1964,7 +1964,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1979,7 +1979,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -1994,7 +1994,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2009,7 +2009,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2024,7 +2024,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2039,7 +2039,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2054,7 +2054,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2069,7 +2069,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2084,7 +2084,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2099,7 +2099,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2114,7 +2114,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2129,7 +2129,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2144,7 +2144,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2159,7 +2159,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2174,7 +2174,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2189,7 +2189,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2204,7 +2204,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2219,7 +2219,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2234,7 +2234,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2249,7 +2249,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2264,7 +2264,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2279,7 +2279,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2294,7 +2294,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2309,7 +2309,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2324,7 +2324,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2339,7 +2339,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2354,7 +2354,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2369,7 +2369,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2384,7 +2384,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2399,7 +2399,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2414,7 +2414,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2429,7 +2429,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2444,7 +2444,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2459,7 +2459,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2474,7 +2474,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2489,7 +2489,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2504,7 +2504,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2519,7 +2519,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2534,7 +2534,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2549,7 +2549,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2564,7 +2564,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2579,7 +2579,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2594,7 +2594,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2609,7 +2609,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2624,7 +2624,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2639,7 +2639,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2654,7 +2654,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2669,7 +2669,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2684,7 +2684,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2699,7 +2699,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2714,7 +2714,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2729,7 +2729,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2744,7 +2744,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2759,7 +2759,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2774,7 +2774,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2789,7 +2789,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2804,7 +2804,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2819,7 +2819,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2834,7 +2834,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2849,7 +2849,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2864,7 +2864,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2879,7 +2879,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2894,7 +2894,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2909,7 +2909,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2924,7 +2924,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2939,7 +2939,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2954,7 +2954,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2969,7 +2969,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2984,7 +2984,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -2999,7 +2999,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3014,7 +3014,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3029,7 +3029,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3044,7 +3044,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3059,7 +3059,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3074,7 +3074,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3089,7 +3089,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3104,7 +3104,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3119,7 +3119,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3134,7 +3134,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3149,7 +3149,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3164,7 +3164,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3179,7 +3179,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3194,7 +3194,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3209,7 +3209,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3224,7 +3224,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3239,7 +3239,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3254,7 +3254,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3269,7 +3269,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3284,7 +3284,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3299,7 +3299,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3314,7 +3314,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3329,7 +3329,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3344,7 +3344,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3359,7 +3359,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3374,7 +3374,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3389,7 +3389,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "No",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3404,7 +3404,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3419,7 +3419,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3434,7 +3434,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3449,7 +3449,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3464,7 +3464,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3479,7 +3479,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3494,7 +3494,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3509,7 +3509,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3524,7 +3524,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3539,7 +3539,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3554,7 +3554,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3569,7 +3569,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3584,7 +3584,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3599,7 +3599,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3614,7 +3614,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3629,7 +3629,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3644,7 +3644,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3659,7 +3659,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3674,7 +3674,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3689,7 +3689,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3704,7 +3704,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3719,7 +3719,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3734,7 +3734,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3749,7 +3749,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3764,7 +3764,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3779,7 +3779,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3794,7 +3794,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3809,7 +3809,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3824,7 +3824,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3839,7 +3839,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3854,7 +3854,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3869,7 +3869,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3884,7 +3884,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3899,7 +3899,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3914,7 +3914,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3929,7 +3929,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3944,7 +3944,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3959,7 +3959,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3974,7 +3974,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -3989,7 +3989,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4004,7 +4004,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4019,7 +4019,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4034,7 +4034,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4049,7 +4049,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4064,7 +4064,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4079,7 +4079,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4094,7 +4094,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4109,7 +4109,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4124,7 +4124,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4139,7 +4139,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4154,7 +4154,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4169,7 +4169,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4184,7 +4184,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4199,7 +4199,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4214,7 +4214,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4229,7 +4229,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4244,7 +4244,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4259,7 +4259,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4274,7 +4274,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4289,7 +4289,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4304,7 +4304,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4319,7 +4319,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4334,7 +4334,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4349,7 +4349,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4364,7 +4364,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4379,7 +4379,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4394,7 +4394,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4409,7 +4409,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4424,7 +4424,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4439,7 +4439,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4454,7 +4454,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4469,7 +4469,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4484,7 +4484,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4499,7 +4499,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4514,7 +4514,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4529,7 +4529,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4544,7 +4544,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4559,7 +4559,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4574,7 +4574,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4589,7 +4589,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4604,7 +4604,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4619,7 +4619,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4634,7 +4634,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4649,7 +4649,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4664,7 +4664,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4679,7 +4679,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4694,7 +4694,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4709,7 +4709,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4724,7 +4724,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4739,7 +4739,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4754,7 +4754,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4769,7 +4769,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4784,7 +4784,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4799,7 +4799,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4814,7 +4814,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4829,7 +4829,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4844,7 +4844,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4859,7 +4859,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4874,7 +4874,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4889,7 +4889,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4904,7 +4904,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4919,7 +4919,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4934,7 +4934,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4949,7 +4949,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4964,7 +4964,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4979,7 +4979,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -4994,7 +4994,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5009,7 +5009,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5024,7 +5024,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5039,7 +5039,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5054,7 +5054,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5069,7 +5069,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5084,7 +5084,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5099,7 +5099,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5114,7 +5114,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5129,7 +5129,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5144,7 +5144,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5159,7 +5159,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5174,7 +5174,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5189,7 +5189,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5204,7 +5204,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5219,7 +5219,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5234,7 +5234,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5249,7 +5249,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5264,7 +5264,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5279,7 +5279,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5294,7 +5294,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5309,7 +5309,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5324,7 +5324,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5339,7 +5339,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5354,7 +5354,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5369,7 +5369,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5384,7 +5384,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5399,7 +5399,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5414,7 +5414,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5429,7 +5429,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5444,7 +5444,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5459,7 +5459,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5474,7 +5474,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5489,7 +5489,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5504,7 +5504,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "EN PROCESO",
-    "estado": "Pendiente de llamar",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5519,7 +5519,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5534,7 +5534,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5549,7 +5549,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5564,7 +5564,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "",
     "referido": "Sí",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   },
   {
@@ -5579,7 +5579,7 @@ export const BASE_VOTERS: Voter[] = [
     "lider": "Sí",
     "referido": "No",
     "estadoInscripcion": "COMPLETO",
-    "estado": "Ya votó",
+    "estado": "Aún no ha venido",
     "comentario": ""
   }
 ];
