@@ -131,8 +131,8 @@ const Index = () => {
               {/* Dos fotos superpuestas como en el sitio oficial */}
               <div className="flex justify-center items-end gap-0 mt-4 md:mt-8 mb-4">
 
-                {/* ANA PAOLA – z-index mayor, margen negativo derecho adaptativo */}
-                <div className="relative flex-1 max-w-[550px] z-10 -mr-8 sm:-mr-12 md:-mr-[90px]">
+                {/* ANA PAOLA – margen negativo derecho adaptativo */}
+                <div className="relative flex-1 max-w-[550px] z-[5] -mr-8 sm:-mr-12 md:-mr-[90px]">
                   <img
                     src={ANA_PHOTO}
                     alt="Ana Paola Agudelo"
@@ -148,15 +148,11 @@ const Index = () => {
                     <img src={ANA_BALLOT} alt="Tarjetón Senado MIRA 2"
                       className="w-full h-auto block drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]" />
                   </div>
-                  {/* Nombre – bottom responsivo */}
-                  <div className="absolute bottom-0 left-0 z-20 w-[100%] md:w-[78%]">
-                    <img src={ANA_NAME} alt="Ana Paola Agudelo"
-                      className="w-full h-auto block drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]" />
-                  </div>
+                  {/* Nombre removido por petición del usuario para evitar solapamiento */}
                 </div>
 
-                {/* ALEJANDRA – z-index menor, margen negativo izquierdo adaptativo */}
-                <div className="relative flex-1 max-w-[550px] z-[5] -ml-8 sm:-ml-12 md:-ml-[90px] self-end">
+                {/* ALEJANDRA – z-index mayor (para mostrar el nombre completo arriba) */}
+                <div className="relative flex-1 max-w-[550px] z-10 -ml-8 sm:-ml-12 md:-ml-[90px] self-end">
                   <img
                     src={ALE_PHOTO}
                     alt="Alejandra Ospina"
@@ -172,8 +168,8 @@ const Index = () => {
                     <img src={ALE_BALLOT} alt="Tarjetón Cámara MIRA 402"
                       className="w-full h-auto block drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]" />
                   </div>
-                  {/* Nombre responsivo */}
-                  <div className="absolute bottom-0 right-0 z-20 w-[100%] md:w-[78%]">
+                  {/* Nombre responsivo – Z-index alto para evitar cortes */}
+                  <div className="absolute bottom-0 right-0 z-30 w-[100%] md:w-[78%]">
                     <img src={ALE_NAME} alt="Alejandra Ospina"
                       className="w-full h-auto block drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]" />
                   </div>
