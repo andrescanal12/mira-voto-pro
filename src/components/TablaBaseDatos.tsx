@@ -46,15 +46,15 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3">
+      <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input
-            type="text"
+            type="search"
             placeholder="Buscar por nombre, cédula o teléfono..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="w-full pl-10 pr-4 py-2.5 bg-card border border-border rounded-2xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full pl-10 pr-4 py-2.5 bg-card border border-border rounded-2xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-200"
             aria-label="Buscar votante"
           />
         </div>
@@ -81,7 +81,7 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
           <option value="Ya votó">Ya votó</option>
           <option value="No va votar">No va votar</option>
         </select>
-      </div>
+      </form>
 
       {/* Results count */}
       <p className="text-xs text-muted-foreground">
@@ -154,28 +154,30 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
       </div>
 
       {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-            disabled={page === 0}
-            className="inline-flex items-center gap-1 text-sm bg-card border border-border rounded-xl px-3 py-2 disabled:opacity-40 hover:border-accent transition-colors text-foreground"
-          >
-            <ChevronLeft className="h-4 w-4" /> Anterior
-          </button>
-          <span className="text-xs text-muted-foreground">
-            Página {page + 1} de {totalPages}
-          </span>
-          <button
-            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-            disabled={page >= totalPages - 1}
-            className="inline-flex items-center gap-1 text-sm bg-card border border-border rounded-xl px-3 py-2 disabled:opacity-40 hover:border-accent transition-colors text-foreground"
-          >
-            Siguiente <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      )}
-    </div>
+      {
+        totalPages > 1 && (
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              disabled={page === 0}
+              className="inline-flex items-center gap-1 text-sm bg-card border border-border rounded-xl px-3 py-2 disabled:opacity-40 hover:border-accent transition-colors text-foreground"
+            >
+              <ChevronLeft className="h-4 w-4" /> Anterior
+            </button>
+            <span className="text-xs text-muted-foreground">
+              Página {page + 1} de {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={page >= totalPages - 1}
+              className="inline-flex items-center gap-1 text-sm bg-card border border-border rounded-xl px-3 py-2 disabled:opacity-40 hover:border-accent transition-colors text-foreground"
+            >
+              Siguiente <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        )
+      }
+    </div >
   );
 };
 
