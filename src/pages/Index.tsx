@@ -89,35 +89,34 @@ const Index = () => {
       </div>
 
       {/* Todo el contenido encima de los orbs */}
-      <div style={{ position: "relative", zIndex: 1, minHeight: "100vh" }}>
+      <div className="relative z-10 min-h-screen">
 
-        {/* Contador (Fijo arriba a la izquierda para todos los tamaños) */}
-        <div style={{ position: "absolute", top: "1.5rem", left: "2rem", zIndex: 50 }}>
-          <ContadorRegresivo />
-        </div>
+        {/* ── HEADER RESPONSIVO INSTITUCIONAL ── */}
+        <div className="flex flex-col lg:flex-row items-center justify-center px-4 pt-6 lg:pt-8 w-full relative z-50">
 
-        {/* ── HEADER INSTITUCIONAL INSPIRADO EN LA REFERENCIA ── */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "1.5rem 1rem 0" }}>
+          {/* Contador (Mobile: flujo centrado arriba, Desktop: Fijo arriba a la izquierda) */}
+          <div className="flex justify-center w-full lg:w-auto lg:absolute lg:top-8 lg:left-8 mb-6 lg:mb-0">
+            <ContadorRegresivo />
+          </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center" }}>
-
+          <div className="flex flex-col md:flex-row items-center gap-4 lg:gap-6 lg:mx-auto text-center md:text-left">
             {/* Logo de MIRA */}
             <img
               src={miraLogo}
               alt="MIRA"
-              style={{ width: 110, height: 110, objectFit: "cover", borderRadius: "50%", border: "4px solid white", filter: "drop-shadow(0 4px 12px rgba(0,0,50,0.5))" }}
+              style={{ width: 100, height: 100, objectFit: "cover", borderRadius: "50%", border: "3px solid white", filter: "drop-shadow(0 4px 12px rgba(0,0,50,0.5))" }}
+              className="lg:w-[110px] lg:h-[110px]"
             />
 
             {/* Texto Título de la Aplicación (ALICANTE) */}
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ color: "white", fontSize: "1.4rem", fontWeight: 800, letterSpacing: "-0.5px", lineHeight: 1.1 }}>
+            <div className="flex flex-col">
+              <div className="text-white font-extrabold tracking-tight leading-tight text-xl lg:text-2xl">
                 Sistema de Seguimiento Electoral <span style={{ color: "#fbba00" }}>ALICANTE</span>
               </div>
-              <div style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.95rem", fontWeight: 500, marginTop: "0.2rem" }}>
+              <div className="text-white/80 font-medium text-sm lg:text-base mt-1">
                 MIRA España — Partido Político
               </div>
             </div>
-
           </div>
         </div>
 
@@ -128,67 +127,55 @@ const Index = () => {
 
           {/* ── Fórmula Electoral – igual al oficial ── */}
           {!imgError ? (
-            <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 1rem", position: "relative" }}>
+            <div className="max-w-[1200px] mx-auto px-2 md:px-4 relative">
               {/* Dos fotos superpuestas como en el sitio oficial */}
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", gap: 0, marginTop: "2rem" }}>
+              <div className="flex justify-center items-end gap-0 mt-8 mb-4">
 
-                {/* ANA PAOLA – z-index mayor, margen negativo derecho */}
-                <div style={{ position: "relative", flex: 1, maxWidth: 550, zIndex: 2, marginRight: "-90px" }}>
+                {/* ANA PAOLA – z-index mayor, margen negativo derecho adaptativo */}
+                <div className="relative flex-1 max-w-[550px] z-10 -mr-6 sm:-mr-12 md:-mr-[90px]">
                   <img
                     src={ANA_PHOTO}
                     alt="Ana Paola Agudelo"
                     onError={() => setImgError(true)}
+                    className="w-full max-h-[450px] md:max-h-[650px] object-contain object-bottom block"
                     style={{
-                      maxWidth: "100%", maxHeight: 650, height: "auto", display: "block",
                       maskImage: "linear-gradient(#00289f 82%, transparent)",
                       WebkitMaskImage: "linear-gradient(#00289f 82%, transparent)"
                     }}
                   />
-                  {/* Tarjetón – posición absoluta centrada (mitad de la foto) */}
-                  <div style={{ position: "absolute", top: "50%", left: "-10px", zIndex: 10, maxWidth: "42%", pointerEvents: "none" }}>
+                  {/* Tarjetón – posición absoluta responsiva */}
+                  <div className="absolute top-[40%] md:top-[50%] left-0 md:-left-2.5 z-20 w-[60%] md:w-[42%] pointer-events-none">
                     <img src={ANA_BALLOT} alt="Tarjetón Senado MIRA 2"
-                      style={{
-                        width: "100%", height: "auto", display: "block",
-                        filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))"
-                      }} />
+                      className="w-full h-auto block drop-shadow-md" />
                   </div>
-                  {/* Nombre – bottom */}
-                  <div style={{ position: "absolute", bottom: 0, left: 0, zIndex: 10, maxWidth: "78%" }}>
+                  {/* Nombre – bottom responsivo */}
+                  <div className="absolute bottom-0 left-0 z-20 w-[95%] md:w-[78%]">
                     <img src={ANA_NAME} alt="Ana Paola Agudelo"
-                      style={{
-                        width: "100%", height: "auto", display: "block",
-                        filter: "drop-shadow(0 4px 18px rgba(0,0,0,0.6))"
-                      }} />
+                      className="w-full h-auto block drop-shadow-lg" />
                   </div>
                 </div>
 
-                {/* ALEJANDRA – z-index menor, margen negativo izquierdo */}
-                <div style={{ position: "relative", flex: 1, maxWidth: 550, zIndex: 1, marginLeft: "-90px", alignSelf: "flex-end" }}>
+                {/* ALEJANDRA – z-index menor, margen negativo izquierdo adaptativo */}
+                <div className="relative flex-1 max-w-[550px] z-[5] -ml-6 sm:-ml-12 md:-ml-[90px] self-end">
                   <img
                     src={ALE_PHOTO}
                     alt="Alejandra Ospina"
                     onError={() => setImgError(true)}
+                    className="w-full max-h-[400px] md:max-h-[600px] object-contain object-bottom block"
                     style={{
-                      maxWidth: "100%", maxHeight: 600, height: "auto", display: "block",
                       maskImage: "linear-gradient(#00289f 82%, transparent)",
                       WebkitMaskImage: "linear-gradient(#00289f 82%, transparent)"
                     }}
                   />
-                  {/* Tarjetón Cámara */}
-                  <div style={{ position: "absolute", top: "50%", right: "-10px", zIndex: 10, maxWidth: "42%", pointerEvents: "none" }}>
+                  {/* Tarjetón Cámara responsivo */}
+                  <div className="absolute top-[40%] md:top-[50%] right-0 md:-right-2.5 z-20 w-[60%] md:w-[42%] pointer-events-none">
                     <img src={ALE_BALLOT} alt="Tarjetón Cámara MIRA 402"
-                      style={{
-                        width: "100%", height: "auto", display: "block",
-                        filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.5))"
-                      }} />
+                      className="w-full h-auto block drop-shadow-md" />
                   </div>
-                  {/* Nombre */}
-                  <div style={{ position: "absolute", bottom: 0, right: 10, zIndex: 10, maxWidth: "78%" }}>
+                  {/* Nombre responsivo */}
+                  <div className="absolute bottom-0 right-0 md:right-2.5 z-20 w-[95%] md:w-[78%]">
                     <img src={ALE_NAME} alt="Alejandra Ospina"
-                      style={{
-                        width: "100%", height: "auto", display: "block",
-                        filter: "drop-shadow(0 4px 18px rgba(0,0,0,0.6))"
-                      }} />
+                      className="w-full h-auto block drop-shadow-lg" />
                   </div>
                 </div>
               </div>
