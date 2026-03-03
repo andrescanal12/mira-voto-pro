@@ -127,55 +127,55 @@ const Index = () => {
 
           {/* ── Fórmula Electoral – igual al oficial ── */}
           {!imgError ? (
-            <div className="max-w-[1200px] mx-auto px-2 md:px-4 relative">
+            <div className="max-w-[1200px] mx-auto px-1 md:px-4 relative overflow-hidden">
               {/* Dos fotos superpuestas como en el sitio oficial */}
-              <div className="flex justify-center items-end gap-0 mt-8 mb-4">
+              <div className="flex justify-center items-end gap-0 mt-4 md:mt-8 mb-4">
 
                 {/* ANA PAOLA – z-index mayor, margen negativo derecho adaptativo */}
-                <div className="relative flex-1 max-w-[550px] z-10 -mr-6 sm:-mr-12 md:-mr-[90px]">
+                <div className="relative flex-1 max-w-[550px] z-10 -mr-8 sm:-mr-12 md:-mr-[90px]">
                   <img
                     src={ANA_PHOTO}
                     alt="Ana Paola Agudelo"
                     onError={() => setImgError(true)}
-                    className="w-full max-h-[450px] md:max-h-[650px] object-contain object-bottom block"
+                    className="w-full h-auto max-h-[350px] sm:max-h-[450px] md:max-h-[650px] object-contain object-bottom block"
                     style={{
                       maskImage: "linear-gradient(#00289f 82%, transparent)",
                       WebkitMaskImage: "linear-gradient(#00289f 82%, transparent)"
                     }}
                   />
                   {/* Tarjetón – posición absoluta responsiva */}
-                  <div className="absolute top-[40%] md:top-[50%] left-0 md:-left-2.5 z-20 w-[60%] md:w-[42%] pointer-events-none">
+                  <div className="absolute top-[35%] md:top-[50%] left-0 z-20 w-[65%] md:w-[42%] pointer-events-none">
                     <img src={ANA_BALLOT} alt="Tarjetón Senado MIRA 2"
-                      className="w-full h-auto block drop-shadow-md" />
+                      className="w-full h-auto block drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]" />
                   </div>
                   {/* Nombre – bottom responsivo */}
-                  <div className="absolute bottom-0 left-0 z-20 w-[95%] md:w-[78%]">
+                  <div className="absolute bottom-0 left-0 z-20 w-[100%] md:w-[78%]">
                     <img src={ANA_NAME} alt="Ana Paola Agudelo"
-                      className="w-full h-auto block drop-shadow-lg" />
+                      className="w-full h-auto block drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]" />
                   </div>
                 </div>
 
                 {/* ALEJANDRA – z-index menor, margen negativo izquierdo adaptativo */}
-                <div className="relative flex-1 max-w-[550px] z-[5] -ml-6 sm:-ml-12 md:-ml-[90px] self-end">
+                <div className="relative flex-1 max-w-[550px] z-[5] -ml-8 sm:-ml-12 md:-ml-[90px] self-end">
                   <img
                     src={ALE_PHOTO}
                     alt="Alejandra Ospina"
                     onError={() => setImgError(true)}
-                    className="w-full max-h-[400px] md:max-h-[600px] object-contain object-bottom block"
+                    className="w-full h-auto max-h-[320px] sm:max-h-[400px] md:max-h-[600px] object-contain object-bottom block"
                     style={{
                       maskImage: "linear-gradient(#00289f 82%, transparent)",
                       WebkitMaskImage: "linear-gradient(#00289f 82%, transparent)"
                     }}
                   />
                   {/* Tarjetón Cámara responsivo */}
-                  <div className="absolute top-[40%] md:top-[50%] right-0 md:-right-2.5 z-20 w-[60%] md:w-[42%] pointer-events-none">
+                  <div className="absolute top-[35%] md:top-[50%] right-0 z-20 w-[65%] md:w-[42%] pointer-events-none">
                     <img src={ALE_BALLOT} alt="Tarjetón Cámara MIRA 402"
-                      className="w-full h-auto block drop-shadow-md" />
+                      className="w-full h-auto block drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]" />
                   </div>
                   {/* Nombre responsivo */}
-                  <div className="absolute bottom-0 right-0 md:right-2.5 z-20 w-[95%] md:w-[78%]">
+                  <div className="absolute bottom-0 right-0 z-20 w-[100%] md:w-[78%]">
                     <img src={ALE_NAME} alt="Alejandra Ospina"
-                      className="w-full h-auto block drop-shadow-lg" />
+                      className="w-full h-auto block drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]" />
                   </div>
                 </div>
               </div>
