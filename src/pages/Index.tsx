@@ -233,7 +233,7 @@ const Index = () => {
 
           <div>
             {activeTab === "dashboard" && <DashboardCards voters={voters} />}
-            {activeTab === "base" && <TablaBaseDatos voters={voters} onEdit={setEditingVoter} />}
+            {activeTab === "base" && <TablaBaseDatos voters={voters} onEdit={setEditingVoter} onStatusChange={updateVoterStatus} />}
             {activeTab === "pendientes" && (
               <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} />
             )}
