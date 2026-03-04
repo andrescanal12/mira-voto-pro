@@ -102,7 +102,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
         <div className="relative">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
           <input
-            type="search"
+            type="text"
             placeholder="Buscar nombre, cédula o teléfono…"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
@@ -187,8 +187,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                     key={s.value}
                     onClick={() => handleStatus(v.id, s.value)}
                     className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${v.estado === s.value
-                        ? `${s.active} border-transparent`
-                        : `${s.inactive} border-gray-200`
+                      ? `${s.active} border-transparent`
+                      : `${s.inactive} border-gray-200`
                       }`}
                   >
                     {s.label}
@@ -271,8 +271,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                           key={s.value}
                           onClick={() => handleStatus(v.id, s.value)}
                           className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer border ${v.estado === s.value
-                              ? `${statusPill[v.estado]} border-transparent`
-                              : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 border-gray-200"
+                            ? `${statusPill[v.estado]} border-transparent`
+                            : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 border-gray-200"
                             }`}
                         >
                           {s.label}
