@@ -122,5 +122,26 @@ export const BASE_VOTERS: Voter[] = ${JSON.stringify(voters, null, 2)};
 `;
 
 fs.writeFileSync(outPath, content, "utf-8");
+
+// 4. Generar el archivo CSV para Google Sheets
+const csvOutPath = path.join(__dirname, "..", "Votantes.csv");
+const csvHeaders = ["id", "pais", "ciudad", "iglesia", "cedula", "nombre", "celular", "cedulaInscrita", "lider", "referido", "estadoInscripcion", "estado", "comentario"];
+
+let csvContent = csvHeaders.join(",") + "\n";
+voters.forEach(v => {
+    const row = csvHeaders.map(header => {
+        let val = v[header] || "";
+        val = String(val).replace(/"/g, '""'); // Escape comillas si las hay
+        if (val.includes(",") || val.includes("\\n")) {
+            val = `"${val}"`;
+        }
+        return val;
+    });
+    csvContent += row.join(",") + "\n";
+});
+
+fs.writeFileSync(csvOutPath, csvContent, "utf-8");
+
 console.log(`✅ Importación correcta: ${Object.keys(lideresDict).length} Líderes, ${voters.length - Object.keys(lideresDict).length} Referidos.`);
 console.log(`✅ Total en Base de Datos: ${voters.length} votantes grabados en src/data/votersData.ts`);
+console.log(`✅ Generado el archivo para Google Sheets en: Votantes.csv`);
