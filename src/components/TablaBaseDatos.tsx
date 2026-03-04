@@ -96,6 +96,7 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
               <th className="text-left px-4 py-3 font-semibold">Nombre</th>
               <th className="text-left px-4 py-3 font-semibold">Cédula</th>
               <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">Ciudad</th>
+              <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">Mesa</th>
               <th className="text-left px-4 py-3 font-semibold">Teléfono</th>
               <th className="text-left px-4 py-3 font-semibold">Estado</th>
               <th className="text-left px-4 py-3 font-semibold hidden lg:table-cell">Comentario</th>
@@ -108,6 +109,7 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
                 <td className="px-4 py-3 font-medium">{v.nombre}</td>
                 <td className="px-4 py-3 tabular-nums">{v.cedula}</td>
                 <td className="px-4 py-3 hidden md:table-cell">{v.ciudad}</td>
+                <td className="px-4 py-3 hidden md:table-cell text-xs text-muted-foreground">{v.estadoInscripcion || "—"}</td>
                 <td className="px-4 py-3">
                   {v.celular ? (
                     <a
@@ -144,7 +146,7 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
             ))}
             {pageData.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
+                <td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">
                   No se encontraron registros
                 </td>
               </tr>

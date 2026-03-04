@@ -63,23 +63,26 @@ export async function getAllVotersFromSheet(): Promise<Voter[]> {
 // UPDATE STATUS + COMMENT — Actualiza estado y comentario
 // ============================================================
 export async function updateVoterStatus(cedula: string, estado: string): Promise<void> {
-    await fetch(SHEETS_API_URL, {
+    // mode: no-cors evita el bloqueo CORS del navegador al enviar al Apps Script
+    fetch(SHEETS_API_URL, {
         method: "POST",
+        mode: "no-cors",
         body: JSON.stringify({
             action: "UPDATE",
             data: { Numero_Cedula: cedula, Estado: estado },
         }),
-    });
+    }).catch(err => console.warn("UPDATE estado falló:", err));
 }
 
 export async function updateVoterComment(cedula: string, comentario: string): Promise<void> {
-    await fetch(SHEETS_API_URL, {
+    fetch(SHEETS_API_URL, {
         method: "POST",
+        mode: "no-cors",
         body: JSON.stringify({
             action: "UPDATE",
             data: { Numero_Cedula: cedula, Comentario: comentario },
         }),
-    });
+    }).catch(err => console.warn("UPDATE comentario falló:", err));
 }
 
 // ============================================================
@@ -95,20 +98,22 @@ export async function createVoterInSheet(voter: Voter): Promise<void> {
         Estado: voter.estado,
         Comentario: voter.comentario,
     };
-    await fetch(SHEETS_API_URL, {
+    fetch(SHEETS_API_URL, {
         method: "POST",
+        mode: "no-cors",
         body: JSON.stringify({ action: "CREATE", data: sheetData }),
-    });
+    }).catch(err => console.warn("CREATE falló:", err));
 }
 
 // ============================================================
 // DELETE — Eliminar por cédula
 // ============================================================
 export async function deleteVoterFromSheet(cedula: string): Promise<void> {
-    await fetch(SHEETS_API_URL, {
+    fetch(SHEETS_API_URL, {
         method: "POST",
+        mode: "no-cors",
         body: JSON.stringify({ action: "DELETE", id: cedula }),
-    });
+    }).catch(err => console.warn("DELETE falló:", err));
 }
 
 // Compatibilidad hacia atrás
