@@ -34,15 +34,9 @@ const statusPill: Record<VoterStatus, string> = {
 
 const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   const [search, setSearch] = useState("");
-  const [filterCiudad, setFilterCiudad] = useState("");
   const [filterEstado, setFilterEstado] = useState("");
   const [page, setPage] = useState(0);
   const [pendingComments, setPendingComments] = useState<Record<string, string>>({});
-
-  const ciudades = useMemo(
-    () => [...new Set(voters.map((v) => v.ciudad).filter(Boolean))].sort(),
-    [voters]
-  );
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -52,11 +46,10 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
         v.nombre.toLowerCase().includes(q) ||
         v.cedula.includes(search) ||
         v.celular.includes(search);
-      const matchCiudad = !filterCiudad || v.ciudad === filterCiudad;
       const matchEstado = !filterEstado || v.estado === filterEstado;
-      return matchSearch && matchCiudad && matchEstado;
+      return matchSearch && matchEstado;
     });
-  }, [voters, search, filterCiudad, filterEstado]);
+  }, [voters, search, filterEstado]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
@@ -76,40 +69,32 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   return (
     <div className="space-y-4">
 
-      {/* ── Filtros — NO form para evitar reload en móvil ── */}
+      {/* ── Filtros: div (nunca form) para evitar submit en móvil ── */}
       <div className="flex flex-col gap-2">
         <div className="relative">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
           <input
             type="text"
-            inputMode="text"
+            inputMode="search"
+            autoComplete="off"
             placeholder="Buscar nombre, cedula o telefono..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
+            /* Bloquear Enter explícitamente para que iOS no haga nada */
+            onKeyDown={(e) => { if (e.key === "Enter") e.preventDefault(); }}
             className="w-full pl-10 pr-4 py-3 rounded-2xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent transition-all border border-white/15"
             style={{ background: "rgba(255,255,255,0.07)" }}
           />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <select
-            value={filterCiudad}
-            onChange={(e) => { setFilterCiudad(e.target.value); setPage(0); }}
-            className="w-full rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
-            style={{ background: "rgba(255,255,255,0.07)" }}
-          >
-            <option value="">🏙️ Todas las ciudades</option>
-            {ciudades.map((c) => <option key={c} value={c}>{c}</option>)}
-          </select>
-          <select
-            value={filterEstado}
-            onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
-            className="w-full rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
-            style={{ background: "rgba(255,255,255,0.07)" }}
-          >
-            <option value="">📋 Todos los estados</option>
-            {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-          </select>
-        </div>
+        <select
+          value={filterEstado}
+          onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
+          className="w-full rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
+          style={{ background: "rgba(255,255,255,0.07)" }}
+        >
+          <option value="">📋 Todos los estados</option>
+          {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+        </select>
       </div>
 
       <p className="text-xs text-white/50 pl-1">
@@ -117,7 +102,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
       </p>
 
       {/* ══════════════════════════════
-          MÓVIL — Tarjetas BLANCAS
+          MÓVIL — Tarjetas Blancas
       ══════════════════════════════ */}
       <div className="grid gap-3 md:hidden">
         {pageData.length === 0 && (
@@ -153,18 +138,18 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                 </span>
               </div>
 
-              {/* Teléfono */}
               {v.celular && (
                 <a href={`tel:${v.celular}`} className="flex items-center gap-1.5 text-xs text-blue-600 font-medium w-fit">
                   <Phone className="h-3.5 w-3.5" /> {v.celular}
                 </a>
               )}
 
-              {/* Botones de estado */}
+              {/* Botones estado — type="button" obligatorio para no ser "submit" */}
               <div className="grid grid-cols-2 gap-2">
                 {STATUSES.map((s) => (
                   <button
                     key={s.value}
+                    type="button"
                     onClick={() => handleStatus(v.id, s.value)}
                     className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${v.estado === s.value ? s.active : s.inactive
                       }`}
@@ -178,17 +163,17 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
               <div className="flex gap-2 pt-1 border-t border-gray-100">
                 <input
                   type="text"
-                  placeholder="💬 Escribe un comentario..."
+                  autoComplete="off"
+                  placeholder="Escribe un comentario..."
                   value={draftComment}
-                  onChange={(e) =>
-                    setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))
-                  }
+                  onChange={(e) => setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))}
                   onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveComment(v.id); } }}
                   className="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   style={{ background: "#f9fafb" }}
                 />
                 {hasPendingComment && (
                   <button
+                    type="button"
                     onClick={() => saveComment(v.id)}
                     className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white"
                     style={{ background: "#1a3a6e" }}
@@ -247,6 +232,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                       {STATUSES.map((s) => (
                         <button
                           key={s.value}
+                          type="button"
                           onClick={() => handleStatus(v.id, s.value)}
                           className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer border ${v.estado === s.value
                               ? `${statusPill[v.estado]} border-transparent`
@@ -259,20 +245,17 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                     </div>
                   </td>
                   <td className="px-5 py-3">
-                    <div className="flex gap-1">
-                      <input
-                        type="text"
-                        value={draftComment}
-                        placeholder="Comentario..."
-                        onChange={(e) =>
-                          setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))
-                        }
-                        onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveComment(v.id); } }}
-                        onBlur={() => hasPendingComment && saveComment(v.id)}
-                        className="flex-1 text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400 w-full"
-                        style={{ maxWidth: 180 }}
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      value={draftComment}
+                      placeholder="Comentario..."
+                      onChange={(e) => setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))}
+                      onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveComment(v.id); } }}
+                      onBlur={() => hasPendingComment && saveComment(v.id)}
+                      className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400 w-full"
+                      style={{ maxWidth: 180 }}
+                    />
                   </td>
                 </tr>
               );
@@ -292,6 +275,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
           <button
+            type="button"
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0}
             className="inline-flex items-center gap-1.5 text-sm rounded-xl px-4 py-2 disabled:opacity-30 transition-colors text-white border border-white/15 hover:border-white/30"
@@ -301,6 +285,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
           </button>
           <span className="text-xs text-white/50">{page + 1} / {totalPages}</span>
           <button
+            type="button"
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
             disabled={page >= totalPages - 1}
             className="inline-flex items-center gap-1.5 text-sm rounded-xl px-4 py-2 disabled:opacity-30 transition-colors text-white border border-white/15 hover:border-white/30"
