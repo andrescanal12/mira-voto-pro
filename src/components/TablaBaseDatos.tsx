@@ -75,13 +75,9 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
           <input
             type="text"
-            inputMode="search"
-            autoComplete="off"
             placeholder="Buscar nombre, cedula o telefono..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            /* Bloquear Enter explícitamente para que iOS no haga nada */
-            onKeyDown={(e) => { if (e.key === "Enter") e.preventDefault(); }}
             className="w-full pl-10 pr-4 py-3 rounded-2xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent transition-all border border-white/15"
             style={{ background: "rgba(255,255,255,0.07)" }}
           />
@@ -235,8 +231,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                           type="button"
                           onClick={() => handleStatus(v.id, s.value)}
                           className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer border ${v.estado === s.value
-                              ? `${statusPill[v.estado]} border-transparent`
-                              : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 border-gray-200"
+                            ? `${statusPill[v.estado]} border-transparent`
+                            : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 border-gray-200"
                             }`}
                         >
                           {s.label}
