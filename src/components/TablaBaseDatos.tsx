@@ -12,30 +12,10 @@ interface Props {
 const PAGE_SIZE = 15;
 
 const STATUSES: { value: VoterStatus; label: string; active: string; inactive: string }[] = [
-  {
-    value: "Aún no ha venido",
-    label: "Pendiente",
-    active: "bg-blue-600 text-white",
-    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
-  },
-  {
-    value: "Pendiente de llamar",
-    label: "📞 Llamar",
-    active: "bg-yellow-400 text-black",
-    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
-  },
-  {
-    value: "Ya votó",
-    label: "✅ Ya votó",
-    active: "bg-green-600 text-white",
-    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
-  },
-  {
-    value: "No va votar",
-    label: "✗ No vota",
-    active: "bg-red-600 text-white",
-    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
-  },
+  { value: "Aún no ha venido", label: "Pendiente", active: "bg-blue-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
+  { value: "Pendiente de llamar", label: "📞 Llamar", active: "bg-yellow-400 text-black border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
+  { value: "Ya votó", label: "✅ Ya votó", active: "bg-green-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
+  { value: "No va votar", label: "✗ No vota", active: "bg-red-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
 ];
 
 const statusBadge: Record<VoterStatus, string> = {
@@ -57,7 +37,6 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   const [filterCiudad, setFilterCiudad] = useState("");
   const [filterEstado, setFilterEstado] = useState("");
   const [page, setPage] = useState(0);
-  // Comentarios pendientes de guardar (por voter id)
   const [pendingComments, setPendingComments] = useState<Record<string, string>>({});
 
   const ciudades = useMemo(
@@ -97,13 +76,14 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   return (
     <div className="space-y-4">
 
-      {/* ── Filtros ── */}
-      <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
+      {/* ── Filtros — NO form para evitar reload en móvil ── */}
+      <div className="flex flex-col gap-2">
         <div className="relative">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
           <input
             type="text"
-            placeholder="Buscar nombre, cédula o teléfono…"
+            inputMode="text"
+            placeholder="Buscar nombre, cedula o telefono..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
             className="w-full pl-10 pr-4 py-3 rounded-2xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent transition-all border border-white/15"
@@ -130,7 +110,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
           </select>
         </div>
-      </form>
+      </div>
 
       <p className="text-xs text-white/50 pl-1">
         {filtered.length} resultado{filtered.length !== 1 ? "s" : ""}
@@ -186,9 +166,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                   <button
                     key={s.value}
                     onClick={() => handleStatus(v.id, s.value)}
-                    className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${v.estado === s.value
-                      ? `${s.active} border-transparent`
-                      : `${s.inactive} border-gray-200`
+                    className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${v.estado === s.value ? s.active : s.inactive
                       }`}
                   >
                     {s.label}
@@ -196,7 +174,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                 ))}
               </div>
 
-              {/* ── Campo comentario ── */}
+              {/* Campo comentario */}
               <div className="flex gap-2 pt-1 border-t border-gray-100">
                 <input
                   type="text"
@@ -205,7 +183,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                   onChange={(e) =>
                     setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))
                   }
-                  onKeyDown={(e) => e.key === "Enter" && saveComment(v.id)}
+                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveComment(v.id); } }}
                   className="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   style={{ background: "#f9fafb" }}
                 />
@@ -271,8 +249,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                           key={s.value}
                           onClick={() => handleStatus(v.id, s.value)}
                           className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer border ${v.estado === s.value
-                            ? `${statusPill[v.estado]} border-transparent`
-                            : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 border-gray-200"
+                              ? `${statusPill[v.estado]} border-transparent`
+                              : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 border-gray-200"
                             }`}
                         >
                           {s.label}
@@ -289,7 +267,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                         onChange={(e) =>
                           setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))
                         }
-                        onKeyDown={(e) => e.key === "Enter" && saveComment(v.id)}
+                        onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveComment(v.id); } }}
                         onBlur={() => hasPendingComment && saveComment(v.id)}
                         className="flex-1 text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400 w-full"
                         style={{ maxWidth: 180 }}
