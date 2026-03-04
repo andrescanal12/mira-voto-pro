@@ -99,23 +99,23 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
             style={{ background: "rgba(255,255,255,0.07)" }}
           />
         </div>
-        <div className="flex gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <select
             value={filterCiudad}
             onChange={(e) => { setFilterCiudad(e.target.value); setPage(0); }}
-            className="flex-1 rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
             style={{ background: "rgba(255,255,255,0.07)" }}
           >
-            <option value="">Todas las ciudades</option>
+            <option value="">🏙️ Todas las ciudades</option>
             {ciudades.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
           <select
             value={filterEstado}
             onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
-            className="flex-1 rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
             style={{ background: "rgba(255,255,255,0.07)" }}
           >
-            <option value="">Todos los estados</option>
+            <option value="">📋 Todos los estados</option>
             {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
           </select>
         </div>
@@ -235,8 +235,8 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
                         key={s.value}
                         onClick={() => handleStatus(v, s.value)}
                         className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer ${v.estado === s.value
-                            ? statusPill[v.estado]
-                            : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700"
+                          ? statusPill[v.estado]
+                          : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700"
                           }`}
                       >
                         {s.label}
