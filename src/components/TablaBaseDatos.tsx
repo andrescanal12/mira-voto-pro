@@ -194,10 +194,10 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
       {/* ══════════════════════════════
           ESCRITORIO — Tabla Premium
       ══════════════════════════════ */}
-      <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/10" style={{ background: "rgba(10,25,60,0.7)" }}>
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-gray-200 shadow-lg" style={{ background: "#fff" }}>
         <table className="w-full text-sm">
           <thead>
-            <tr style={{ background: "rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+            <tr style={{ background: "#1a3a6e" }}>
               <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider">Nombre</th>
               <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider">Cédula</th>
               <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider">Ciudad · Mesa</th>
@@ -210,23 +210,23 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
             {pageData.map((v, idx) => (
               <tr
                 key={v.id}
+                className="hover:bg-blue-50 transition-colors"
                 style={{
-                  borderBottom: "1px solid rgba(255,255,255,0.05)",
-                  background: idx % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)",
+                  borderBottom: "1px solid #e5e7eb",
+                  background: idx % 2 === 0 ? "#fff" : "#f9fafb",
                 }}
-                className="hover:bg-white/5 transition-colors"
               >
-                <td className="px-5 py-3.5 font-semibold text-white">{v.nombre}</td>
-                <td className="px-5 py-3.5 tabular-nums text-white/70 text-xs">{v.cedula}</td>
-                <td className="px-5 py-3.5 text-white/70 text-xs">
+                <td className="px-5 py-3.5 font-semibold text-gray-900">{v.nombre}</td>
+                <td className="px-5 py-3.5 tabular-nums text-gray-500 text-xs">{v.cedula}</td>
+                <td className="px-5 py-3.5 text-gray-600 text-xs">
                   {v.ciudad}{v.estadoInscripcion ? ` · ${v.estadoInscripcion}` : ""}
                 </td>
                 <td className="px-5 py-3.5">
                   {v.celular ? (
-                    <a href={`tel:${v.celular}`} className="flex items-center gap-1 text-blue-300 hover:text-blue-200 text-xs transition-colors">
+                    <a href={`tel:${v.celular}`} className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors">
                       <Phone className="h-3 w-3" /> {v.celular}
                     </a>
-                  ) : <span className="text-white/30 text-xs">—</span>}
+                  ) : <span className="text-gray-400 text-xs">—</span>}
                 </td>
                 <td className="px-5 py-3.5">
                   <div className="flex gap-1.5 flex-wrap">
@@ -236,7 +236,7 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
                         onClick={() => handleStatus(v, s.value)}
                         className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer ${v.estado === s.value
                             ? statusPill[v.estado]
-                            : "bg-white/10 text-white/50 hover:bg-white/20 hover:text-white"
+                            : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700"
                           }`}
                       >
                         {s.label}
@@ -244,14 +244,14 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
                     ))}
                   </div>
                 </td>
-                <td className="px-5 py-3.5 hidden lg:table-cell text-xs text-white/40 max-w-[160px] truncate">
+                <td className="px-5 py-3.5 hidden lg:table-cell text-xs text-gray-400 max-w-[160px] truncate">
                   {v.comentario || "—"}
                 </td>
               </tr>
             ))}
             {pageData.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-5 py-12 text-center text-white/30">
+                <td colSpan={6} className="px-5 py-12 text-center text-gray-400">
                   No se encontraron registros
                 </td>
               </tr>
