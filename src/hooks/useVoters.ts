@@ -2,41 +2,63 @@ import { useState, useEffect, useCallback } from "react";
 import { Voter, VoterStatus } from "@/types/voter";
 import { BASE_VOTERS } from "@/data/votersData";
 import {
+  getAllVotersFromSheet,
   updateVoterStatus as syncStatusToSheet,
   updateVoterComment as syncCommentToSheet,
   estadoToYaVoto,
   SHEETS_API_URL,
 } from "@/services/sheetsApi";
 
-const STORAGE_KEY = "mira-voters-data";
+const STORAGE_KEY = "mira-voters-data-v2"; // 'v2' para limpiar caché vieja
 const IS_SYNC_ENABLED = SHEETS_API_URL.startsWith("https://script.google.com");
 
 export function useVoters() {
-  const [voters, setVoters] = useState<Voter[]>(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        // Comprobación de versión para forzar recarga (nuevo estado añadido)
-        if (parsed && parsed.length >= 100 && parsed[0].estado) {
-          // Si ninguno tiene el nuevo estado "Aún no ha venido" pero existen en la base, 
-          // probablemente son datos viejos, pero para asegurar, forzamos recargar "BASE_VOTERS"
-          const hasNewState = parsed.some((v: Voter) => v.estado === "Aún no ha venido");
-          if (!hasNewState) {
-            return BASE_VOTERS;
-          }
-          return parsed;
-        }
-      } catch {
-        // ignore
-      }
-    }
-    localStorage.removeItem(STORAGE_KEY);
-    return BASE_VOTERS;
-  });
+  const [voters, setVoters] = useState<Voter[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Al montar, carga desde Google Sheets si está configurado; si no, usa la base local
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(voters));
+    async function init() {
+      setIsLoading(true);
+      if (IS_SYNC_ENABLED) {
+        try {
+          const fromSheet = await getAllVotersFromSheet();
+          if (fromSheet.length > 0) {
+            setVoters(fromSheet);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(fromSheet));
+            setIsLoading(false);
+            return;
+          }
+        } catch (err) {
+          console.warn("⚠️ No se pudo cargar desde Google Sheets, usando caché local:", err);
+        }
+      }
+
+      // Fallback: leer de caché o del archivo estático
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setVoters(parsed);
+            setIsLoading(false);
+            return;
+          }
+        } catch { /* ignore */ }
+      }
+
+      setVoters(BASE_VOTERS);
+      setIsLoading(false);
+    }
+
+    init();
+  }, []);
+
+  // Guarda en caché local cada vez que cambia
+  useEffect(() => {
+    if (voters.length > 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(voters));
+    }
   }, [voters]);
 
   const loadVoters = useCallback((data: Voter[]) => {
@@ -48,10 +70,9 @@ export function useVoters() {
     setVoters((prev) => {
       const updated = prev.map((v) => {
         if (v.id !== id) return v;
-        // Sincroniza con Google Sheets si está configurado
         if (IS_SYNC_ENABLED) {
           syncStatusToSheet(v.cedula, estadoToYaVoto(status)).catch((err) =>
-            console.warn("⚠️ No se pudo sincronizar con Sheet:", err)
+            console.warn("⚠️ No se pudo sincronizar estado con Sheet:", err)
           );
         }
         return { ...v, estado: status };
@@ -82,6 +103,7 @@ export function useVoters() {
 
   return {
     voters,
+    isLoading,
     isSyncEnabled: IS_SYNC_ENABLED,
     loadVoters,
     updateVoterStatus,

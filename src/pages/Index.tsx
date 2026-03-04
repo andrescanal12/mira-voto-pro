@@ -30,7 +30,7 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
 ];
 
 const Index = () => {
-  const { voters, updateVoterStatus, updateVoterComment } = useVoters();
+  const { voters, isLoading, updateVoterStatus, updateVoterComment } = useVoters();
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
   const [imgError, setImgError] = useState(false);
@@ -39,6 +39,25 @@ const Index = () => {
     updateVoterStatus(id, status);
     updateVoterComment(id, comment);
   };
+
+  // Mostrar spinner mientras se cargan datos de Google Sheets
+  if (isLoading) {
+    return (
+      <div className="min-h-screen mira-bg-pattern flex items-center justify-center">
+        <div style={{ textAlign: "center", color: "#fff" }}>
+          <div style={{
+            width: 48, height: 48, borderRadius: "50%",
+            border: "4px solid rgba(255,255,255,0.2)",
+            borderTop: "4px solid #FFD700",
+            animation: "spin 0.8s linear infinite",
+            margin: "0 auto 16px"
+          }} />
+          <p style={{ fontSize: 16, opacity: 0.9 }}>Cargando datos desde Google Sheets…</p>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen mira-bg-pattern" style={{ position: "relative" }}>
