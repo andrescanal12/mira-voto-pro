@@ -1,11 +1,12 @@
 import { useState, useMemo } from "react";
-import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard } from "lucide-react";
+import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard, Save } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
 
 interface Props {
   voters: Voter[];
   onEdit: (voter: Voter) => void;
   onStatusChange?: (id: string, status: VoterStatus) => void;
+  onCommentChange?: (id: string, comment: string) => void;
 }
 
 const PAGE_SIZE = 15;
@@ -14,48 +15,50 @@ const STATUSES: { value: VoterStatus; label: string; active: string; inactive: s
   {
     value: "Aún no ha venido",
     label: "Pendiente",
-    active: "bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-1 ring-offset-black/30",
-    inactive: "bg-white/10 text-white/70 hover:bg-white/20",
+    active: "bg-blue-600 text-white",
+    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
   },
   {
     value: "Pendiente de llamar",
     label: "📞 Llamar",
-    active: "bg-yellow-500 text-black ring-2 ring-yellow-300 ring-offset-1 ring-offset-black/30",
-    inactive: "bg-white/10 text-white/70 hover:bg-white/20",
+    active: "bg-yellow-400 text-black",
+    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
   },
   {
     value: "Ya votó",
     label: "✅ Ya votó",
-    active: "bg-green-600 text-white ring-2 ring-green-400 ring-offset-1 ring-offset-black/30",
-    inactive: "bg-white/10 text-white/70 hover:bg-white/20",
+    active: "bg-green-600 text-white",
+    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
   },
   {
     value: "No va votar",
     label: "✗ No vota",
-    active: "bg-red-600 text-white ring-2 ring-red-400 ring-offset-1 ring-offset-black/30",
-    inactive: "bg-white/10 text-white/70 hover:bg-white/20",
+    active: "bg-red-600 text-white",
+    inactive: "bg-gray-100 text-gray-500 hover:bg-gray-200",
   },
 ];
 
 const statusBadge: Record<VoterStatus, string> = {
-  "Aún no ha venido": "bg-blue-500/20  text-blue-200  border border-blue-500/40",
-  "Ya votó": "bg-green-500/20 text-green-200 border border-green-500/40",
-  "Pendiente de llamar": "bg-yellow-500/20 text-yellow-200 border border-yellow-500/40",
-  "No va votar": "bg-red-500/20   text-red-200   border border-red-500/40",
+  "Aún no ha venido": "bg-blue-100  text-blue-700  border border-blue-300",
+  "Ya votó": "bg-green-100 text-green-700 border border-green-300",
+  "Pendiente de llamar": "bg-yellow-100 text-yellow-700 border border-yellow-300",
+  "No va votar": "bg-red-100   text-red-700   border border-red-300",
 };
 
 const statusPill: Record<VoterStatus, string> = {
   "Aún no ha venido": "bg-blue-600   text-white",
   "Ya votó": "bg-green-600  text-white",
-  "Pendiente de llamar": "bg-yellow-500 text-black",
+  "Pendiente de llamar": "bg-yellow-400 text-black",
   "No va votar": "bg-red-600    text-white",
 };
 
-const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
+const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   const [search, setSearch] = useState("");
   const [filterCiudad, setFilterCiudad] = useState("");
   const [filterEstado, setFilterEstado] = useState("");
   const [page, setPage] = useState(0);
+  // Comentarios pendientes de guardar (por voter id)
+  const [pendingComments, setPendingComments] = useState<Record<string, string>>({});
 
   const ciudades = useMemo(
     () => [...new Set(voters.map((v) => v.ciudad).filter(Boolean))].sort(),
@@ -79,8 +82,16 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
-  const handleStatus = (voter: Voter, status: VoterStatus) => {
-    if (onStatusChange) onStatusChange(voter.id, status);
+  const handleStatus = (id: string, status: VoterStatus) => {
+    if (onStatusChange) onStatusChange(id, status);
+  };
+
+  const saveComment = (id: string) => {
+    const c = pendingComments[id];
+    if (c !== undefined && onCommentChange) {
+      onCommentChange(id, c);
+      setPendingComments((prev) => { const n = { ...prev }; delete n[id]; return n; });
+    }
   };
 
   return (
@@ -95,7 +106,7 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
             placeholder="Buscar nombre, cédula o teléfono…"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="w-full pl-10 pr-4 py-3 bg-white/8 border border-white/15 rounded-2xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full pl-10 pr-4 py-3 rounded-2xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent transition-all border border-white/15"
             style={{ background: "rgba(255,255,255,0.07)" }}
           />
         </div>
@@ -121,78 +132,100 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
         </div>
       </form>
 
-      {/* Contador */}
       <p className="text-xs text-white/50 pl-1">
         {filtered.length} resultado{filtered.length !== 1 ? "s" : ""}
       </p>
 
       {/* ══════════════════════════════
-          MÓVIL — Tarjetas
+          MÓVIL — Tarjetas BLANCAS
       ══════════════════════════════ */}
       <div className="grid gap-3 md:hidden">
         {pageData.length === 0 && (
           <p className="text-center py-10 text-white/40">No se encontraron registros</p>
         )}
-        {pageData.map((v) => (
-          <div
-            key={v.id}
-            className="rounded-2xl p-4 space-y-3 backdrop-blur-sm border border-white/10"
-            style={{ background: "rgba(255,255,255,0.06)" }}
-          >
-            {/* Nombre + badge */}
-            <div className="flex items-start justify-between gap-2">
-              <p className="font-bold text-white text-[15px] leading-tight">{v.nombre}</p>
-              <span className={`shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full ${statusBadge[v.estado]}`}>
-                {v.estado === "Aún no ha venido" ? "Pendiente" :
-                  v.estado === "Pendiente de llamar" ? "📞 Llamar" :
-                    v.estado === "Ya votó" ? "✅ Votó" : "✗ No vota"}
-              </span>
+        {pageData.map((v) => {
+          const draftComment = pendingComments[v.id] ?? v.comentario ?? "";
+          const hasPendingComment = pendingComments[v.id] !== undefined;
+          return (
+            <div
+              key={v.id}
+              className="rounded-2xl p-4 space-y-3 border border-gray-200 shadow-sm"
+              style={{ background: "#fff" }}
+            >
+              {/* Nombre + badge */}
+              <div className="flex items-start justify-between gap-2">
+                <p className="font-bold text-gray-900 text-[15px] leading-tight">{v.nombre}</p>
+                <span className={`shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full ${statusBadge[v.estado]}`}>
+                  {v.estado === "Aún no ha venido" ? "Pendiente" :
+                    v.estado === "Pendiente de llamar" ? "📞 Llamar" :
+                      v.estado === "Ya votó" ? "✅ Votó" : "✗ No vota"}
+                </span>
+              </div>
+
+              {/* Info */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+                <span className="flex items-center gap-1">
+                  <CreditCard className="h-3 w-3" /> {v.cedula}
+                </span>
+                <span className="flex items-center gap-1">
+                  <MapPin className="h-3 w-3" />
+                  {v.ciudad}{v.estadoInscripcion ? ` · ${v.estadoInscripcion}` : ""}
+                </span>
+              </div>
+
+              {/* Teléfono */}
+              {v.celular && (
+                <a href={`tel:${v.celular}`} className="flex items-center gap-1.5 text-xs text-blue-600 font-medium w-fit">
+                  <Phone className="h-3.5 w-3.5" /> {v.celular}
+                </a>
+              )}
+
+              {/* Botones de estado */}
+              <div className="grid grid-cols-2 gap-2">
+                {STATUSES.map((s) => (
+                  <button
+                    key={s.value}
+                    onClick={() => handleStatus(v.id, s.value)}
+                    className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${v.estado === s.value
+                        ? `${s.active} border-transparent`
+                        : `${s.inactive} border-gray-200`
+                      }`}
+                  >
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* ── Campo comentario ── */}
+              <div className="flex gap-2 pt-1 border-t border-gray-100">
+                <input
+                  type="text"
+                  placeholder="💬 Escribe un comentario..."
+                  value={draftComment}
+                  onChange={(e) =>
+                    setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))
+                  }
+                  onKeyDown={(e) => e.key === "Enter" && saveComment(v.id)}
+                  className="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  style={{ background: "#f9fafb" }}
+                />
+                {hasPendingComment && (
+                  <button
+                    onClick={() => saveComment(v.id)}
+                    className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white"
+                    style={{ background: "#1a3a6e" }}
+                  >
+                    <Save className="h-3 w-3" /> OK
+                  </button>
+                )}
+              </div>
             </div>
-
-            {/* Datos */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/60">
-              <span className="flex items-center gap-1">
-                <CreditCard className="h-3 w-3" /> {v.cedula}
-              </span>
-              <span className="flex items-center gap-1">
-                <MapPin className="h-3 w-3" />
-                {v.ciudad}{v.estadoInscripcion ? ` · ${v.estadoInscripcion}` : ""}
-              </span>
-            </div>
-
-            {/* Teléfono */}
-            {v.celular && (
-              <a href={`tel:${v.celular}`} className="flex items-center gap-1.5 text-xs text-blue-300 w-fit font-medium">
-                <Phone className="h-3.5 w-3.5" /> {v.celular}
-              </a>
-            )}
-
-            {/* ── 4 botones de estado 1-toque ── */}
-            <div className="grid grid-cols-2 gap-2 pt-1">
-              {STATUSES.map((s) => (
-                <button
-                  key={s.value}
-                  onClick={() => handleStatus(v, s.value)}
-                  className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 ${v.estado === s.value ? s.active : s.inactive
-                    }`}
-                >
-                  {s.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Comentario */}
-            {v.comentario && (
-              <p className="text-xs text-white/40 italic border-t border-white/10 pt-2">
-                💬 {v.comentario}
-              </p>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* ══════════════════════════════
-          ESCRITORIO — Tabla Premium
+          ESCRITORIO — Tabla Blanca
       ══════════════════════════════ */}
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-gray-200 shadow-lg" style={{ background: "#fff" }}>
         <table className="w-full text-sm">
@@ -202,53 +235,70 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
               <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider">Cédula</th>
               <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider">Ciudad · Mesa</th>
               <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider">Teléfono</th>
-              <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider min-w-[340px]">Estado</th>
-              <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider hidden lg:table-cell">Comentario</th>
+              <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider min-w-[320px]">Estado</th>
+              <th className="text-left px-5 py-3.5 text-white font-semibold text-xs uppercase tracking-wider min-w-[200px]">Comentario</th>
             </tr>
           </thead>
           <tbody>
-            {pageData.map((v, idx) => (
-              <tr
-                key={v.id}
-                className="hover:bg-blue-50 transition-colors"
-                style={{
-                  borderBottom: "1px solid #e5e7eb",
-                  background: idx % 2 === 0 ? "#fff" : "#f9fafb",
-                }}
-              >
-                <td className="px-5 py-3.5 font-semibold text-gray-900">{v.nombre}</td>
-                <td className="px-5 py-3.5 tabular-nums text-gray-500 text-xs">{v.cedula}</td>
-                <td className="px-5 py-3.5 text-gray-600 text-xs">
-                  {v.ciudad}{v.estadoInscripcion ? ` · ${v.estadoInscripcion}` : ""}
-                </td>
-                <td className="px-5 py-3.5">
-                  {v.celular ? (
-                    <a href={`tel:${v.celular}`} className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors">
-                      <Phone className="h-3 w-3" /> {v.celular}
-                    </a>
-                  ) : <span className="text-gray-400 text-xs">—</span>}
-                </td>
-                <td className="px-5 py-3.5">
-                  <div className="flex gap-1.5 flex-wrap">
-                    {STATUSES.map((s) => (
-                      <button
-                        key={s.value}
-                        onClick={() => handleStatus(v, s.value)}
-                        className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer ${v.estado === s.value
-                          ? statusPill[v.estado]
-                          : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700"
-                          }`}
-                      >
-                        {s.label}
-                      </button>
-                    ))}
-                  </div>
-                </td>
-                <td className="px-5 py-3.5 hidden lg:table-cell text-xs text-gray-400 max-w-[160px] truncate">
-                  {v.comentario || "—"}
-                </td>
-              </tr>
-            ))}
+            {pageData.map((v, idx) => {
+              const draftComment = pendingComments[v.id] ?? v.comentario ?? "";
+              const hasPendingComment = pendingComments[v.id] !== undefined;
+              return (
+                <tr
+                  key={v.id}
+                  className="hover:bg-blue-50 transition-colors"
+                  style={{
+                    borderBottom: "1px solid #e5e7eb",
+                    background: idx % 2 === 0 ? "#fff" : "#f9fafb",
+                  }}
+                >
+                  <td className="px-5 py-3 font-semibold text-gray-900">{v.nombre}</td>
+                  <td className="px-5 py-3 tabular-nums text-gray-500 text-xs">{v.cedula}</td>
+                  <td className="px-5 py-3 text-gray-600 text-xs">
+                    {v.ciudad}{v.estadoInscripcion ? ` · ${v.estadoInscripcion}` : ""}
+                  </td>
+                  <td className="px-5 py-3">
+                    {v.celular ? (
+                      <a href={`tel:${v.celular}`} className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors">
+                        <Phone className="h-3 w-3" /> {v.celular}
+                      </a>
+                    ) : <span className="text-gray-400 text-xs">—</span>}
+                  </td>
+                  <td className="px-5 py-3">
+                    <div className="flex gap-1.5 flex-wrap">
+                      {STATUSES.map((s) => (
+                        <button
+                          key={s.value}
+                          onClick={() => handleStatus(v.id, s.value)}
+                          className={`text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all duration-150 cursor-pointer border ${v.estado === s.value
+                              ? `${statusPill[v.estado]} border-transparent`
+                              : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 border-gray-200"
+                            }`}
+                        >
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="px-5 py-3">
+                    <div className="flex gap-1">
+                      <input
+                        type="text"
+                        value={draftComment}
+                        placeholder="Comentario..."
+                        onChange={(e) =>
+                          setPendingComments((prev) => ({ ...prev, [v.id]: e.target.value }))
+                        }
+                        onKeyDown={(e) => e.key === "Enter" && saveComment(v.id)}
+                        onBlur={() => hasPendingComment && saveComment(v.id)}
+                        className="flex-1 text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400 w-full"
+                        style={{ maxWidth: 180 }}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
             {pageData.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-5 py-12 text-center text-gray-400">
@@ -260,7 +310,7 @@ const TablaBaseDatos = ({ voters, onEdit, onStatusChange }: Props) => {
         </table>
       </div>
 
-      {/* ── Paginación ── */}
+      {/* Paginación */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
           <button
