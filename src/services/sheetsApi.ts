@@ -2,7 +2,7 @@
 // Las columnas de tu hoja son:
 // Lugar | Puesto de Votación Registraduria | Nombre_Completo | Numero_Cedula | Telefono | Estado | Comentario
 export const SHEETS_API_URL =
-    "https://script.google.com/macros/s/AKfycby3qBMexjrZswbjsUc5DeLhntKzlhoiohT0xupgn21xEgCXQW2YbXPAY3WfkZFCngBDhw/exec";
+    "https://script.google.com/macros/s/AKfycbz2TOOd-wc5-9cjV1mdbMTj_E9ba7MS80Ju17rTZnHnOGldlyV5SR03jkBoxY0qYkj6Jg/exec";
 
 import { Voter, VoterStatus } from "@/types/voter";
 
