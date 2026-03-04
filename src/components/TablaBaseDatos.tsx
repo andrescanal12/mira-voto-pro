@@ -109,7 +109,7 @@ const TablaBaseDatos = ({ voters, onEdit }: Props) => {
                 <td className="px-4 py-3 font-medium">{v.nombre}</td>
                 <td className="px-4 py-3 tabular-nums">{v.cedula}</td>
                 <td className="px-4 py-3 hidden md:table-cell">{v.ciudad}</td>
-                <td className="px-4 py-3 hidden md:table-cell text-xs text-muted-foreground">{v.estadoInscripcion || "—"}</td>
+                <td className="px-4 py-3 hidden md:table-cell text-xs font-medium">{v.estadoInscripcion || "—"}</td>
                 <td className="px-4 py-3">
                   {v.celular ? (
                     <a
