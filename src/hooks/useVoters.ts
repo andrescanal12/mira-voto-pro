@@ -10,7 +10,7 @@ import {
 } from "@/services/sheetsApi";
 
 const STORAGE_KEY = "mira-voters-data-v2";
-const POLL_INTERVAL = 15_000; // 15 segundos
+const POLL_INTERVAL = 10_000; // 10s — óptimo: máx espera 10s, ~17k req/día con 6 usuarios
 const IS_SYNC_ENABLED = SHEETS_API_URL.startsWith("https://script.google.com");
 
 export function useVoters() {
