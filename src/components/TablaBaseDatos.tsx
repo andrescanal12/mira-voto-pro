@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
-import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard, Save, CheckCircle2 } from "lucide-react";
+import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard, Save, CheckCircle2, Users } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
+import LeaderReferralsDialog from "./LeaderReferralsDialog";
 
 interface Props {
   voters: Voter[];
@@ -39,6 +40,26 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   const [search, setSearch] = useState("");
   const [filterEstado, setFilterEstado] = useState("");
   const [page, setPage] = useState(0);
+  const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
+
+  // Mapa de líderes y cantidad de referidos (O(N^2) aceptable para ~400 registros)
+  const referralsCountMap = useMemo(() => {
+    const map = new Map<string, number>();
+    voters.forEach(leader => {
+      const leaderName = leader.nombre;
+      const ln = leaderName.toLowerCase();
+      let count = 0;
+      voters.forEach(v => {
+        if (v.lider && v.lider.toLowerCase().includes(ln) && v.nombre !== leaderName) {
+          count++;
+        }
+      });
+      if (count > 0) {
+        map.set(leaderName, count);
+      }
+    });
+    return map;
+  }, [voters]);
 
   // Estado pendiente de guardar: id → { status?, comment?, saved }
   const [pending, setPending] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
@@ -140,7 +161,24 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             >
               {/* Nombre + badge */}
               <div className="flex items-start justify-between gap-2">
-                <p className="font-bold text-gray-900 text-[15px] leading-tight">{v.nombre}</p>
+                <div className="flex flex-col gap-1.5">
+                  <p className="font-bold text-gray-900 text-[15px] leading-tight">{v.nombre}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {referralsCountMap.has(v.nombre) && (
+                      <button
+                        onClick={() => setSelectedLeader(v.nombre)}
+                        className="flex items-center gap-1.5 text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-full hover:bg-indigo-100 transition-colors shadow-sm"
+                      >
+                        <Users className="h-3 w-3" /> Ver Referidos ({referralsCountMap.get(v.nombre)})
+                      </button>
+                    )}
+                    {v.lider && v.lider !== "Líder Principal" && (
+                      <span className="flex items-center gap-1.5 text-[10px] font-bold bg-gray-50 text-gray-600 border border-gray-200 px-2.5 py-1 rounded-full">
+                        👤 Líder: {v.lider}
+                      </span>
+                    )}
+                  </div>
+                </div>
                 <span className={`shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full ${statusBadge[currentStatus]}`}>
                   {currentStatus === "Aún no ha venido" ? "Pendiente" :
                     currentStatus === "Pendiente de llamar" ? "📞 Llamar" :
@@ -243,7 +281,24 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                     background: hasPending ? "#fefce8" : idx % 2 === 0 ? "#fff" : "#f9fafb",
                   }}
                 >
-                  <td className="px-5 py-3 font-semibold text-gray-900">{v.nombre}</td>
+                  <td className="px-5 py-3">
+                    <div className="flex flex-col gap-1.5 min-w-[200px]">
+                      <span className="font-semibold text-gray-900">{v.nombre}</span>
+                      {referralsCountMap.has(v.nombre) && (
+                        <button
+                          onClick={() => setSelectedLeader(v.nombre)}
+                          className="flex items-center w-max gap-1.5 text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded-full hover:bg-indigo-100 transition-colors shadow-sm"
+                        >
+                          <Users className="h-3 w-3" /> Ver Referidos ({referralsCountMap.get(v.nombre)})
+                        </button>
+                      )}
+                      {v.lider && v.lider !== "Líder Principal" && (
+                        <span className="flex items-center w-max gap-1.5 text-[10px] font-bold bg-gray-50 text-gray-600 border border-gray-200 px-2 py-0.5 rounded-full">
+                          👤 Líder: {v.lider}
+                        </span>
+                      )}
+                    </div>
+                  </td>
                   <td className="px-5 py-3 tabular-nums text-gray-500 text-xs">{v.cedula}</td>
                   <td className="px-5 py-3 text-gray-600 text-xs">
                     {v.ciudad}{v.estadoInscripcion ? ` · ${v.estadoInscripcion}` : ""}
@@ -337,6 +392,13 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             Siguiente <ChevronRight className="h-4 w-4" />
           </button>
         </div>
+      )}
+      {selectedLeader && (
+        <LeaderReferralsDialog
+          leaderName={selectedLeader}
+          allVoters={voters}
+          onClose={() => setSelectedLeader(null)}
+        />
       )}
     </div>
   );

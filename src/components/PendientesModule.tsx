@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
-import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard, CheckCircle2 } from "lucide-react";
+import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard, CheckCircle2, Users } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
+import LeaderReferralsDialog from "./LeaderReferralsDialog";
 
 interface Props {
   voters: Voter[];
@@ -26,6 +27,26 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
 
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
+  const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
+
+  // Mapa de líderes y cantidad de referidos (O(N^2) aceptable para ~400 registros)
+  const referralsCountMap = useMemo(() => {
+    const map = new Map<string, number>();
+    voters.forEach(leader => {
+      const leaderName = leader.nombre;
+      const ln = leaderName.toLowerCase();
+      let count = 0;
+      voters.forEach(v => {
+        if (v.lider && v.lider.toLowerCase().includes(ln) && v.nombre !== leaderName) {
+          count++;
+        }
+      });
+      if (count > 0) {
+        map.set(leaderName, count);
+      }
+    });
+    return map;
+  }, [voters]);
 
   // pendingChanges: id → { status?, comment?, saved? }
   const [pendingChanges, setPendingChanges] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
@@ -124,15 +145,34 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
               {/* Fila superior: info + llamar */}
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-bold text-gray-900 text-base leading-tight">{voter.nombre}</p>
-                    {hasPending && (
-                      <span className="text-[10px] font-bold bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded-full animate-pulse">
-                        ⚠ Sin guardar
-                      </span>
-                    )}
+                  <div className="flex flex-col gap-1.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="font-bold text-gray-900 text-base leading-tight">{voter.nombre}</p>
+                      {hasPending && (
+                        <span className="text-[10px] font-bold bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded-full animate-pulse">
+                          ⚠ Sin guardar
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Etiquetas de Líder y Referido */}
+                    <div className="flex flex-wrap gap-2">
+                      {referralsCountMap.has(voter.nombre) && (
+                        <button
+                          onClick={() => setSelectedLeader(voter.nombre)}
+                          className="flex items-center gap-1.5 text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-full hover:bg-indigo-100 transition-colors shadow-sm"
+                        >
+                          <Users className="h-3 w-3" /> Ver Referidos ({referralsCountMap.get(voter.nombre)})
+                        </button>
+                      )}
+                      {voter.lider && voter.lider !== "Líder Principal" && (
+                        <span className="flex items-center gap-1.5 text-[10px] font-bold bg-gray-50 text-gray-600 border border-gray-200 px-2.5 py-1 rounded-full">
+                          👤 Líder: {voter.lider}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1 text-xs text-gray-500">
+                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-2 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
                       <CreditCard className="h-3 w-3" /> {voter.cedula}
                     </span>
@@ -250,6 +290,13 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
             Siguiente <ChevronRight className="h-4 w-4" />
           </button>
         </div>
+      )}
+      {selectedLeader && (
+        <LeaderReferralsDialog
+          leaderName={selectedLeader}
+          allVoters={voters}
+          onClose={() => setSelectedLeader(null)}
+        />
       )}
     </div>
   );
