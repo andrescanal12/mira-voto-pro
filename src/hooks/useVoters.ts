@@ -1,169 +1,199 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Voter, VoterStatus } from "@/types/voter";
-import { BASE_VOTERS } from "@/data/votersData";
-import {
-  getAllVotersFromSheet,
-  updateVoterStatus as syncStatusToSheet,
-  updateVoterComment as syncCommentToSheet,
-  estadoToYaVoto,
-  SHEETS_API_URL,
-} from "@/services/sheetsApi";
+import { supabase } from "@/lib/supabase";
 
-const STORAGE_KEY = "mira-voters-data-v2";
-const POLL_INTERVAL = 10_000; // 10s — sincroniza todos los dispositivos automáticamente
-const IS_SYNC_ENABLED = SHEETS_API_URL.startsWith("https://script.google.com");
+const STORAGE_KEY = "mira-voters-data-v3";
+
+// Mapear columnas snake_case de Supabase a camelCase del tipo Voter
+function fromDB(row: Record<string, unknown>): Voter {
+  return {
+    id: row.id as string,
+    pais: (row.pais as string) ?? "",
+    ciudad: (row.ciudad as string) ?? "",
+    iglesia: (row.iglesia as string) ?? "",
+    cedula: (row.cedula as string) ?? "",
+    nombre: (row.nombre as string) ?? "",
+    celular: (row.celular as string) ?? "",
+    cedulaInscrita: (row.cedula_inscrita as string) ?? "",
+    lider: (row.lider as string) ?? "",
+    referido: (row.referido as string) ?? "",
+    estadoInscripcion: (row.estado_inscripcion as string) ?? "",
+    estado: ((row.estado as string) ?? "Aún no ha venido") as VoterStatus,
+    comentario: (row.comentario as string) ?? "",
+  };
+}
 
 export function useVoters() {
   const [voters, setVoters] = useState<Voter[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [lastSync, setLastSync] = useState<Date | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
-
-  // Ref para evitar que el poll sobreescriba un write local en vuelo
   const pendingWrite = useRef(false);
 
-  // ──────────────────────────────────────────────────────────────
-  // Fetch reutilizable: carga inicial + polling cada 10s
-  // Solo actualiza filas que cambiaron (merge inteligente)
-  // ──────────────────────────────────────────────────────────────
-  const fetchFromSheet = useCallback(async (silent = false) => {
-    if (!IS_SYNC_ENABLED) return;
-    if (pendingWrite.current) return; // espera a que el write termine
-    if (!silent) setIsSyncing(true);
-
-    try {
-      const fromSheet = await getAllVotersFromSheet();
-      if (fromSheet.length > 0) {
-        setVoters((prev) => {
-          const prevMap = new Map(prev.map((v) => [v.id, v]));
-          let changed = false;
-          const merged = fromSheet.map((remote) => {
-            const local = prevMap.get(remote.id);
-            if (!local) { changed = true; return remote; }
-            if (
-              local.estado !== remote.estado ||
-              local.comentario !== remote.comentario
-            ) {
-              changed = true;
-              return remote;
-            }
-            return local; // sin cambio → misma referencia → no re-render
-          });
-          return changed ? merged : prev;
-        });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(fromSheet));
-        setLastSync(new Date());
-      }
-    } catch (err) {
-      console.warn("⚠️ Poll: no se pudo sincronizar con Sheets:", err);
-    } finally {
-      setIsSyncing(false);
-    }
-  }, []);
-
-  // ── Carga inicial ──
+  // ── Carga inicial desde Supabase ────────────────────────────────
   useEffect(() => {
     async function init() {
       setIsLoading(true);
-      if (IS_SYNC_ENABLED) {
-        try {
-          const fromSheet = await getAllVotersFromSheet();
-          if (fromSheet.length > 0) {
-            setVoters(fromSheet);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(fromSheet));
-            setLastSync(new Date());
-            setIsLoading(false);
-            return;
-          }
-        } catch (err) {
-          console.warn("⚠️ No se pudo cargar desde Google Sheets, usando caché local:", err);
+      setIsSyncing(true);
+
+      try {
+        const { data, error } = await supabase
+          .from("votantes")
+          .select("*")
+          .order("id");
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          const parsed = data.map(fromDB);
+          setVoters(parsed);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+          setLastSync(new Date());
+          setIsLoading(false);
+          setIsSyncing(false);
+          return;
         }
+      } catch (err) {
+        console.warn("⚠️ No se pudo cargar desde Supabase, usando caché:", err);
       }
 
+      // Fallback: caché local
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
             setVoters(parsed);
-            setIsLoading(false);
-            return;
           }
         } catch { /* ignore */ }
       }
 
-      setVoters(BASE_VOTERS);
       setIsLoading(false);
+      setIsSyncing(false);
     }
 
     init();
   }, []);
 
-  // ── Polling automático cada 10s (sincroniza entre dispositivos) ──
+  // ── Suscripción Realtime (reemplaza el polling de 10s) ──────────
   useEffect(() => {
-    if (!IS_SYNC_ENABLED) return;
-    const id = setInterval(() => fetchFromSheet(true), POLL_INTERVAL);
-    return () => clearInterval(id);
-  }, [fetchFromSheet]);
+    const channel = supabase
+      .channel("votantes-realtime")
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "votantes" },
+        (payload) => {
+          if (pendingWrite.current) return; // evitar conflicto con write local
+          const updated = fromDB(payload.new as Record<string, unknown>);
+          setVoters((prev) =>
+            prev.map((v) => (v.id === updated.id ? updated : v))
+          );
+          setLastSync(new Date());
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "votantes" },
+        (payload) => {
+          const inserted = fromDB(payload.new as Record<string, unknown>);
+          setVoters((prev) => {
+            const exists = prev.some((v) => v.id === inserted.id);
+            return exists ? prev : [...prev, inserted];
+          });
+          setLastSync(new Date());
+        }
+      )
+      .subscribe();
 
-  // ── Caché local ──
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  // ── Caché local al cambiar voters ───────────────────────────────
   useEffect(() => {
     if (voters.length > 0) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(voters));
     }
   }, [voters]);
 
-  // ── Actualiza estado localmente y envía a Sheets (llamado por el botón Guardar) ──
+  // ── Actualiza estado local + persiste en Supabase ───────────────
   const updateVoterStatus = useCallback((id: string, status: VoterStatus) => {
     pendingWrite.current = true;
     setVoters((prev) =>
       prev.map((v) => {
         if (v.id !== id) return v;
-        if (IS_SYNC_ENABLED) {
-          syncStatusToSheet(v.cedula, estadoToYaVoto(status))
-            .catch((err) => console.warn("⚠️ Sync estado:", err))
-            .finally(() => { pendingWrite.current = false; });
-        } else {
-          pendingWrite.current = false;
-        }
+        supabase
+          .from("votantes")
+          .update({ estado: status })
+          .eq("id", id)
+          .then(({ error }) => {
+            if (error) console.warn("⚠️ Supabase update estado:", error.message);
+          })
+          .finally(() => {
+            pendingWrite.current = false;
+          });
         return { ...v, estado: status };
       })
     );
   }, []);
 
-  // ── Actualiza comentario localmente y envía a Sheets ──
+  // ── Actualiza comentario local + persiste en Supabase ───────────
   const updateVoterComment = useCallback((id: string, comentario: string) => {
     pendingWrite.current = true;
     setVoters((prev) =>
       prev.map((v) => {
         if (v.id !== id) return v;
-        if (IS_SYNC_ENABLED) {
-          syncCommentToSheet(v.cedula, comentario)
-            .catch((err) => console.warn("⚠️ Sync comentario:", err))
-            .finally(() => { pendingWrite.current = false; });
-        } else {
-          pendingWrite.current = false;
-        }
+        supabase
+          .from("votantes")
+          .update({ comentario })
+          .eq("id", id)
+          .then(({ error }) => {
+            if (error) console.warn("⚠️ Supabase update comentario:", error.message);
+          })
+          .finally(() => {
+            pendingWrite.current = false;
+          });
         return { ...v, comentario };
       })
     );
   }, []);
 
-  const loadVoters = useCallback((data: Voter[]) => { setVoters(data); }, []);
-  const clearData = useCallback(() => {
-    setVoters(BASE_VOTERS);
-    localStorage.removeItem(STORAGE_KEY);
+  // ── Sync manual ──────────────────────────────────────────────────
+  const manualSync = useCallback(async () => {
+    if (pendingWrite.current) return;
+    setIsSyncing(true);
+    try {
+      const { data, error } = await supabase
+        .from("votantes")
+        .select("*")
+        .order("id");
+      if (error) throw error;
+      if (data && data.length > 0) {
+        const parsed = data.map(fromDB);
+        setVoters(parsed);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+        setLastSync(new Date());
+      }
+    } catch (err) {
+      console.warn("⚠️ manualSync error:", err);
+    } finally {
+      setIsSyncing(false);
+    }
   }, []);
 
-  // Sync manual: botón en la UI
-  const manualSync = useCallback(() => fetchFromSheet(false), [fetchFromSheet]);
+  const loadVoters = useCallback((data: Voter[]) => { setVoters(data); }, []);
+  const clearData = useCallback(() => {
+    localStorage.removeItem(STORAGE_KEY);
+    manualSync();
+  }, [manualSync]);
 
   return {
     voters,
     isLoading,
     isSyncing,
     lastSync,
-    isSyncEnabled: IS_SYNC_ENABLED,
+    isSyncEnabled: true, // Supabase siempre activo
     loadVoters,
     updateVoterStatus,
     updateVoterComment,
