@@ -188,15 +188,54 @@ export function useVoters() {
     manualSync();
   }, [manualSync]);
 
+  const addVoter = useCallback(async (nombre: string, cedula: string) => {
+    const id = `extra-${Date.now()}`;
+    const newVoter: Voter = {
+      id,
+      nombre,
+      cedula,
+      estado: "Aún no ha venido" as VoterStatus,
+      comentario: "Agregado manualmente",
+      pais: "España",
+      ciudad: "ALICANTE",
+      iglesia: "",
+      celular: "",
+      cedulaInscrita: "",
+      lider: "",
+      referido: "",
+      estadoInscripcion: "",
+    };
+
+    // Actualización optimista
+    setVoters((prev) => [...prev, newVoter]);
+
+    try {
+      const { error } = await supabase.from("votantes").insert({
+        id,
+        nombre,
+        cedula,
+        estado: newVoter.estado,
+        comentario: newVoter.comentario,
+        pais: newVoter.pais,
+        ciudad: newVoter.ciudad,
+      });
+      if (error) throw error;
+    } catch (err) {
+      console.error("⚠️ Error agregando votante:", err);
+      manualSync(); // Recargar en caso de error
+    }
+  }, [manualSync]);
+
   return {
     voters,
     isLoading,
     isSyncing,
     lastSync,
-    isSyncEnabled: true, // Supabase siempre activo
+    isSyncEnabled: true,
     loadVoters,
     updateVoterStatus,
     updateVoterComment,
+    addVoter,
     clearData,
     manualSync,
   };
