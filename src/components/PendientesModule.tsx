@@ -108,31 +108,42 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
   return (
     <div className="space-y-4">
 
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+      {/* Header de Filtros Profesional */}
+      <div className="flex flex-col gap-3">
+        {/* Línea 1: Buscador Principal */}
+        <div className="relative w-full group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40 group-focus-within:text-accent transition-colors" />
           <input
             type="text"
-            placeholder="Buscar (nombre, cédula, teléfono)..."
+            placeholder="Buscar por nombre, cédula o teléfono..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="w-full pl-10 pr-4 py-2.5 rounded-2xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/15"
-            style={{ background: "rgba(255,255,255,0.07)" }}
+            className="w-full pl-12 pr-4 py-3.5 rounded-2xl text-base text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-lg"
+            style={{ background: "rgba(255,255,255,0.08)" }}
           />
         </div>
-        <select
-          value={filterRole}
-          onChange={(e) => { setFilterRole(e.target.value); setPage(0); }}
-          className="rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent w-auto shrink-0"
-          style={{ background: "rgba(255,255,255,0.07)" }}
-        >
-          <option value="" style={{ color: "black" }}>👥 Todos</option>
-          <option value="lider" style={{ color: "black" }}>👑 Solo Líderes</option>
-        </select>
-        <span className="shrink-0 text-sm text-yellow-300 font-bold bg-yellow-500/15 border border-yellow-500/30 px-3 py-1.5 rounded-xl whitespace-nowrap">
-          📞 {pendientes.length}
-        </span>
+
+        {/* Línea 2: Filtro de Rol y Contador */}
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1">
+            <select
+              value={filterRole}
+              onChange={(e) => { setFilterRole(e.target.value); setPage(0); }}
+              className="w-full rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10"
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
+              }}
+            >
+              <option value="" style={{ color: "black" }}>👥 Mostrar Todos</option>
+              <option value="lider" style={{ color: "black" }}>👑 Ver solo Líderes</option>
+            </select>
+          </div>
+          <div className="shrink-0 flex items-center gap-2 text-sm text-yellow-300 font-bold bg-yellow-500/20 border border-yellow-500/40 px-4 py-3 rounded-2xl shadow-inner">
+            <Phone className="h-4 w-4 animate-pulse" />
+            <span>{pendientes.length}</span>
+          </div>
+        </div>
       </div>
 
       {/* Cards */}
