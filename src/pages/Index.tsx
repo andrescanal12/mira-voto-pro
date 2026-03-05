@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BarChart3, Database, Phone, FileDown } from "lucide-react";
 import Header from "@/components/Header";
 import ContadorRegresivo from "@/components/ContadorRegresivo";
@@ -30,19 +30,10 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
 ];
 
 const Index = () => {
-  const { voters, isLoading, isSyncing, lastSync, manualSync, updateVoterStatus, updateVoterComment } = useVoters();
+  const { voters, isLoading, updateVoterStatus, updateVoterComment } = useVoters();
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
   const [imgError, setImgError] = useState(false);
-  const [tick, setTick] = useState(0);
-
-  // Ticker para actualizar el indicador de sincronización cada segundo
-  useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const secondsSinceSync = lastSync ? Math.round((Date.now() - lastSync.getTime()) / 1000) : null;
 
   const handleSaveEdit = (id: string, status: VoterStatus, comment: string) => {
     updateVoterStatus(id, status);
@@ -217,54 +208,29 @@ const Index = () => {
 
         {/* ── MAIN CONTENT ── */}
         <main className="container mx-auto px-4 py-6 space-y-6 max-w-7xl">
-          {/* Nav + indicador de sync */}
-          <div className="space-y-2">
-            <nav className="flex gap-1 bg-card border border-border rounded-2xl p-1 overflow-x-auto" role="tablist">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveTab(tab.id)}
-                  role="tab"
-                  aria-selected={activeTab === tab.id}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.id
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                    }`}
-                >
-                  <tab.icon className="h-4 w-4" />
-                  {tab.label}
-                  {tab.id === "pendientes" && voters.length > 0 && (
-                    <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                      {voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido").length}
-                    </span>
-                  )}
-                </button>
-              ))}
-            </nav>
-
-            {/* Indicador de sincronización */}
-            <div className="flex items-center justify-end gap-2 px-1">
-              {isSyncing ? (
-                <span className="flex items-center gap-1.5 text-[11px] text-white/50">
-                  <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: "50%", border: "2px solid rgba(255,255,255,0.2)", borderTopColor: "#FFD700", animation: "spin 0.8s linear infinite" }} />
-                  Sincronizando…
-                </span>
-              ) : secondsSinceSync !== null ? (
-                <span className="text-[11px] text-white/40">
-                  🔄 {secondsSinceSync < 60 ? `${secondsSinceSync}s` : `${Math.floor(secondsSinceSync / 60)}m`}
-                </span>
-              ) : null}
+          <nav className="flex gap-1 bg-card border border-border rounded-2xl p-1 overflow-x-auto" role="tablist">
+            {tabs.map((tab) => (
               <button
+                key={tab.id}
                 type="button"
-                onClick={manualSync}
-                disabled={isSyncing}
-                className="text-[11px] text-white/50 hover:text-white/80 transition-colors disabled:opacity-30 border border-white/10 rounded-lg px-2 py-0.5"
+                onClick={() => setActiveTab(tab.id)}
+                role="tab"
+                aria-selected={activeTab === tab.id}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.id
+                  ? "bg-primary text-primary-foreground shadow-lg"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
               >
-                ↻ Sync
+                <tab.icon className="h-4 w-4" />
+                {tab.label}
+                {tab.id === "pendientes" && voters.length > 0 && (
+                  <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                    {voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido").length}
+                  </span>
+                )}
               </button>
-            </div>
-          </div>
+            ))}
+          </nav>
 
           <div>
             {activeTab === "dashboard" && <DashboardCards voters={voters} />}
