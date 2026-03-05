@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Voter, VoterStatus } from "@/types/voter";
 import { BASE_VOTERS } from "@/data/votersData";
 import {
@@ -10,13 +10,58 @@ import {
 } from "@/services/sheetsApi";
 
 const STORAGE_KEY = "mira-voters-data-v2";
+const POLL_INTERVAL = 10_000; // 10s — sincroniza todos los dispositivos automáticamente
 const IS_SYNC_ENABLED = SHEETS_API_URL.startsWith("https://script.google.com");
 
 export function useVoters() {
   const [voters, setVoters] = useState<Voter[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [lastSync, setLastSync] = useState<Date | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
 
-  // ── Carga inicial desde Google Sheets o caché local ──
+  // Ref para evitar que el poll sobreescriba un write local en vuelo
+  const pendingWrite = useRef(false);
+
+  // ──────────────────────────────────────────────────────────────
+  // Fetch reutilizable: carga inicial + polling cada 10s
+  // Solo actualiza filas que cambiaron (merge inteligente)
+  // ──────────────────────────────────────────────────────────────
+  const fetchFromSheet = useCallback(async (silent = false) => {
+    if (!IS_SYNC_ENABLED) return;
+    if (pendingWrite.current) return; // espera a que el write termine
+    if (!silent) setIsSyncing(true);
+
+    try {
+      const fromSheet = await getAllVotersFromSheet();
+      if (fromSheet.length > 0) {
+        setVoters((prev) => {
+          const prevMap = new Map(prev.map((v) => [v.id, v]));
+          let changed = false;
+          const merged = fromSheet.map((remote) => {
+            const local = prevMap.get(remote.id);
+            if (!local) { changed = true; return remote; }
+            if (
+              local.estado !== remote.estado ||
+              local.comentario !== remote.comentario
+            ) {
+              changed = true;
+              return remote;
+            }
+            return local; // sin cambio → misma referencia → no re-render
+          });
+          return changed ? merged : prev;
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(fromSheet));
+        setLastSync(new Date());
+      }
+    } catch (err) {
+      console.warn("⚠️ Poll: no se pudo sincronizar con Sheets:", err);
+    } finally {
+      setIsSyncing(false);
+    }
+  }, []);
+
+  // ── Carga inicial ──
   useEffect(() => {
     async function init() {
       setIsLoading(true);
@@ -26,6 +71,7 @@ export function useVoters() {
           if (fromSheet.length > 0) {
             setVoters(fromSheet);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(fromSheet));
+            setLastSync(new Date());
             setIsLoading(false);
             return;
           }
@@ -53,6 +99,13 @@ export function useVoters() {
     init();
   }, []);
 
+  // ── Polling automático cada 10s (sincroniza entre dispositivos) ──
+  useEffect(() => {
+    if (!IS_SYNC_ENABLED) return;
+    const id = setInterval(() => fetchFromSheet(true), POLL_INTERVAL);
+    return () => clearInterval(id);
+  }, [fetchFromSheet]);
+
   // ── Caché local ──
   useEffect(() => {
     if (voters.length > 0) {
@@ -60,15 +113,18 @@ export function useVoters() {
     }
   }, [voters]);
 
-  // ── Actualiza estado localmente y envía a Sheets ──
+  // ── Actualiza estado localmente y envía a Sheets (llamado por el botón Guardar) ──
   const updateVoterStatus = useCallback((id: string, status: VoterStatus) => {
+    pendingWrite.current = true;
     setVoters((prev) =>
       prev.map((v) => {
         if (v.id !== id) return v;
         if (IS_SYNC_ENABLED) {
-          syncStatusToSheet(v.cedula, estadoToYaVoto(status)).catch((err) =>
-            console.warn("⚠️ Sync estado:", err)
-          );
+          syncStatusToSheet(v.cedula, estadoToYaVoto(status))
+            .catch((err) => console.warn("⚠️ Sync estado:", err))
+            .finally(() => { pendingWrite.current = false; });
+        } else {
+          pendingWrite.current = false;
         }
         return { ...v, estado: status };
       })
@@ -77,13 +133,16 @@ export function useVoters() {
 
   // ── Actualiza comentario localmente y envía a Sheets ──
   const updateVoterComment = useCallback((id: string, comentario: string) => {
+    pendingWrite.current = true;
     setVoters((prev) =>
       prev.map((v) => {
         if (v.id !== id) return v;
         if (IS_SYNC_ENABLED) {
-          syncCommentToSheet(v.cedula, comentario).catch((err) =>
-            console.warn("⚠️ Sync comentario:", err)
-          );
+          syncCommentToSheet(v.cedula, comentario)
+            .catch((err) => console.warn("⚠️ Sync comentario:", err))
+            .finally(() => { pendingWrite.current = false; });
+        } else {
+          pendingWrite.current = false;
         }
         return { ...v, comentario };
       })
@@ -96,12 +155,19 @@ export function useVoters() {
     localStorage.removeItem(STORAGE_KEY);
   }, []);
 
+  // Sync manual: botón en la UI
+  const manualSync = useCallback(() => fetchFromSheet(false), [fetchFromSheet]);
+
   return {
     voters,
     isLoading,
+    isSyncing,
+    lastSync,
+    isSyncEnabled: IS_SYNC_ENABLED,
     loadVoters,
     updateVoterStatus,
     updateVoterComment,
     clearData,
+    manualSync,
   };
 }
