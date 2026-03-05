@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard } from "lucide-react";
+import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard, CheckCircle2 } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
 
 interface Props {
@@ -25,7 +25,9 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
 
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
-  const [comments, setComments] = useState<Record<string, string>>({});
+
+  // pendingChanges: id → { status?, comment?, saved? }
+  const [pendingChanges, setPendingChanges] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
 
   const filtered = useMemo(() => {
     if (!search) return pendientes;
@@ -42,12 +44,32 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
-  const saveComment = (id: string) => {
-    const c = comments[id];
-    if (c !== undefined) {
-      onUpdateComment(id, c);
-      setComments((prev) => { const n = { ...prev }; delete n[id]; return n; });
-    }
+  // Seleccionar estado → queda pendiente hasta que se guarde
+  const handleStatusSelect = (id: string, status: VoterStatus, currentStatus: VoterStatus) => {
+    if (status === currentStatus) return;
+    setPendingChanges((prev) => ({ ...prev, [id]: { ...prev[id], status, saved: false } }));
+  };
+
+  // Editar comentario → queda pendiente
+  const handleCommentEdit = (id: string, comment: string) => {
+    setPendingChanges((prev) => ({ ...prev, [id]: { ...prev[id], comment, saved: false } }));
+  };
+
+  // Guardar todos los cambios pendientes del voter
+  const handleSave = (id: string) => {
+    const p = pendingChanges[id];
+    if (!p) return;
+    if (p.status !== undefined) onUpdateStatus(id, p.status);
+    if (p.comment !== undefined) onUpdateComment(id, p.comment);
+    // Feedback visual "¡Listo!" durante 1.5s
+    setPendingChanges((prev) => ({ ...prev, [id]: { ...prev[id], saved: true } }));
+    setTimeout(() => {
+      setPendingChanges((prev) => {
+        const n = { ...prev };
+        delete n[id];
+        return n;
+      });
+    }, 1500);
   };
 
   return (
@@ -71,22 +93,35 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
         </span>
       </div>
 
-      {/* Cards blancas */}
+      {/* Cards */}
       <div className="space-y-3">
         {pageData.map((voter) => {
-          const draftComment = comments[voter.id] ?? voter.comentario ?? "";
-          const hasPending = comments[voter.id] !== undefined;
+          const p = pendingChanges[voter.id];
+          const currentStatus = p?.status ?? voter.estado;
+          const currentComment = p?.comment ?? voter.comentario ?? "";
+          const hasPending = p && !p.saved && (p.status !== undefined || p.comment !== undefined);
+          const justSaved = p?.saved;
 
           return (
             <div
               key={voter.id}
-              className="rounded-2xl p-4 space-y-3 border border-gray-200 shadow-sm"
+              className={`rounded-2xl p-4 space-y-3 shadow-sm transition-all duration-300 ${hasPending
+                ? "border-2 border-yellow-400 ring-1 ring-yellow-300"
+                : "border border-gray-200"
+                }`}
               style={{ background: "#fff" }}
             >
-              {/* Fila superior: info + botón LLAMAR */}
+              {/* Fila superior: info + llamar */}
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-gray-900 text-base leading-tight">{voter.nombre}</p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-bold text-gray-900 text-base leading-tight">{voter.nombre}</p>
+                    {hasPending && (
+                      <span className="text-[10px] font-bold bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded-full animate-pulse">
+                        ⚠ Sin guardar
+                      </span>
+                    )}
+                  </div>
                   <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-1 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
                       <CreditCard className="h-3 w-3" /> {voter.cedula}
@@ -122,35 +157,40 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                 {STATUSES.map((s) => (
                   <button
                     key={s.v}
-                    onClick={() => onUpdateStatus(voter.id, s.v)}
-                    className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${voter.estado === s.v ? s.active : s.inactive
-                      }`}
+                    type="button"
+                    onClick={() => handleStatusSelect(voter.id, s.v, voter.estado)}
+                    className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${currentStatus === s.v ? s.active : s.inactive}`}
                   >
                     {s.label}
                   </button>
                 ))}
               </div>
 
-              {/* Campo comentario */}
+              {/* Comentario + Guardar */}
               <div className="flex gap-2 pt-1 border-t border-gray-100">
                 <input
                   type="text"
                   placeholder="💬 Nota tras la llamada..."
-                  value={draftComment}
-                  onChange={(e) => setComments((prev) => ({ ...prev, [voter.id]: e.target.value }))}
-                  onKeyDown={(e) => e.key === "Enter" && saveComment(voter.id)}
+                  value={currentComment}
+                  onChange={(e) => handleCommentEdit(voter.id, e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleSave(voter.id); } }}
                   className="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   style={{ background: "#f9fafb" }}
                 />
-                {hasPending && (
+                {justSaved ? (
+                  <span className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white bg-green-500 transition-all">
+                    <CheckCircle2 className="h-3.5 w-3.5" /> ¡Listo!
+                  </span>
+                ) : hasPending ? (
                   <button
-                    onClick={() => saveComment(voter.id)}
-                    className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white"
-                    style={{ background: "#1a3a6e" }}
+                    type="button"
+                    onClick={() => handleSave(voter.id)}
+                    className="flex items-center gap-1 text-[11px] font-bold px-4 py-2 rounded-xl text-white whitespace-nowrap animate-pulse"
+                    style={{ background: "#1a3a6e", boxShadow: "0 2px 10px rgba(26,58,110,0.4)" }}
                   >
-                    <Save className="h-3 w-3" /> OK
+                    <Save className="h-3.5 w-3.5" /> Guardar
                   </button>
-                )}
+                ) : null}
               </div>
             </div>
           );
@@ -170,6 +210,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
           <button
+            type="button"
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0}
             className="inline-flex items-center gap-1 text-sm rounded-xl px-4 py-2 disabled:opacity-30 text-white border border-white/15"
@@ -179,6 +220,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
           </button>
           <span className="text-xs text-white/50">Página {page + 1} de {totalPages}</span>
           <button
+            type="button"
             onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
             disabled={page >= totalPages - 1}
             className="inline-flex items-center gap-1 text-sm rounded-xl px-4 py-2 disabled:opacity-30 text-white border border-white/15"
