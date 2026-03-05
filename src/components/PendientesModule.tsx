@@ -296,6 +296,8 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
           leaderName={selectedLeader}
           allVoters={voters}
           onClose={() => setSelectedLeader(null)}
+          onStatusChange={onUpdateStatus}
+          onCommentChange={onUpdateComment}
         />
       )}
     </div>

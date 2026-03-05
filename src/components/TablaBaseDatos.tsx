@@ -398,6 +398,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
           leaderName={selectedLeader}
           allVoters={voters}
           onClose={() => setSelectedLeader(null)}
+          onStatusChange={onStatusChange}
+          onCommentChange={onCommentChange}
         />
       )}
     </div>
