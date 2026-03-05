@@ -14,6 +14,7 @@ const PAGE_SIZE = 15;
 const STATUSES: { value: VoterStatus; label: string; active: string; inactive: string }[] = [
   { value: "Aún no ha venido", label: "Pendiente", active: "bg-blue-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
   { value: "Pendiente de llamar", label: "📞 Llamar", active: "bg-yellow-400 text-black border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
+  { value: "Ya llamado", label: "☎️ Ya llamado", active: "bg-purple-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
   { value: "Ya votó", label: "✅ Ya votó", active: "bg-green-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
   { value: "No va votar", label: "✗ No vota", active: "bg-red-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
 ];
@@ -22,6 +23,7 @@ const statusBadge: Record<VoterStatus, string> = {
   "Aún no ha venido": "bg-blue-100  text-blue-700  border border-blue-300",
   "Ya votó": "bg-green-100 text-green-700 border border-green-300",
   "Pendiente de llamar": "bg-yellow-100 text-yellow-700 border border-yellow-300",
+  "Ya llamado": "bg-purple-100 text-purple-700 border border-purple-300",
   "No va votar": "bg-red-100   text-red-700   border border-red-300",
 };
 
@@ -29,6 +31,7 @@ const statusPill: Record<VoterStatus, string> = {
   "Aún no ha venido": "bg-blue-600   text-white",
   "Ya votó": "bg-green-600  text-white",
   "Pendiente de llamar": "bg-yellow-400 text-black",
+  "Ya llamado": "bg-purple-600  text-white",
   "No va votar": "bg-red-600    text-white",
 };
 

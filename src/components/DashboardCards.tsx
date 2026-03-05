@@ -11,9 +11,10 @@ const DashboardCards = ({ voters }: Props) => {
     const total = voters.length;
     const noVino = voters.filter((v) => v.estado === "Aún no ha venido").length;
     const yaVoto = voters.filter((v) => v.estado === "Ya votó").length;
+    const yaLlamado = voters.filter((v) => v.estado === "Ya llamado").length;
     const pendientes = voters.filter((v) => v.estado === "Pendiente de llamar").length;
     const noVota = voters.filter((v) => v.estado === "No va votar").length;
-    return { total, noVino, yaVoto, pendientes, noVota };
+    return { total, noVino, yaVoto, yaLlamado, pendientes, noVota };
   }, [voters]);
 
   const cards = [
@@ -39,6 +40,13 @@ const DashboardCards = ({ voters }: Props) => {
       bgColor: "bg-success/10",
     },
     {
+      label: "Ya Llamados",
+      value: stats.yaLlamado,
+      icon: Phone,
+      color: "text-purple-400",
+      bgColor: "bg-purple-400/10",
+    },
+    {
       label: "Falta Llamar",
       value: stats.pendientes,
       icon: Phone,
@@ -58,7 +66,7 @@ const DashboardCards = ({ voters }: Props) => {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {cards.map((card) => (
           <div
             key={card.label}
@@ -89,6 +97,7 @@ const DashboardCards = ({ voters }: Props) => {
             {[
               { label: "Aún No Han Venido", value: stats.noVino, cls: "bg-blue-400" },
               { label: "Ya Votaron", value: stats.yaVoto, cls: "bg-success" },
+              { label: "Ya Llamados", value: stats.yaLlamado, cls: "bg-purple-400" },
               { label: "Pendientes", value: stats.pendientes, cls: "bg-warning" },
               { label: "No Van a Votar", value: stats.noVota, cls: "bg-destructive" },
             ].map((bar) => (

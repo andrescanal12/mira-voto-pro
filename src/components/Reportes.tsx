@@ -21,8 +21,14 @@ const Reportes = ({ voters }: Props) => {
       filename: "MIRA_Ya_Votaron.xlsx",
     },
     {
+      label: "Ya Llamados (Seguimiento)",
+      description: "Personas contactadas que aún no han votado",
+      filter: () => voters.filter((v) => v.estado === "Ya llamado"),
+      filename: "MIRA_Ya_Llamados.xlsx",
+    },
+    {
       label: "Pendientes de Llamar",
-      description: "Exporta los pendientes para seguimiento",
+      description: "Exporta los pendientes para seguimiento inicial",
       filter: () => voters.filter((v) => v.estado === "Pendiente de llamar"),
       filename: "MIRA_Pendientes.xlsx",
     },

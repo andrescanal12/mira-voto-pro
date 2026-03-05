@@ -40,6 +40,7 @@ const EditVoterDialog = ({ voter, onSave, onClose }: Props) => {
             >
               <option value="Aún no ha venido">⏳ Aún no ha venido</option>
               <option value="Pendiente de llamar">📞 Falta llamar</option>
+              <option value="Ya llamado">☎️ Ya llamado</option>
               <option value="Ya votó">✅ Ya votó</option>
               <option value="No va votar">❌ No va votar</option>
             </select>

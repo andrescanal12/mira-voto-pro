@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BarChart3, Database, Phone, FileDown } from "lucide-react";
+import { BarChart3, Database, Phone, FileDown, CheckCircle2 } from "lucide-react";
 import Header from "@/components/Header";
 import ContadorRegresivo from "@/components/ContadorRegresivo";
 import DashboardCards from "@/components/DashboardCards";
@@ -20,12 +20,13 @@ const ALE_BALLOT = "https://candidatos2026.partidomira.com/archivos/default/arch
 const ANA_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-fd58e2984c78c17f&v=1772071197";
 const ALE_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-f63ec40a857cc934&v=1772072982";
 
-type Tab = "dashboard" | "base" | "pendientes" | "reportes";
+type Tab = "dashboard" | "base" | "pendientes" | "ya_llamados" | "reportes";
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3 },
   { id: "base", label: "Base de Datos", icon: Database },
-  { id: "pendientes", label: "Pendientes", icon: Phone },
+  { id: "pendientes", label: "Call-Center", icon: Phone },
+  { id: "ya_llamados", label: "Ya llamados", icon: CheckCircle2 },
   { id: "reportes", label: "Reportes", icon: FileDown },
 ];
 
@@ -234,9 +235,14 @@ const Index = () => {
                 >
                   <tab.icon className="h-4 w-4" />
                   {tab.label}
-                  {tab.id === "pendientes" && voters.length > 0 && (
+                  {tab.id === "pendientes" && (
                     <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                       {voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido").length}
+                    </span>
+                  )}
+                  {tab.id === "ya_llamados" && (
+                    <span className="bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                      {voters.filter((v) => v.estado === "Ya llamado").length}
                     </span>
                   )}
                 </button>
@@ -271,6 +277,22 @@ const Index = () => {
             {activeTab === "base" && <TablaBaseDatos voters={voters} onEdit={setEditingVoter} onStatusChange={updateVoterStatus} onCommentChange={updateVoterComment} />}
             {activeTab === "pendientes" && (
               <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} />
+            )}
+            {activeTab === "ya_llamados" && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-purple-400" />
+                    Votantes Ya Llamados
+                  </h2>
+                </div>
+                <TablaBaseDatos
+                  voters={voters.filter(v => v.estado === "Ya llamado")}
+                  onEdit={setEditingVoter}
+                  onStatusChange={updateVoterStatus}
+                  onCommentChange={updateVoterComment}
+                />
+              </div>
             )}
             {activeTab === "reportes" && <Reportes voters={voters} />}
           </div>
