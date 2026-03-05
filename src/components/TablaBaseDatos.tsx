@@ -133,8 +133,12 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             className="flex-1 rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
             style={{ background: "rgba(255,255,255,0.07)" }}
           >
-            <option value="">📋 Todos los estados</option>
-            {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+            <option value="" style={{ color: "black" }}>📋 Todos los estados</option>
+            {STATUSES.map(s => (
+              <option key={s.value} value={s.value} style={{ color: "black" }}>
+                {s.label}
+              </option>
+            ))}
           </select>
           <select
             value={filterRole}
@@ -142,8 +146,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             className="rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent w-auto"
             style={{ background: "rgba(255,255,255,0.07)" }}
           >
-            <option value="">👥 Todos</option>
-            <option value="lider">👑 Solo Líderes</option>
+            <option value="" style={{ color: "black" }}>👥 Todos</option>
+            <option value="lider" style={{ color: "black" }}>👑 Solo Líderes</option>
           </select>
         </div>
       </div>

@@ -127,8 +127,8 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
           className="rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent w-auto shrink-0"
           style={{ background: "rgba(255,255,255,0.07)" }}
         >
-          <option value="">👥 Todos</option>
-          <option value="lider">👑 Solo Líderes</option>
+          <option value="" style={{ color: "black" }}>👥 Todos</option>
+          <option value="lider" style={{ color: "black" }}>👑 Solo Líderes</option>
         </select>
         <span className="shrink-0 text-sm text-yellow-300 font-bold bg-yellow-500/15 border border-yellow-500/30 px-3 py-1.5 rounded-xl whitespace-nowrap">
           📞 {pendientes.length}

@@ -38,11 +38,11 @@ const EditVoterDialog = ({ voter, onSave, onClose }: Props) => {
               onChange={(e) => setStatus(e.target.value as VoterStatus)}
               className="w-full bg-muted border border-border rounded-xl px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              <option value="Aún no ha venido">⏳ Aún no ha venido</option>
-              <option value="Pendiente de llamar">📞 Falta llamar</option>
-              <option value="Ya llamado">☎️ Ya llamado</option>
-              <option value="Ya votó">✅ Ya votó</option>
-              <option value="No va votar">❌ No va votar</option>
+              <option value="Aún no ha venido" style={{ color: "black" }}>⏳ Aún no ha venido</option>
+              <option value="Pendiente de llamar" style={{ color: "black" }}>📞 Falta llamar</option>
+              <option value="Ya llamado" style={{ color: "black" }}>☎️ Ya llamado</option>
+              <option value="Ya votó" style={{ color: "black" }}>✅ Ya votó</option>
+              <option value="No va votar" style={{ color: "black" }}>❌ No va votar</option>
             </select>
           </div>
 
