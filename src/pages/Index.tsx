@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { BarChart3, Database, Phone, FileDown, CheckCircle2, UserPlus, Search, ExternalLink } from "lucide-react";
 import Header from "@/components/Header";
+import ContadorRegresivo from "@/components/ContadorRegresivo";
 import DashboardCards from "@/components/DashboardCards";
 import TablaBaseDatos from "@/components/TablaBaseDatos";
 import PendientesModule from "@/components/PendientesModule";
@@ -116,6 +117,7 @@ const Index = () => {
 
           {/* Contador (Mobile: flujo centrado arriba, Desktop: Fijo arriba a la izquierda) */}
           <div className="flex justify-center w-full lg:w-auto lg:absolute lg:top-8 lg:left-8 mb-6 lg:mb-0">
+            <ContadorRegresivo />
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-4 lg:gap-6 lg:mx-auto text-center md:text-left">
