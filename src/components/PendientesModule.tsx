@@ -26,6 +26,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
   );
 
   const [search, setSearch] = useState("");
+  const [filterRole, setFilterRole] = useState("");
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
 
@@ -52,16 +53,18 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
   const [pendingChanges, setPendingChanges] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
 
   const filtered = useMemo(() => {
-    if (!search) return pendientes;
-    const s = search.toLowerCase();
-    return pendientes.filter(
-      (v) =>
+    return pendientes.filter((v) => {
+      const s = search.toLowerCase();
+      const matchSearch =
+        !search ||
         v.nombre.toLowerCase().includes(s) ||
         v.cedula.includes(search) ||
         v.celular.includes(search) ||
-        v.ciudad.toLowerCase().includes(s)
-    );
-  }, [pendientes, search]);
+        v.ciudad.toLowerCase().includes(s); // Retained city search from original
+      const matchRole = !filterRole || (filterRole === "lider" && referralsCountMap.has(v.nombre));
+      return matchSearch && matchRole;
+    });
+  }, [pendientes, search, filterRole, referralsCountMap]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
@@ -111,13 +114,22 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
           <input
             type="text"
-            placeholder="Buscar en Call-Center (nombre, cédula, teléfono)..."
+            placeholder="Buscar (nombre, cédula, teléfono)..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
             className="w-full pl-10 pr-4 py-2.5 rounded-2xl text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/15"
             style={{ background: "rgba(255,255,255,0.07)" }}
           />
         </div>
+        <select
+          value={filterRole}
+          onChange={(e) => { setFilterRole(e.target.value); setPage(0); }}
+          className="rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent w-auto shrink-0"
+          style={{ background: "rgba(255,255,255,0.07)" }}
+        >
+          <option value="">👥 Todos</option>
+          <option value="lider">👑 Solo Líderes</option>
+        </select>
         <span className="shrink-0 text-sm text-yellow-300 font-bold bg-yellow-500/15 border border-yellow-500/30 px-3 py-1.5 rounded-xl whitespace-nowrap">
           📞 {pendientes.length}
         </span>

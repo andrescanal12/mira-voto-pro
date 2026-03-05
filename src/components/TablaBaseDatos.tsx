@@ -39,6 +39,7 @@ const statusPill: Record<VoterStatus, string> = {
 const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   const [search, setSearch] = useState("");
   const [filterEstado, setFilterEstado] = useState("");
+  const [filterRole, setFilterRole] = useState("");
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
 
@@ -73,9 +74,10 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
         v.cedula.includes(search) ||
         v.celular.includes(search);
       const matchEstado = !filterEstado || v.estado === filterEstado;
-      return matchSearch && matchEstado;
+      const matchRole = !filterRole || (filterRole === "lider" && referralsCountMap.has(v.nombre));
+      return matchSearch && matchEstado && matchRole;
     });
-  }, [voters, search, filterEstado]);
+  }, [voters, search, filterEstado, filterRole, referralsCountMap]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
@@ -124,15 +126,26 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             style={{ background: "rgba(255,255,255,0.07)" }}
           />
         </div>
-        <select
-          value={filterEstado}
-          onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
-          className="w-full rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
-          style={{ background: "rgba(255,255,255,0.07)" }}
-        >
-          <option value="">📋 Todos los estados</option>
-          {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-        </select>
+        <div className="flex gap-2">
+          <select
+            value={filterEstado}
+            onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
+            className="flex-1 rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
+            style={{ background: "rgba(255,255,255,0.07)" }}
+          >
+            <option value="">📋 Todos los estados</option>
+            {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+          </select>
+          <select
+            value={filterRole}
+            onChange={(e) => { setFilterRole(e.target.value); setPage(0); }}
+            className="rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent w-auto"
+            style={{ background: "rgba(255,255,255,0.07)" }}
+          >
+            <option value="">👥 Todos</option>
+            <option value="lider">👑 Solo Líderes</option>
+          </select>
+        </div>
       </div>
 
       <p className="text-xs text-white/50 pl-1">

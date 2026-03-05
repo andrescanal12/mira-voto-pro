@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { BarChart3, Database, Phone, FileDown, CheckCircle2, UserPlus, Search, ExternalLink } from "lucide-react";
 import Header from "@/components/Header";
-import ContadorRegresivo from "@/components/ContadorRegresivo";
 import DashboardCards from "@/components/DashboardCards";
 import TablaBaseDatos from "@/components/TablaBaseDatos";
 import PendientesModule from "@/components/PendientesModule";
@@ -37,16 +36,6 @@ const Index = () => {
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
   const [isAddingVoter, setIsAddingVoter] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const [tick, setTick] = useState(0);
-
-  // Ticker para actualizar el indicador de sincronización cada segundo
-  useEffect(() => {
-    const id = setInterval(() => setTick((t) => t + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const secondsSinceSync = lastSync ? Math.round((Date.now() - lastSync.getTime()) / 1000) : null;
-
   const handleSaveEdit = (id: string, status: VoterStatus, comment: string) => {
     updateVoterStatus(id, status);
     updateVoterComment(id, comment);
@@ -127,7 +116,6 @@ const Index = () => {
 
           {/* Contador (Mobile: flujo centrado arriba, Desktop: Fijo arriba a la izquierda) */}
           <div className="flex justify-center w-full lg:w-auto lg:absolute lg:top-8 lg:left-8 mb-6 lg:mb-0">
-            <ContadorRegresivo />
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-4 lg:gap-6 lg:mx-auto text-center md:text-left">
@@ -262,28 +250,6 @@ const Index = () => {
                   <UserPlus className="h-4 w-4" />
                   Añadir Persona
                 </button>
-
-                {/* Indicador de sincronización */}
-                <div className="flex items-center gap-2">
-                  {isSyncing ? (
-                    <span className="flex items-center gap-1.5 text-[11px] text-white/50">
-                      <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: "50%", border: "2px solid rgba(255,255,255,0.2)", borderTopColor: "#FFD700", animation: "spin 0.8s linear infinite" }} />
-                      Sincronizando…
-                    </span>
-                  ) : secondsSinceSync !== null ? (
-                    <span className="text-[11px] text-white/40">
-                      🔄 {secondsSinceSync < 60 ? `${secondsSinceSync}s` : `${Math.floor(secondsSinceSync / 60)}m`}
-                    </span>
-                  ) : null}
-                  <button
-                    type="button"
-                    onClick={manualSync}
-                    disabled={isSyncing}
-                    className="text-[11px] text-white/50 hover:text-white/80 transition-colors disabled:opacity-30 border border-white/10 rounded-lg px-2 py-0.5"
-                  >
-                    ↻ Sync
-                  </button>
-                </div>
               </div>
             </div>
 
