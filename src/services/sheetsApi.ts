@@ -1,101 +1,125 @@
 // Servicio de sincronización App React ↔ Google Sheets vía Apps Script
-export const SHEETS_API_URL = "https://script.google.com/macros/s/AKfycbyT5ejYmm5dMDfAKSkghksTq2N20fsj-LqRhP4dJZ3vN1LdQgoLEpfbE1O2-9LJDZV7Bw/exec";
+// Las columnas de tu hoja son:
+// Lugar | Puesto de Votación Registraduria | Nombre_Completo | Numero_Cedula | Telefono | Estado | Comentario
+export const SHEETS_API_URL =
+    "https://script.google.com/macros/s/AKfycbz2TOOd-wc5-9cjV1mdbMTj_E9ba7MS80Ju17rTZnHnOGldlyV5SR03jkBoxY0qYkj6Jg/exec";
 
+import { Voter, VoterStatus } from "@/types/voter";
+
+// ============================
 // Tipos de respuesta del API
-interface ApiResponse<T> {
-    success: boolean;
-    data?: T;
-    error?: string;
+// ============================
+export interface SheetRow {
+    Lugar: string;
+    "Puesto de Votación Registraduria": string;
+    Nombre_Completo: string;
+    Numero_Cedula: string;
+    Telefono: string;
+    Estado: string;
+    Comentario: string;
 }
 
-export interface SheetVoter {
-    _fila: number;
-    pais: string;
-    ciudad: string;
-    iglesia: string;
-    cedula: string;
-    nombre: string;
-    celular: string;
-    yaVoto: string;
-    comentario: string;
+// Convierte una fila del Sheet → objeto Voter de la App
+export function sheetRowToVoter(row: SheetRow): Voter {
+    const estado = normalizarEstado(row.Estado);
+    return {
+        id: row.Numero_Cedula ? `voter-${row.Numero_Cedula}` : `voter-${Math.random()}`,
+        pais: "España",
+        ciudad: row["Lugar"] || "",
+        iglesia: "",
+        cedula: row["Numero_Cedula"] || "",
+        nombre: row["Nombre_Completo"] || "",
+        celular: row["Telefono"] || "",
+        cedulaInscrita: row["Numero_Cedula"] ? "Si" : "No",
+        lider: "Sin asig.",
+        referido: "",
+        estadoInscripcion: row["Puesto de Votación Registraduria"] || "",
+        estado,
+        comentario: row["Comentario"] || "",
+    };
 }
 
-// Convierte "Ya votó" / "Pendiente de llamar" / "No va votar"
-// al valor que va en la columna G del Sheet ("Sí" / "No" / "No")
-export function estadoToYaVoto(estado: string): string {
-    if (estado === "Ya votó") return "Sí";
-    if (estado === "No va votar") return "No va votar";
-    return "No";
+// Normaliza el valor Estado del Sheet a los tipos que usa la App
+function normalizarEstado(rawEstado: string): VoterStatus {
+    const cleaned = (rawEstado || "").trim().toLowerCase();
+    if (cleaned === "ya votó" || cleaned === "ya voto" || cleaned === "si" || cleaned === "sí") return "Ya votó";
+    if (cleaned === "no va votar" || cleaned === "no va a votar") return "No va votar";
+    if (cleaned === "pendiente de llamar") return "Pendiente de llamar";
+    return "Aún no ha venido";
 }
 
 // ============================================================
 // READ ALL — Obtener todos los votantes del Sheet
 // ============================================================
-export async function getAllVoters(): Promise<SheetVoter[]> {
-    const url = `${SHEETS_API_URL}?action=getAll`;
-    const res = await fetch(url);
-    const json: ApiResponse<SheetVoter[]> = await res.json();
-    if (!json.success) throw new Error(json.error || "Error al leer el Sheet");
-    return json.data || [];
-}
-
-export async function updateVoterStatus(
-    cedula: string,
-    yaVoto: string
-): Promise<void> {
-    await fetch(SHEETS_API_URL, {
-        method: "POST",
-        body: JSON.stringify({ action: "updateStatus", cedula, yaVoto }),
-    });
-}
-
-export async function updateVoterComment(
-    cedula: string,
-    comentario: string
-): Promise<void> {
-    await fetch(SHEETS_API_URL, {
-        method: "POST",
-        body: JSON.stringify({ action: "updateComment", cedula, comentario }),
-    });
+export async function getAllVotersFromSheet(): Promise<Voter[]> {
+    const res = await fetch(SHEETS_API_URL);
+    if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+    const json: SheetRow[] = await res.json();
+    if (!Array.isArray(json)) throw new Error("La respuesta del servidor no es un array válido.");
+    return json.map(sheetRowToVoter).filter(v => v.nombre.trim() !== "");
 }
 
 // ============================================================
-// UPDATE (campos completos) — Actualiza cualquier campo
+// UPDATE STATUS + COMMENT — Actualiza estado y comentario
 // ============================================================
-export async function updateVoter(
-    cedula: string,
-    changes: Partial<SheetVoter>
-): Promise<SheetVoter> {
-    const res = await fetch(SHEETS_API_URL, {
+export async function updateVoterStatus(cedula: string, estado: string): Promise<void> {
+    // mode: no-cors evita el bloqueo CORS del navegador al enviar al Apps Script
+    fetch(SHEETS_API_URL, {
         method: "POST",
-        body: JSON.stringify({ action: "update", cedula, changes }),
-    });
-    const json: ApiResponse<SheetVoter> = await res.json();
-    if (!json.success) throw new Error(json.error || "Error al actualizar");
-    return json.data!;
+        mode: "no-cors",
+        body: JSON.stringify({
+            action: "UPDATE",
+            data: { Numero_Cedula: cedula, Estado: estado },
+        }),
+    }).catch(err => console.warn("UPDATE estado falló:", err));
+}
+
+export async function updateVoterComment(cedula: string, comentario: string): Promise<void> {
+    fetch(SHEETS_API_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify({
+            action: "UPDATE",
+            data: { Numero_Cedula: cedula, Comentario: comentario },
+        }),
+    }).catch(err => console.warn("UPDATE comentario falló:", err));
 }
 
 // ============================================================
-// CREATE — Crear un nuevo votante
+// CREATE — Crear nueva fila en el Sheet
 // ============================================================
-export async function createVoter(voter: Omit<SheetVoter, "_fila">): Promise<SheetVoter> {
-    const res = await fetch(SHEETS_API_URL, {
+export async function createVoterInSheet(voter: Voter): Promise<void> {
+    const sheetData: SheetRow = {
+        Lugar: voter.ciudad,
+        "Puesto de Votación Registraduria": voter.estadoInscripcion,
+        Nombre_Completo: voter.nombre,
+        Numero_Cedula: voter.cedula,
+        Telefono: voter.celular,
+        Estado: voter.estado,
+        Comentario: voter.comentario,
+    };
+    fetch(SHEETS_API_URL, {
         method: "POST",
-        body: JSON.stringify({ action: "create", voter }),
-    });
-    const json: ApiResponse<SheetVoter> = await res.json();
-    if (!json.success) throw new Error(json.error || "Error al crear");
-    return json.data!;
+        mode: "no-cors",
+        body: JSON.stringify({ action: "CREATE", data: sheetData }),
+    }).catch(err => console.warn("CREATE falló:", err));
 }
 
 // ============================================================
 // DELETE — Eliminar por cédula
 // ============================================================
-export async function deleteVoter(cedula: string): Promise<void> {
-    const res = await fetch(SHEETS_API_URL, {
+export async function deleteVoterFromSheet(cedula: string): Promise<void> {
+    fetch(SHEETS_API_URL, {
         method: "POST",
-        body: JSON.stringify({ action: "delete", cedula }),
-    });
-    const json: ApiResponse<boolean> = await res.json();
-    if (!json.success) throw new Error(json.error || "Error al eliminar");
+        mode: "no-cors",
+        body: JSON.stringify({ action: "DELETE", id: cedula }),
+    }).catch(err => console.warn("DELETE falló:", err));
+}
+
+// Compatibilidad hacia atrás
+export function estadoToYaVoto(estado: string): string {
+    if (estado === "Ya votó") return "Ya votó";
+    if (estado === "No va votar") return "No va votar";
+    if (estado === "Pendiente de llamar") return "Pendiente de llamar";
+    return "Aún no ha venido";
 }

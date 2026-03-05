@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BarChart3, Database, Phone, FileDown } from "lucide-react";
 import Header from "@/components/Header";
 import ContadorRegresivo from "@/components/ContadorRegresivo";
@@ -30,15 +30,43 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
 ];
 
 const Index = () => {
-  const { voters, updateVoterStatus, updateVoterComment } = useVoters();
+  const { voters, isLoading, isSyncing, lastSync, manualSync, updateVoterStatus, updateVoterComment } = useVoters();
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
   const [imgError, setImgError] = useState(false);
+  const [tick, setTick] = useState(0);
+
+  // Ticker para actualizar el indicador de sincronización cada segundo
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => t + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const secondsSinceSync = lastSync ? Math.round((Date.now() - lastSync.getTime()) / 1000) : null;
 
   const handleSaveEdit = (id: string, status: VoterStatus, comment: string) => {
     updateVoterStatus(id, status);
     updateVoterComment(id, comment);
   };
+
+  // Mostrar spinner mientras se cargan datos de Google Sheets
+  if (isLoading) {
+    return (
+      <div className="min-h-screen mira-bg-pattern flex items-center justify-center">
+        <div style={{ textAlign: "center", color: "#fff" }}>
+          <div style={{
+            width: 48, height: 48, borderRadius: "50%",
+            border: "4px solid rgba(255,255,255,0.2)",
+            borderTop: "4px solid #FFD700",
+            animation: "spin 0.8s linear infinite",
+            margin: "0 auto 16px"
+          }} />
+          <p style={{ fontSize: 16, opacity: 0.9 }}>Cargando datos desde Google Sheets…</p>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen mira-bg-pattern" style={{ position: "relative" }}>
@@ -189,32 +217,58 @@ const Index = () => {
 
         {/* ── MAIN CONTENT ── */}
         <main className="container mx-auto px-4 py-6 space-y-6 max-w-7xl">
-          <nav className="flex gap-1 bg-card border border-border rounded-2xl p-1 overflow-x-auto" role="tablist">
-            {tabs.map((tab) => (
+          {/* Nav + indicador de sync */}
+          <div className="space-y-2">
+            <nav className="flex gap-1 bg-card border border-border rounded-2xl p-1 overflow-x-auto" role="tablist">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  role="tab"
+                  aria-selected={activeTab === tab.id}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.id
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    }`}
+                >
+                  <tab.icon className="h-4 w-4" />
+                  {tab.label}
+                  {tab.id === "pendientes" && voters.length > 0 && (
+                    <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                      {voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido").length}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </nav>
+
+            {/* Indicador de sincronización */}
+            <div className="flex items-center justify-end gap-2 px-1">
+              {isSyncing ? (
+                <span className="flex items-center gap-1.5 text-[11px] text-white/50">
+                  <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: "50%", border: "2px solid rgba(255,255,255,0.2)", borderTopColor: "#FFD700", animation: "spin 0.8s linear infinite" }} />
+                  Sincronizando…
+                </span>
+              ) : secondsSinceSync !== null ? (
+                <span className="text-[11px] text-white/40">
+                  🔄 {secondsSinceSync < 60 ? `${secondsSinceSync}s` : `${Math.floor(secondsSinceSync / 60)}m`}
+                </span>
+              ) : null}
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                role="tab"
-                aria-selected={activeTab === tab.id}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.id
-                  ? "bg-primary text-primary-foreground shadow-lg"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
+                type="button"
+                onClick={manualSync}
+                disabled={isSyncing}
+                className="text-[11px] text-white/50 hover:text-white/80 transition-colors disabled:opacity-30 border border-white/10 rounded-lg px-2 py-0.5"
               >
-                <tab.icon className="h-4 w-4" />
-                {tab.label}
-                {tab.id === "pendientes" && voters.length > 0 && (
-                  <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                    {voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido").length}
-                  </span>
-                )}
+                ↻ Sync
               </button>
-            ))}
-          </nav>
+            </div>
+          </div>
 
           <div>
             {activeTab === "dashboard" && <DashboardCards voters={voters} />}
-            {activeTab === "base" && <TablaBaseDatos voters={voters} onEdit={setEditingVoter} />}
+            {activeTab === "base" && <TablaBaseDatos voters={voters} onEdit={setEditingVoter} onStatusChange={updateVoterStatus} onCommentChange={updateVoterComment} />}
             {activeTab === "pendientes" && (
               <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} />
             )}
