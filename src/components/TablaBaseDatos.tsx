@@ -407,10 +407,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
         <div className="flex items-center justify-between">
           <button
             type="button"
-            onClick={() => {
-              setPage((p) => Math.max(0, p - 1));
-              setTimeout(() => window.scrollTo(0, 0), 0);
-            }}
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
             disabled={page === 0}
             className="inline-flex items-center gap-1.5 text-sm rounded-xl px-4 py-2 disabled:opacity-30 transition-colors text-white border border-white/15 hover:border-white/30"
             style={{ background: "rgba(255,255,255,0.07)" }}
@@ -420,10 +417,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
           <span className="text-xs text-white/50">{page + 1} / {totalPages}</span>
           <button
             type="button"
-            onClick={() => {
-              setPage((p) => Math.min(totalPages - 1, p + 1));
-              setTimeout(() => window.scrollTo(0, 0), 0);
-            }}
+            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
             disabled={page >= totalPages - 1}
             className="inline-flex items-center gap-1.5 text-sm rounded-xl px-4 py-2 disabled:opacity-30 transition-colors text-white border border-white/15 hover:border-white/30"
             style={{ background: "rgba(255,255,255,0.07)" }}
