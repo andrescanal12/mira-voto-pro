@@ -296,7 +296,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
             type="button"
             onClick={() => {
               setPage((p) => Math.max(0, p - 1));
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setTimeout(() => window.scrollTo(0, 0), 0);
             }}
             disabled={page === 0}
             className="inline-flex items-center gap-1 text-sm rounded-xl px-4 py-2 disabled:opacity-30 text-white border border-white/15"
@@ -309,7 +309,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
             type="button"
             onClick={() => {
               setPage((p) => Math.min(totalPages - 1, p + 1));
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setTimeout(() => window.scrollTo(0, 0), 0);
             }}
             disabled={page >= totalPages - 1}
             className="inline-flex items-center gap-1 text-sm rounded-xl px-4 py-2 disabled:opacity-30 text-white border border-white/15"
