@@ -113,10 +113,11 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
   return (
     <div className="space-y-4">
 
-      {/* ── Filtros ── */}
-      <div className="flex flex-col gap-2">
-        <form onSubmit={(e) => e.preventDefault()} className="relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40 pointer-events-none" />
+      {/* ── Filtros Profesionales ── */}
+      <div className="flex flex-col gap-3">
+        {/* Línea 1: Buscador Principal */}
+        <form onSubmit={(e) => e.preventDefault()} className="relative w-full group">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40 group-focus-within:text-accent transition-colors pointer-events-none" />
           <input
             type="search"
             inputMode="search"
@@ -125,41 +126,50 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck={false}
-            placeholder="Buscar nombre, cedula o telefono..."
+            placeholder="Buscar por nombre, cédula o teléfono..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="w-full pl-10 pr-4 py-3 rounded-2xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent transition-all border border-white/15"
-            style={{ background: "rgba(255,255,255,0.07)" }}
+            className="w-full pl-12 pr-4 py-3.5 rounded-2xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-lg"
+            style={{ background: "rgba(255,255,255,0.08)" }}
           />
         </form>
+
+        {/* Línea 2: Filtros de Estado y Rol */}
         <div className="flex gap-2">
           <select
             value={filterEstado}
             onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
-            className="flex-1 rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent"
-            style={{ background: "rgba(255,255,255,0.07)" }}
+            className="flex-1 rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10 shadow-inner"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.08)",
+              backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
+            }}
           >
-            <option value="" style={{ color: "black" }}>📋 Todos los estados</option>
+            <option value="" style={{ color: "black" }}>📋 Todos</option>
             {STATUSES.map(s => (
               <option key={s.value} value={s.value} style={{ color: "black" }}>
                 {s.label}
               </option>
             ))}
           </select>
+
           <select
             value={filterRole}
             onChange={(e) => { setFilterRole(e.target.value); setPage(0); }}
-            className="rounded-xl px-3 py-2.5 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent w-auto"
-            style={{ background: "rgba(255,255,255,0.07)" }}
+            className="min-w-[120px] rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10 shadow-inner"
+            style={{
+              backgroundColor: "rgba(255,255,255,0.08)",
+              backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
+            }}
           >
             <option value="" style={{ color: "black" }}>👥 Todos</option>
-            <option value="lider" style={{ color: "black" }}>👑 Solo Líderes</option>
+            <option value="lider" style={{ color: "black" }}>👑 Líderes</option>
           </select>
         </div>
       </div>
 
-      <p className="text-xs text-white/50 pl-1">
-        {filtered.length} resultado{filtered.length !== 1 ? "s" : ""}
+      <p className="text-[13px] font-medium text-white/60 pl-2 mt-1">
+        Mostrando <span className="text-white font-bold">{filtered.length}</span> resultado{filtered.length !== 1 ? "s" : ""}
       </p>
 
       {/* ══════════════════════════════
