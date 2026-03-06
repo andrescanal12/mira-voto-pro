@@ -118,7 +118,7 @@ const LeaderReferralsDialog = ({ leaderName, allVoters, onClose, onStatusChange,
                                     <div className="flex items-start justify-between gap-3">
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 flex-wrap">
-                                                <p className="font-bold text-gray-900 text-[15px] truncate">{v.nombre}</p>
+                                                <p className="font-bold text-gray-900 text-[15px] leading-snug break-words">{v.nombre}</p>
                                                 {hasPending && (
                                                     <span className="text-[10px] font-bold bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded-full animate-pulse">
                                                         ⚠ Sin guardar
@@ -128,6 +128,9 @@ const LeaderReferralsDialog = ({ leaderName, allVoters, onClose, onStatusChange,
                                             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-xs text-gray-500">
                                                 <span className="font-medium">CC: <span className="text-gray-700">{v.cedula}</span></span>
                                                 <span className="truncate max-w-[150px]">{v.ciudad}</span>
+                                                {v.mesa && (
+                                                    <span className="font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">🗳️ Mesa: {v.mesa}</span>
+                                                )}
                                             </div>
                                         </div>
 

@@ -18,6 +18,7 @@ function fromDB(row: Record<string, unknown>): Voter {
     lider: (row.lider as string) ?? "",
     referido: (row.referido as string) ?? "",
     estadoInscripcion: (row.estado_inscripcion as string) ?? "",
+    mesa: (row.mesa as string) ?? "",
     estado: ((row.estado as string) ?? "Aún no ha venido") as VoterStatus,
     comentario: (row.comentario as string) ?? "",
   };
@@ -204,6 +205,7 @@ export function useVoters() {
       lider: "",
       referido: "",
       estadoInscripcion: "",
+      mesa: "",
     };
 
     // Actualización optimista

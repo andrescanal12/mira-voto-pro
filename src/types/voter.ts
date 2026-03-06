@@ -12,6 +12,7 @@ export interface Voter {
   lider: string;
   referido: string;
   estadoInscripcion: string;
+  mesa: string;
   estado: VoterStatus;
   comentario: string;
 }
