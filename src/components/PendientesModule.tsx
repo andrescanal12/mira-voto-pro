@@ -160,7 +160,6 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
           const currentComment = p?.comment ?? voter.comentario ?? "";
           const hasPending = p && !p.saved && (p.status !== undefined || p.comment !== undefined);
           const justSaved = p?.saved;
-          const isCommentEmpty = !currentComment || currentComment.trim() === "";
 
           return (
             <div
@@ -250,7 +249,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="💬 Nota obligatoria tras la llamada..."
+                    placeholder="💬 Nota post-llamada (opcional)..."
                     value={currentComment}
                     onChange={(e) => handleCommentEdit(voter.id, e.target.value)}
                     onKeyDown={(e) => {
@@ -259,8 +258,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                         handleSave(voter.id, currentComment);
                       }
                     }}
-                    className={`flex-1 text-xs border rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 ${isCommentEmpty && hasPending ? "border-red-300 bg-red-50 focus:ring-red-400" : "border-gray-200 bg-[#f9fafb] focus:ring-blue-400"
-                      }`}
+                    className="flex-1 text-xs border border-gray-200 bg-[#f9fafb] rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                   {justSaved ? (
                     <span className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white bg-green-500 transition-all">
@@ -270,17 +268,12 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                     <button
                       type="button"
                       onClick={() => handleSave(voter.id, currentComment)}
-                      disabled={isCommentEmpty}
-                      className={`flex items-center gap-1 text-[11px] font-bold px-4 py-2 rounded-xl text-white whitespace-nowrap transition-all ${isCommentEmpty ? "bg-gray-400 cursor-not-allowed" : "bg-[#1a3a6e] shadow-md animate-pulse"
-                        }`}
+                      className="flex items-center gap-1 text-[11px] font-bold px-4 py-2 rounded-xl text-white whitespace-nowrap transition-all bg-[#1a3a6e] shadow-md animate-pulse hover:bg-[#12284c]"
                     >
                       <Save className="h-3.5 w-3.5" /> Guardar
                     </button>
                   ) : null}
                 </div>
-                {isCommentEmpty && hasPending && (
-                  <p className="text-[10px] text-red-500 font-bold px-1">⚠️ Debes escribir un comentario antes de guardar.</p>
-                )}
               </div>
             </div>
           );
