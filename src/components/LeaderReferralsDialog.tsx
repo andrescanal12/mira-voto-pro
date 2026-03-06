@@ -128,9 +128,15 @@ const LeaderReferralsDialog = ({ leaderName, allVoters, onClose, onStatusChange,
                                             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-xs text-gray-500">
                                                 <span className="font-medium">CC: <span className="text-gray-700">{v.cedula}</span></span>
                                                 <span className="truncate max-w-[150px]">{v.ciudad}</span>
-                                                {v.mesa && (
-                                                    <span className="font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">🗳️ Mesa: {v.mesa}</span>
-                                                )}
+                                                {v.mesa && (() => {
+                                                    const m = v.mesa.trim();
+                                                    const label = /^\d+$/.test(m) ? `Mesa ${m}` : m;
+                                                    return (
+                                                        <span className="font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
+                                                            🗳️ {label}
+                                                        </span>
+                                                    );
+                                                })()}
                                             </div>
                                         </div>
 
