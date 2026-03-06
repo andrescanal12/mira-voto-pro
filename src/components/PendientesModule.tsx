@@ -57,10 +57,10 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
       const s = search.toLowerCase();
       const matchSearch =
         !search ||
-        v.nombre.toLowerCase().includes(s) ||
-        v.cedula.includes(search) ||
-        v.celular.includes(search) ||
-        v.ciudad.toLowerCase().includes(s); // Retained city search from original
+        String(v.nombre || "").toLowerCase().includes(s) ||
+        String(v.cedula || "").toLowerCase().includes(s) ||
+        String(v.celular || "").toLowerCase().includes(s) ||
+        String(v.ciudad || "").toLowerCase().includes(s); // Retained city search from original
       const matchRole = !filterRole || (filterRole === "lider" && referralsCountMap.has(v.nombre));
       return matchSearch && matchRole;
     });

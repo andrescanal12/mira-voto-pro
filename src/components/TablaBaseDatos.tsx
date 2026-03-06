@@ -70,9 +70,9 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
     return voters.filter((v) => {
       const matchSearch =
         !search ||
-        v.nombre.toLowerCase().includes(q) ||
-        v.cedula.includes(search) ||
-        v.celular.includes(search);
+        String(v.nombre || "").toLowerCase().includes(q) ||
+        String(v.cedula || "").toLowerCase().includes(q) ||
+        String(v.celular || "").toLowerCase().includes(q);
       const matchEstado = !filterEstado || v.estado === filterEstado;
       const matchRole = !filterRole || (filterRole === "lider" && referralsCountMap.has(v.nombre));
       return matchSearch && matchEstado && matchRole;
