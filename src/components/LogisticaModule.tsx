@@ -94,29 +94,40 @@ const LogisticaModule = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {Object.entries(groups)
           .sort(([a], [b]) => {
-            if (a === 'APOYO ELECTORAL') return -1;
-            if (b === 'APOYO ELECTORAL') return 1;
-            if (a === 'TRANSPORTE') return -1;
-            if (b === 'TRANSPORTE') return 1;
-            return a.localeCompare(b);
+            const order: Record<string, number> = { 
+              'APOYO ELECTORAL': 1, 
+              'TRANSPORTE': 2, 
+              'JURADOS REMANENTES': 3 
+            };
+            return (order[a] || 99) - (order[b] || 99);
           })
           .map(([category, people]) => {
-          if (category === 'APOYO ELECTORAL' || category === 'TRANSPORTE') {
+          if (category === 'APOYO ELECTORAL' || category === 'TRANSPORTE' || category === 'JURADOS REMANENTES') {
             const subGroups = people.reduce((acc, p) => {
-              const zone = p.zona || 'OTROS';
+              const zone = p.zona || 'GENERAL';
               if (!acc[zone]) acc[zone] = [];
               acc[zone].push(p);
               return acc;
             }, {} as Record<string, LogisticaItem[]>);
 
             const isTransport = category === 'TRANSPORTE';
-            const coordinators = isTransport 
-              ? people.filter(p => p.zona === 'COORD_GENERAL' || p.nombre_manual.toUpperCase().includes('PATRICIA LONDOÑO'))
-              : people.filter(p => p.zona === 'COORD_GENERAL' || p.nombre_manual.toUpperCase().includes('LUIS ARROYAVE'));
+            const isRemanentes = category === 'JURADOS REMANENTES';
+            
+            const getGradient = () => {
+              if (isTransport) return 'from-emerald-700 via-teal-800 to-teal-950';
+              if (isRemanentes) return 'from-amber-600 via-orange-700 to-orange-900';
+              return 'from-blue-700 via-indigo-800 to-indigo-950';
+            };
+
+            const getHighlightColor = () => {
+              if (isTransport) return 'from-teal-400 to-emerald-500 text-emerald-950 ring-teal-300';
+              if (isRemanentes) return 'from-yellow-400 to-amber-500 text-amber-950 ring-yellow-300';
+              return 'from-amber-400 to-amber-500 text-amber-950 ring-amber-300';
+            };
 
             return (
               <Card key={category} className="md:col-span-2 lg:col-span-3 overflow-hidden border-none shadow-2xl bg-white dark:bg-slate-900">
-                <CardHeader className={`bg-gradient-to-br ${isTransport ? 'from-emerald-700 via-teal-800 to-teal-950' : 'from-blue-700 via-indigo-800 to-indigo-950'} text-white p-4 md:p-6 border-b border-white/5`}>
+                <CardHeader className={`bg-gradient-to-br ${getGradient()} text-white p-4 md:p-6 border-b border-white/5`}>
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -133,19 +144,21 @@ const LogisticaModule = () => {
                       </div>
                     </div>
                     
-                    <div className={`flex items-center gap-2 bg-gradient-to-r ${isTransport ? 'from-teal-400 to-emerald-500 text-emerald-950' : 'from-amber-400 to-amber-500 text-amber-950'} px-4 py-2 rounded-xl text-[11px] md:text-sm font-black shadow-xl md:shadow-none ring-1 ${isTransport ? 'ring-teal-300' : 'ring-amber-300'} animate-in fade-in zoom-in-95 duration-500`}>
-                      <div className={`${isTransport ? 'bg-emerald-950/20' : 'bg-amber-950/20'} p-1 rounded-full`}>
-                        <CheckCircle2 className="w-3.5 h-3.5" />
+                    {!isRemanentes && (
+                      <div className={`flex items-center gap-2 bg-gradient-to-r ${getHighlightColor()} px-4 py-2 rounded-xl text-[11px] md:text-sm font-black shadow-xl md:shadow-none ring-1 animate-in fade-in zoom-in-95 duration-500`}>
+                        <div className="bg-black/10 p-1 rounded-full">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="flex flex-col md:flex-row md:items-center md:gap-2">
+                          <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
+                            {isTransport ? 'COORDINACIÓN:' : 'COORDINADORES:'}
+                          </span>
+                          <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
+                            {isTransport ? 'PATRICIA LONDOÑO' : 'LUIS ARROYAVE Y SUGGEIN'}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex flex-col md:flex-row md:items-center md:gap-2">
-                        <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
-                          {isTransport ? 'COORDINACIÓN:' : 'COORDINADORES:'}
-                        </span>
-                        <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
-                          {isTransport ? 'PATRICIA LONDOÑO' : 'LUIS ARROYAVE Y SUGGEIN'}
-                        </span>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -161,12 +174,14 @@ const LogisticaModule = () => {
                         })
                         .map(zone => (
                         <div key={zone} className="flex flex-col">
-                          <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.05em] text-[11px] flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
-                            <span translate="no" className="notranslate">
-                              {zone === 'TESTIGOS' ? 'Testigos' : zone === 'JURADOS' ? 'Jurados' : zone.charAt(0).toUpperCase() + zone.slice(1).toLowerCase()}
-                            </span>
-                          </div>
+                          {(!isRemanentes || zone !== 'GENERAL') && (
+                            <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.05em] text-[11px] flex items-center gap-2">
+                              <span className={`w-1.5 h-1.5 ${isRemanentes ? 'bg-amber-500' : 'bg-blue-500'} rounded-full`} />
+                              <span translate="no" className="notranslate">
+                                {zone === 'TESTIGOS' ? 'Testigos' : zone === 'JURADOS' ? 'Jurados' : zone === 'GENERAL' ? 'Personal' : zone.charAt(0).toUpperCase() + zone.slice(1).toLowerCase()}
+                              </span>
+                            </div>
+                          )}
                           <div className="divide-y divide-slate-50 dark:divide-slate-800 flex-1">
                             {(subGroups[zone] || []).sort((a, b) => {
                               const priority = (name: string) => {
