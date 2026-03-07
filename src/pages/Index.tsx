@@ -25,7 +25,7 @@ type Tab = "dashboard" | "pendientes" | "ya_llamados" | "reportes";
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-  { id: "pendientes", label: "Call-Center", icon: Phone },
+  { id: "pendientes", label: "Buscar usuarios", icon: Phone },
   { id: "ya_llamados", label: "Ya llamados", icon: CheckCircle2 },
   { id: "reportes", label: "Reportes", icon: FileDown },
 ];
