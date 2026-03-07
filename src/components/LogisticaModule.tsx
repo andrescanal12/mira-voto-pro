@@ -262,11 +262,6 @@ const LogisticaModule = () => {
                                         {formatName(person.nombre_manual)}
                                       </span>
                                     </div>
-                                    {(person.horario_inicio || person.horario_fin) && (
-                                      <span className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-1 font-medium italic">
-                                        <Clock className="w-3.5 h-3.5 text-blue-400" /> {person.horario_inicio || '00:00'} - {person.horario_fin || '00:00'}
-                                      </span>
-                                    )}
                                   </div>
                                   <div className="flex items-center gap-3 pr-2" />
                                 </div>
@@ -355,14 +350,6 @@ const LogisticaModule = () => {
                             </div>
                           ) : (
                             <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
-                              <div className="flex items-center gap-1.5 text-xs text-slate-500">
-                                <Clock className="w-3.5 h-3.5" />
-                                <span>
-                                  {person.horario_inicio || person.horario_fin ? 
-                                    `${person.horario_inicio || '?'} - ${person.horario_fin || '?'}` : 
-                                    'Sin horario'}
-                                </span>
-                              </div>
                               {person.rol && (
                                 <div className="flex items-center gap-1.5 text-xs text-slate-500">
                                   <Users className="w-3.5 h-3.5" />
