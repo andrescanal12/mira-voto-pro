@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BarChart3, Database, Phone, FileDown, CheckCircle2, UserPlus, Search, ExternalLink } from "lucide-react";
+import { BarChart3, Database, Phone, FileDown, CheckCircle2, UserPlus, Search, ExternalLink, Headset } from "lucide-react";
 import Header from "@/components/Header";
 import ContadorRegresivo from "@/components/ContadorRegresivo";
 import DashboardCards from "@/components/DashboardCards";
@@ -21,11 +21,12 @@ const ALE_BALLOT = "https://candidatos2026.partidomira.com/archivos/default/arch
 const ANA_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-fd58e2984c78c17f&v=1772071197";
 const ALE_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-f63ec40a857cc934&v=1772072982";
 
-type Tab = "dashboard" | "pendientes" | "ya_llamados" | "reportes";
+type Tab = "dashboard" | "pendientes" | "call_center" | "ya_llamados" | "reportes";
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-  { id: "pendientes", label: "Buscar usuarios", icon: Phone },
+  { id: "pendientes", label: "Buscar usuarios", icon: Search },
+  { id: "call_center", label: "Call-Center", icon: Headset },
   { id: "ya_llamados", label: "Ya llamados", icon: CheckCircle2 },
   { id: "reportes", label: "Reportes", icon: FileDown },
 ];
@@ -228,9 +229,14 @@ const Index = () => {
                   >
                     <tab.icon className="h-4 w-4" />
                     {tab.label}
-                    {tab.id === "pendientes" && (
+                    {tab.id === "call_center" && (
                       <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                         {voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido").length}
+                      </span>
+                    )}
+                    {tab.id === "pendientes" && (
+                      <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                        {voters.length}
                       </span>
                     )}
                     {tab.id === "ya_llamados" && (
@@ -282,7 +288,10 @@ const Index = () => {
           <div>
             {activeTab === "dashboard" && <DashboardCards voters={voters} />}
             {activeTab === "pendientes" && (
-              <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} onDeleteVoter={deleteVoter} />
+              <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} onDeleteVoter={deleteVoter} forceStatus="" />
+            )}
+            {activeTab === "call_center" && (
+              <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} onDeleteVoter={deleteVoter} forceStatus="pendientes" />
             )}
             {activeTab === "ya_llamados" && (
               <div className="space-y-4">

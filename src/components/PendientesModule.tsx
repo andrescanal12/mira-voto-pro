@@ -8,6 +8,7 @@ interface Props {
   onUpdateStatus: (id: string, status: VoterStatus) => void;
   onUpdateComment: (id: string, comment: string) => void;
   onDeleteVoter: (id: string) => void;
+  forceStatus?: string;
 }
 
 const PAGE_SIZE = 15;
@@ -20,10 +21,10 @@ const STATUSES = [
   { v: "No va votar" as VoterStatus, label: "✗ No vota", active: "bg-red-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
 ];
 
-const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter }: Props) => {
+const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter, forceStatus }: Props) => {
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState("");
-  const [filterEstado, setFilterEstado] = useState("");
+  const [filterEstado, setFilterEstado] = useState(forceStatus ?? "");
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
 
@@ -142,25 +143,28 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
         {/* Línea 2: Filtro de Rol, Estado y Contador */}
         <div className="flex items-center gap-2">
           
-          <div className="relative flex-1">
-            <select
-              value={filterEstado}
-              onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
-              className="w-full rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10 shadow-inner"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.08)",
-                backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
-              }}
-            >
-              <option value="pendientes" style={{ color: "black" }}>📞 Solo Pendientes</option>
-              <option value="" style={{ color: "black" }}>📋 Todos los Estados</option>
-              {STATUSES.map(s => (
-                <option key={s.v} value={s.v} style={{ color: "black" }}>
-                  {s.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Solo mostrar select si NO hay forzado de status (vista 'Buscar usuarios') */}
+          {forceStatus === undefined && (
+            <div className="relative flex-1">
+              <select
+                value={filterEstado}
+                onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
+                className="w-full rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10 shadow-inner"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.08)",
+                  backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
+                }}
+              >
+                <option value="" style={{ color: "black" }}>📋 Todos los Estados</option>
+                <option value="pendientes" style={{ color: "black" }}>📞 Solo Pendientes</option>
+                {STATUSES.map(s => (
+                  <option key={s.v} value={s.v} style={{ color: "black" }}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <div className="relative flex-1">
             <select
