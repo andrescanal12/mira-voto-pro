@@ -23,7 +23,7 @@ const STATUSES = [
 const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter }: Props) => {
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState("");
-  const [filterEstado, setFilterEstado] = useState("pendientes");
+  const [filterEstado, setFilterEstado] = useState("");
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
 
