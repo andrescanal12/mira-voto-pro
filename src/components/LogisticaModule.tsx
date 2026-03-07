@@ -167,9 +167,9 @@ const LogisticaModule = () => {
             const getCoordinators = () => {
               if (isImprevistos) return formatName('DIANA AMIRTIRDAD');
               if (isPedagogia) return formatName('MARIA ALEJANDRA');
-              if (isVotacion) return formatName('CRISTIAN');
+              if (isVotacion) return formatName('CRISTIAN ARROYAVE');
               if (isCallCenter) return formatName('PATRICIA AGUIRRE');
-              if (isAlimentacion) return formatName('JOSE');
+              if (isAlimentacion) return formatName('JOSE LÓPEZ');
               if (isTransport) return formatName('PATRICIA LONDOÑO');
               return formatName('LUIS ARROYAVE Y SUGGEIN');
             };
@@ -268,16 +268,7 @@ const LogisticaModule = () => {
                                       </span>
                                     )}
                                   </div>
-                                  <div className="flex items-center gap-3">
-                                    <Button variant="ghost" size="icon" className="w-10 h-10 rounded-full hover:bg-white dark:hover:bg-slate-800 shadow-sm md:shadow-none" onClick={() => handleEdit(person)}>
-                                      <Edit2 className="w-4 h-4 text-slate-400 hover:text-blue-500 transition-colors" />
-                                    </Button>
-                                    <Checkbox 
-                                      checked={person.completado} 
-                                      onCheckedChange={(checked) => updateItem(person.id, { completado: !!checked })}
-                                      className="w-5 h-5 md:w-6 md:h-6 rounded-md border-2 border-slate-200 dark:border-slate-700 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 transition-all duration-300 scale-110 md:scale-100"
-                                    />
-                                  </div>
+                                  <div className="flex items-center gap-3 pr-2" />
                                 </div>
                               );
                             })}
@@ -382,24 +373,7 @@ const LogisticaModule = () => {
                           )}
                         </div>
   
-                        <div className="flex flex-col items-end gap-2">
-                           <div className="flex items-center gap-2">
-                              <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                className="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800"
-                                onClick={() => handleEdit(person)}
-                              >
-                                <Edit2 className="w-4 h-4 text-slate-400" />
-                              </Button>
-                              
-                              <Checkbox 
-                                checked={person.completado} 
-                                onCheckedChange={(checked) => updateItem(person.id, { completado: !!checked })}
-                                className="w-5 h-5 border-2 border-slate-300 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
-                              />
-                           </div>
-                        </div>
+                        <div className="flex items-center pr-2" />
                       </div>
                     </div>
                   ))}
