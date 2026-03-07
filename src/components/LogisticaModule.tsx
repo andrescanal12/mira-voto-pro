@@ -93,7 +93,7 @@ const LogisticaModule = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {Object.entries(groups).map(([category, people]) => {
-          if (category === 'APOYO ELECTORAL') {
+          if (category === 'APOYO ELECTORAL' || category === 'TRANSPORTE') {
             const subGroups = people.reduce((acc, p) => {
               const zone = p.zona || 'OTROS';
               if (!acc[zone]) acc[zone] = [];
@@ -101,62 +101,90 @@ const LogisticaModule = () => {
               return acc;
             }, {} as Record<string, LogisticaItem[]>);
 
+            const isTransport = category === 'TRANSPORTE';
+            const coordinators = isTransport 
+              ? people.filter(p => p.zona === 'COORD_GENERAL' || p.nombre_manual.toUpperCase().includes('PATRICIA LONDOÑO'))
+              : people.filter(p => p.zona === 'COORD_GENERAL' || p.nombre_manual.toUpperCase().includes('LUIS ARROYAVE'));
+
             return (
               <Card key={category} className="md:col-span-2 lg:col-span-3 overflow-hidden border-none shadow-2xl bg-white dark:bg-slate-900">
-                <CardHeader className="bg-gradient-to-br from-blue-700 via-indigo-800 to-indigo-950 text-white p-4 md:p-6 border-b border-white/5">
+                <CardHeader className={`bg-gradient-to-br ${isTransport ? 'from-emerald-700 via-teal-800 to-teal-950' : 'from-blue-700 via-indigo-800 to-indigo-950'} text-white p-4 md:p-6 border-b border-white/5`}>
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10 shadow-inner">
-                          <Users className="w-5 h-5 md:w-6 md:h-6 text-blue-200" />
+                          {isTransport ? <Truck className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" /> : <Users className="w-5 h-5 md:w-6 md:h-6 text-blue-200" />}
                         </div>
-                        <CardTitle className="text-lg md:text-2xl font-black tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
-                          APOYO ELECTORAL
+                        <CardTitle className="text-lg md:text-2xl font-black tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 notranslate" translate="no">
+                          {category}
                         </CardTitle>
                       </div>
                       <div className="bg-white/10 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 flex flex-col items-center">
-                        <span className="text-[10px] md:text-xs font-medium text-blue-200 uppercase tracking-tighter leading-none">Equipo</span>
+                        <span className="text-[10px] md:text-xs font-medium text-white/60 uppercase tracking-tighter leading-none">Equipo</span>
                         <span className="text-sm md:text-lg font-black leading-none">{people.length}</span>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 px-4 py-2 rounded-xl text-[11px] md:text-sm font-black shadow-xl shadow-amber-950/20 ring-1 ring-amber-300 animate-in fade-in zoom-in-95 duration-500">
-                      <div className="bg-amber-950/20 p-1 rounded-full">
+                    <div className={`flex items-center gap-2 bg-gradient-to-r ${isTransport ? 'from-teal-400 to-emerald-500 text-emerald-950' : 'from-amber-400 to-amber-500 text-amber-950'} px-4 py-2 rounded-xl text-[11px] md:text-sm font-black shadow-xl md:shadow-none ring-1 ${isTransport ? 'ring-teal-300' : 'ring-amber-300'} animate-in fade-in zoom-in-95 duration-500`}>
+                      <div className={`${isTransport ? 'bg-emerald-950/20' : 'bg-amber-950/20'} p-1 rounded-full`}>
                         <CheckCircle2 className="w-3.5 h-3.5" />
                       </div>
                       <div className="flex flex-col md:flex-row md:items-center md:gap-2">
-                        <span className="opacity-70 text-[9px] md:text-[10px] uppercase tracking-widest leading-none">COORDINADORES GENERALES</span>
-                        <span className="tracking-tight leading-none md:mt-0">LUIS ARROYAVE Y SUGGEIN</span>
+                        <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
+                          {isTransport ? 'COORDINACIÓN:' : 'COORDINADORES:'}
+                        </span>
+                        <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
+                          {isTransport ? 'PATRICIA LONDOÑO' : 'LUIS ARROYAVE Y SUGGEIN'}
+                        </span>
                       </div>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
                   <div className="flex-1 flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
-                    {/* Listado de Personal por Zona */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-100 dark:divide-slate-800">
-                      {['TESTIGOS', 'JURADOS'].map(zone => (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-100 dark:divide-slate-800 border-t border-slate-100 dark:border-slate-800">
+                      {Object.keys(subGroups)
+                        .filter(zone => zone !== 'COORD_GENERAL')
+                        .sort((a, b) => {
+                          const order: Record<string, number> = isTransport 
+                            ? { 'APOYO': 1, 'ALICANTE': 2, 'PETRER': 3, 'VALENCIA': 4, 'BENIDORM': 5 }
+                            : { 'TESTIGOS': 1, 'JURADOS': 2, 'CONSOLIDACIÓN ESCRUTINIOS': 3 };
+                          return (order[a] || 99) - (order[order[b] ? b : a] || 99);
+                        })
+                        .map(zone => (
                         <div key={zone} className="flex flex-col">
-                          <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase text-[10px] flex items-center gap-2">
-                            <span className="w-1 h-3 bg-blue-500 rounded-full" />
-                            {zone}
+                          <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.05em] text-[11px] flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                            <span translate="no" className="notranslate">
+                              {zone === 'TESTIGOS' ? 'Testigos' : zone === 'JURADOS' ? 'Jurados' : zone.charAt(0).toUpperCase() + zone.slice(1).toLowerCase()}
+                            </span>
                           </div>
                           <div className="divide-y divide-slate-50 dark:divide-slate-800 flex-1">
                             {(subGroups[zone] || []).sort((a, b) => {
                               const priority = (name: string) => {
-                                if (name.toUpperCase().includes('CARLOS RIVERA')) return 1;
-                                if (name.toUpperCase().includes('JULIANA ARIAS')) return 2;
+                                const n = name.toUpperCase();
+                                if (isTransport) {
+                                  if (n.includes('LILY ROJAS')) return 1;
+                                  return 100;
+                                }
+                                if (n.includes('CRISTIAN ARROYAVE')) return 1;
+                                if (n.includes('CARLOS RIVERA')) return 2;
+                                if (n.includes('JULIANA ARIAS')) return 3;
                                 return 100;
                               };
                               return priority(a.nombre_manual || '') - priority(b.nombre_manual || '');
                             }).map(person => {
-                              const isSpecial = person.nombre_manual?.toUpperCase().includes('CARLOS RIVERA') || person.nombre_manual?.toUpperCase().includes('JULIANA ARIAS');
+                              const n = person.nombre_manual?.toUpperCase() || '';
+                              const isSpecial = isTransport 
+                                ? n.includes('LILY ROJAS')
+                                : (n.includes('CRISTIAN ARROYAVE') || n.includes('CARLOS RIVERA') || n.includes('JULIANA ARIAS'));
+                              
                               return (
                                 <div key={person.id} className={`p-4 flex items-center justify-between transition-all duration-300 ${isSpecial ? 'bg-indigo-50/50 dark:bg-indigo-900/10 border-l-2 border-indigo-500 mt-px mb-px shadow-sm' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/20'}`}>
                                   <div className="flex flex-col">
                                     <div className="flex items-center gap-2">
                                       {person.rol && (
-                                        <span className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider ${isSpecial ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'}`}>
+                                        <span className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider notranslate ${isSpecial ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'}`} translate="no">
                                           {person.rol}
                                         </span>
                                       )}
