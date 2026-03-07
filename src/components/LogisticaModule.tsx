@@ -158,54 +158,76 @@ const LogisticaModule = () => {
                 <Plus className="w-4 h-4" /> Añadir Usuario
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-              <DialogHeader>
-                <DialogTitle>Añadir Nuevo Usuario</DialogTitle>
+            <DialogContent className="bg-white dark:bg-slate-900 border-none shadow-2xl rounded-3xl sm:max-w-[450px]">
+              <DialogHeader className="space-y-1">
+                <DialogTitle className="text-2xl font-black text-slate-900 dark:text-white notranslate" translate="no">Añadir Nuevo Usuario</DialogTitle>
+                <p className="text-sm text-slate-500">Ingresa los datos para registrar al integrante en el equipo.</p>
               </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold">Nombre Completo</label>
-                  <Input 
-                    placeholder="Ej: Maria Perez" 
-                    value={newItem.nombre_manual}
-                    onChange={e => setNewItem(prev => ({ ...prev, nombre_manual: e.target.value }))}
-                  />
+              <div className="space-y-5 py-6">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Nombre Completo</label>
+                  <div className="relative group">
+                    <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                    <Input 
+                      placeholder="Ej: Maria Perez" 
+                      className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                      value={newItem.nombre_manual}
+                      onChange={e => setNewItem(prev => ({ ...prev, nombre_manual: e.target.value }))}
+                    />
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold">Categoría / Tabla</label>
-                  <Select 
-                    onValueChange={v => setNewItem(prev => ({ ...prev, categoria: v }))}
-                    value={newItem.categoria}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecciona tabla" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories.map(cat => (
-                        <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Categoría / Tabla</label>
+                  <div className="relative group">
+                    <TableIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors z-10" />
+                    <Select 
+                      onValueChange={v => setNewItem(prev => ({ ...prev, categoria: v }))}
+                      value={newItem.categoria}
+                    >
+                      <SelectTrigger className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus:ring-2 focus:ring-blue-500">
+                        <SelectValue placeholder="Selecciona tabla" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+                        {categories.map(cat => (
+                          <SelectItem key={cat} value={cat} className="font-bold">{cat}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold">Rol / Cargo</label>
-                  <Input 
-                    placeholder="Ej: COORDINADOR" 
-                    value={newItem.rol}
-                    onChange={e => setNewItem(prev => ({ ...prev, rol: e.target.value }))}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold">Zona</label>
-                  <Input 
-                    placeholder="Ej: ALICANTE" 
-                    value={newItem.zona}
-                    onChange={e => setNewItem(prev => ({ ...prev, zona: e.target.value }))}
-                  />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Rol / Cargo</label>
+                    <div className="relative group">
+                      <ChevronRight className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                      <Input 
+                        placeholder="Ej: COORDINADOR" 
+                        className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                        value={newItem.rol}
+                        onChange={e => setNewItem(prev => ({ ...prev, rol: e.target.value }))}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Zona</label>
+                    <div className="relative group">
+                      <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                      <Input 
+                        placeholder="Ej: ALICANTE" 
+                        className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                        value={newItem.zona}
+                        onChange={e => setNewItem(prev => ({ ...prev, zona: e.target.value }))}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <DialogFooter>
-                <Button onClick={handleAddUser} className="bg-blue-600 hover:bg-blue-700 text-white">Guardar Usuario</Button>
+              <DialogFooter className="pt-2">
+                <Button onClick={handleAddUser} className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
+                  Guardar Nuevo Usuario
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -216,22 +238,29 @@ const LogisticaModule = () => {
                 <TableIcon className="w-4 h-4" /> Crear Tabla Extra
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-              <DialogHeader>
-                <DialogTitle>Crear Nueva Tabla de Logística</DialogTitle>
+            <DialogContent className="bg-white dark:bg-slate-900 border-none shadow-2xl rounded-3xl sm:max-w-[400px]">
+              <DialogHeader className="space-y-1">
+                <DialogTitle className="text-2xl font-black text-slate-900 dark:text-white notranslate" translate="no">Nueva Tabla Extra</DialogTitle>
+                <p className="text-sm text-slate-500">Crea una categoría personalizada para organizar al equipo.</p>
               </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold">Nombre de la Tabla (Categoría)</label>
-                  <Input 
-                    placeholder="Ej: SEGURIDAD" 
-                    value={newTableName}
-                    onChange={e => setNewTableName(e.target.value)}
-                  />
+              <div className="space-y-5 py-6">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Nombre de la Categoría</label>
+                  <div className="relative group">
+                    <TableIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
+                    <Input 
+                      placeholder="Ej: SEGURIDAD PRIVADA" 
+                      className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                      value={newTableName}
+                      onChange={e => setNewTableName(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleCreateTable} className="bg-blue-600 hover:bg-blue-700 text-white">Crear Tabla</Button>
+                <Button onClick={handleCreateTable} className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20">
+                  Crear e Inicializar Tabla
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -419,38 +448,45 @@ const LogisticaModule = () => {
                                           <Edit2 className="w-3.5 h-3.5 text-slate-400 hover:text-blue-500" />
                                         </Button>
                                       </DialogTrigger>
-                                      <DialogContent className="bg-white dark:bg-slate-900">
+                                      <DialogContent className="bg-white dark:bg-slate-900 border-none shadow-2xl rounded-3xl sm:max-w-[450px]">
                                         <DialogHeader>
-                                          <DialogTitle>Editar Usuario</DialogTitle>
+                                          <DialogTitle className="text-2xl font-black text-slate-900 dark:text-white notranslate" translate="no">Editar Integrante</DialogTitle>
                                         </DialogHeader>
-                                        <div className="space-y-4 py-4">
-                                          <div className="space-y-2">
-                                            <label className="text-sm font-bold">Nombre</label>
+                                        <div className="space-y-5 py-6">
+                                          <div className="space-y-1.5">
+                                            <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Nombre</label>
                                             <Input 
+                                              className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl"
                                               value={editValues.nombre_manual}
                                               onChange={e => setEditValues(prev => ({ ...prev, nombre_manual: e.target.value }))}
                                             />
                                           </div>
-                                          <div className="space-y-2">
-                                            <label className="text-sm font-bold">Rol</label>
-                                            <Input 
-                                              value={editValues.rol}
-                                              onChange={e => setEditValues(prev => ({ ...prev, rol: e.target.value }))}
-                                            />
-                                          </div>
-                                          <div className="space-y-2">
-                                            <label className="text-sm font-bold">Zona</label>
-                                            <Input 
-                                              value={editValues.zona}
-                                              onChange={e => setEditValues(prev => ({ ...prev, zona: e.target.value }))}
-                                            />
+                                          <div className="grid grid-cols-2 gap-4">
+                                            <div className="space-y-1.5">
+                                              <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Rol</label>
+                                              <Input 
+                                                className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl"
+                                                value={editValues.rol}
+                                                onChange={e => setEditValues(prev => ({ ...prev, rol: e.target.value }))}
+                                              />
+                                            </div>
+                                            <div className="space-y-1.5">
+                                              <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Zona</label>
+                                              <Input 
+                                                className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl"
+                                                value={editValues.zona}
+                                                onChange={e => setEditValues(prev => ({ ...prev, zona: e.target.value }))}
+                                              />
+                                            </div>
                                           </div>
                                         </div>
-                                        <DialogFooter className="flex gap-2">
-                                          <Button variant="destructive" onClick={() => { deleteItem(person.id); setEditingId(null); }} className="gap-2">
-                                            <Trash2 className="w-4 h-4" /> Eliminar
+                                        <DialogFooter className="flex flex-col sm:flex-row gap-3">
+                                          <Button variant="destructive" onClick={() => { if(confirm('¿Eliminar a este usuario?')) deleteItem(person.id); setEditingId(null); }} className="h-12 rounded-xl flex-1 bg-red-500/10 hover:bg-red-500 text-red-600 hover:text-white border-none transition-all">
+                                            <Trash2 className="w-4 h-4 mr-2" /> Eliminar
                                           </Button>
-                                          <Button onClick={() => handleSave(person.id)}>Actualizar</Button>
+                                          <Button onClick={() => handleSave(person.id)} className="h-12 rounded-xl flex-[2] bg-blue-600 hover:bg-blue-700 text-white font-bold">
+                                            Actualizar Datos
+                                          </Button>
                                         </DialogFooter>
                                       </DialogContent>
                                     </Dialog>
