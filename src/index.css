@@ -84,6 +84,7 @@
     overscroll-behavior: none;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    overflow-x: hidden; /* FASE 4: Fix overflow móvil de adornos flotantes */
   }
 
   /* —— CRÍTICO: evita el zoom automático en iOS al hacer foco en inputs —— */

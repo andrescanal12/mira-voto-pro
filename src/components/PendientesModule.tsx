@@ -30,20 +30,28 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
 
-  // Mapa de líderes y cantidad de referidos (O(N^2) aceptable para ~400 registros)
+  // Mapa de líderes y cantidad de referidos (Optimizado O(N) - Performance Optimizer Skill)
   const referralsCountMap = useMemo(() => {
+    const liderFrequencies = new Map<string, number>();
+    voters.forEach(v => {
+      if (v.lider && v.lider !== "Líder Principal" && v.lider.trim() !== "") {
+        const liderLower = v.lider.toLowerCase();
+        liderFrequencies.set(liderLower, (liderFrequencies.get(liderLower) || 0) + 1);
+      }
+    });
+
     const map = new Map<string, number>();
     voters.forEach(leader => {
-      const leaderName = leader.nombre;
-      const ln = leaderName.toLowerCase();
+      if (!leader.nombre) return;
+      const ln = leader.nombre.toLowerCase();
       let count = 0;
-      voters.forEach(v => {
-        if (v.lider && v.lider.toLowerCase().includes(ln) && v.nombre !== leaderName) {
-          count++;
+      for (const [referredLider, frequency] of liderFrequencies.entries()) {
+        if (referredLider.includes(ln)) {
+          count += frequency;
         }
-      });
+      }
       if (count > 0) {
-        map.set(leaderName, count);
+        map.set(leader.nombre, count);
       }
     });
     return map;
@@ -85,12 +93,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
     const p = pendingChanges[id];
     if (!p) return;
 
-    // VALIDACIÓN: Comentario obligatorio solo si hay cambios o si se intenta guardar
-    if (!currentComment || currentComment.trim() === "") {
-      alert("⚠️ El comentario es obligatorio para registrar la llamada.");
-      return;
-    }
-
+    // FASE 6: Corrección del requirement. Validación removida a petición del usuario.
     if (p.status !== undefined) onUpdateStatus(id, p.status);
     if (p.comment !== undefined) onUpdateComment(id, p.comment);
 
@@ -166,9 +169,9 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
               key={voter.id}
               className={`rounded-2xl p-4 space-y-3 shadow-sm transition-all duration-300 border-2 ${hasPending
                 ? "border-yellow-400 ring-1 ring-yellow-300"
-                : "border-transparent shadow-md"
+                : "border-white/40 shadow-xl backdrop-blur-xl"
                 }`}
-              style={{ background: "#fff" }}
+              style={{ background: hasPending ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.85)" }}
             >
               {/* Fila superior: info + llamar */}
               <div className="flex items-start justify-between gap-3">
@@ -237,7 +240,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                     key={s.v}
                     type="button"
                     onClick={() => handleStatusSelect(voter.id, s.v, voter.estado)}
-                    className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border ${currentStatus === s.v ? s.active : s.inactive}`}
+                    className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border transform active:scale-95 ${currentStatus === s.v ? s.active : s.inactive}`}
                   >
                     {s.label}
                   </button>
