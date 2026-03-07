@@ -24,6 +24,13 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
+const formatName = (name: string) => {
+  if (!name) return '';
+  return name.toLowerCase().split(/\s+/).map(word => 
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ');
+};
+
 const getCategoryIcon = (category: string) => {
   const cat = category.toLowerCase();
   if (cat.includes('transporte')) return <Truck className="w-5 h-5" />;
@@ -158,13 +165,13 @@ const LogisticaModule = () => {
             };
 
             const getCoordinators = () => {
-              if (isImprevistos) return 'DIANA AMIRTIRDAD';
-              if (isPedagogia) return 'MARIA ENITH';
-              if (isVotacion) return 'CRISTIAN';
-              if (isCallCenter) return 'PATRICIA AGUIRRE';
-              if (isAlimentacion) return 'JOSE';
-              if (isTransport) return 'PATRICIA LONDOÑO';
-              return 'LUIS ARROYAVE Y SUGGEIN';
+              if (isImprevistos) return formatName('DIANA AMIRTIRDAD');
+              if (isPedagogia) return formatName('MARIA ENITH');
+              if (isVotacion) return formatName('CRISTIAN');
+              if (isCallCenter) return formatName('PATRICIA AGUIRRE');
+              if (isAlimentacion) return formatName('JOSE');
+              if (isTransport) return formatName('PATRICIA LONDOÑO');
+              return formatName('LUIS ARROYAVE Y SUGGEIN');
             };
 
             return (
@@ -194,7 +201,7 @@ const LogisticaModule = () => {
                         <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
                           {isPedagogia || isImprevistos || isCallCenter ? 'COORDINADORA:' : 'COORDINADOR:'}
                         </span>
-                        <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
+                        <span className="tracking-tight leading-none md:mt-0 notranslate font-black" translate="no">
                           {getCoordinators()}
                         </span>
                       </div>
@@ -252,7 +259,7 @@ const LogisticaModule = () => {
                                         </span>
                                       )}
                                       <span className={`font-bold text-sm md:text-base ${person.completado ? 'line-through text-slate-400' : isSpecial ? 'text-indigo-900 dark:text-indigo-200' : 'text-slate-800 dark:text-slate-200'}`}>
-                                        {person.nombre_manual}
+                                        {formatName(person.nombre_manual)}
                                       </span>
                                     </div>
                                     {(person.horario_inicio || person.horario_fin) && (
@@ -304,8 +311,8 @@ const LogisticaModule = () => {
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className={`font-semibold text-slate-900 dark:text-slate-100 ${person.completado ? 'line-through' : ''}`}>
-                              {person.nombre_manual}
+                            <span className={`font-bold text-slate-900 dark:text-slate-100 ${person.completado ? 'line-through' : ''}`}>
+                              {formatName(person.nombre_manual)}
                             </span>
                             {person.voter_id && (
                               <span className="text-[10px] bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 px-1.5 py-0.5 rounded-md font-medium uppercase">
