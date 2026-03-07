@@ -92,7 +92,15 @@ const LogisticaModule = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(groups).map(([category, people]) => {
+        {Object.entries(groups)
+          .sort(([a], [b]) => {
+            if (a === 'APOYO ELECTORAL') return -1;
+            if (b === 'APOYO ELECTORAL') return 1;
+            if (a === 'TRANSPORTE') return -1;
+            if (b === 'TRANSPORTE') return 1;
+            return a.localeCompare(b);
+          })
+          .map(([category, people]) => {
           if (category === 'APOYO ELECTORAL' || category === 'TRANSPORTE') {
             const subGroups = people.reduce((acc, p) => {
               const zone = p.zona || 'OTROS';
@@ -226,7 +234,7 @@ const LogisticaModule = () => {
               <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-5">
                 <div className="flex items-center gap-2">
                   {getCategoryIcon(category)}
-                  <CardTitle className="text-lg font-bold truncate">
+                  <CardTitle className="text-lg font-bold truncate notranslate" translate="no">
                     {category === 'CALL CENTER' ? 'CALL CENTER (TODOS)' : category}
                   </CardTitle>
                   <span className="ml-auto bg-white/20 px-2 py-0.5 rounded-full text-xs font-medium">
