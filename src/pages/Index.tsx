@@ -301,6 +301,7 @@ const Index = () => {
                 onUpdateComment={updateVoterComment} 
                 onDeleteVoter={deleteVoter} 
                 forceStatus={dashboardFilter} 
+                isSearchOnly={true}
               />
             )}
             {activeTab === "call_center" && (

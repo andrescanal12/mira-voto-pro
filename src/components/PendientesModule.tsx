@@ -9,6 +9,7 @@ interface Props {
   onUpdateComment: (id: string, comment: string) => void;
   onDeleteVoter: (id: string) => void;
   forceStatus?: string;
+  isSearchOnly?: boolean;
 }
 
 const PAGE_SIZE = 15;
@@ -21,7 +22,7 @@ const STATUSES = [
   { v: "No va votar" as VoterStatus, label: "✗ No vota", active: "bg-red-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
 ];
 
-const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter, forceStatus }: Props) => {
+const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter, forceStatus, isSearchOnly }: Props) => {
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState("");
   const [filterEstado, setFilterEstado] = useState(forceStatus ?? "");
@@ -58,11 +59,11 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
   // pendingChanges: id → { status?, comment?, saved? }
   const [pendingChanges, setPendingChanges] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
 
-  const isSearchMode = forceStatus === "";
+  const isSearchMode = !!isSearchOnly;
 
   const filtered = useMemo(() => {
-    // Si estamos en "Buscar usuarios" y NO hay texto de búsqueda, devolvemos vacío
-    if (isSearchMode && search.trim() === "") {
+    // En modo búsqueda, mostramos vacío solo si no hay texto Y no hay filtro forzado del dashboard
+    if (isSearchMode && search.trim() === "" && filterEstado === "") {
       return [];
     }
 
