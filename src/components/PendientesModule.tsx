@@ -21,13 +21,9 @@ const STATUSES = [
 ];
 
 const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter }: Props) => {
-  const pendientes = useMemo(
-    () => voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido"),
-    [voters]
-  );
-
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState("");
+  const [filterEstado, setFilterEstado] = useState("pendientes");
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
 
@@ -62,7 +58,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
   const [pendingChanges, setPendingChanges] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
 
   const filtered = useMemo(() => {
-    return pendientes.filter((v) => {
+    return voters.filter((v) => {
       const s = search.toLowerCase();
       const matchSearch =
         !search ||
@@ -71,9 +67,19 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
         String(v.celular || "").toLowerCase().includes(s) ||
         String(v.ciudad || "").toLowerCase().includes(s); // Retained city search from original
       const matchRole = !filterRole || (filterRole === "lider" && referralsCountMap.has(v.nombre));
-      return matchSearch && matchRole;
+      
+      let matchEstado = false;
+      if (filterEstado === "") {
+        matchEstado = true; // Mostrar Todos
+      } else if (filterEstado === "pendientes") {
+        matchEstado = v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido";
+      } else {
+        matchEstado = v.estado === filterEstado;
+      }
+
+      return matchSearch && matchRole && matchEstado;
     });
-  }, [pendientes, search, filterRole, referralsCountMap]);
+  }, [voters, search, filterRole, filterEstado, referralsCountMap]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const pageData = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
@@ -133,8 +139,29 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
           />
         </form>
 
-        {/* Línea 2: Filtro de Rol y Contador */}
+        {/* Línea 2: Filtro de Rol, Estado y Contador */}
         <div className="flex items-center gap-2">
+          
+          <div className="relative flex-1">
+            <select
+              value={filterEstado}
+              onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
+              className="w-full rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10 shadow-inner"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.08)",
+                backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
+              }}
+            >
+              <option value="pendientes" style={{ color: "black" }}>📞 Solo Pendientes</option>
+              <option value="" style={{ color: "black" }}>📋 Todos los Estados</option>
+              {STATUSES.map(s => (
+                <option key={s.v} value={s.v} style={{ color: "black" }}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="relative flex-1">
             <select
               value={filterRole}
@@ -149,9 +176,10 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
               <option value="lider" style={{ color: "black" }}>👑 Ver solo Líderes</option>
             </select>
           </div>
-          <div className="shrink-0 flex items-center gap-2 text-sm text-yellow-300 font-bold bg-yellow-500/20 border border-yellow-500/40 px-4 py-3 rounded-2xl shadow-inner">
+          
+          <div className="shrink-0 flex items-center gap-2 text-sm text-yellow-300 font-bold bg-yellow-500/20 border border-yellow-500/40 px-3 py-3 rounded-2xl shadow-inner">
             <Phone className="h-4 w-4 animate-pulse" />
-            <span>{pendientes.length}</span>
+            <span>{filtered.length}</span>
           </div>
         </div>
       </div>
