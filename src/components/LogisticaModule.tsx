@@ -106,7 +106,7 @@ const LogisticaModule = () => {
               'APOYO ELECTORAL': 1, 
               'TRANSPORTE': 2, 
               'ALIMENTACIÓN': 4,
-              'ENTREGA DE ALIMENTOS E IMPREVISTOS': 5,
+              'TRANSPORTE IMPREVISTOS': 5,
               'PEDAGOGÍA IGLESIA': 6,
               'LLEVAR A PUNTO DE VOTACIÓN': 7,
               'CALL CENTER': 8
@@ -116,7 +116,7 @@ const LogisticaModule = () => {
           .map(([category, people]) => {
           const premiumCategories = [
             'APOYO ELECTORAL', 'TRANSPORTE', 'ALIMENTACIÓN',
-            'ENTREGA DE ALIMENTOS E IMPREVISTOS', 'PEDAGOGÍA IGLESIA', 
+            'TRANSPORTE IMPREVISTOS', 'PEDAGOGÍA IGLESIA', 
             'LLEVAR A PUNTO DE VOTACIÓN', 'CALL CENTER'
           ];
 
@@ -130,7 +130,7 @@ const LogisticaModule = () => {
 
             const isTransport = category === 'TRANSPORTE';
             const isAlimentacion = category === 'ALIMENTACIÓN';
-            const isImprevistos = category === 'ENTREGA DE ALIMENTOS E IMPREVISTOS';
+            const isImprevistos = category === 'TRANSPORTE IMPREVISTOS';
             const isPedagogia = category === 'PEDAGOGÍA IGLESIA';
             const isVotacion = category === 'LLEVAR A PUNTO DE VOTACIÓN';
             const isCallCenter = category === 'CALL CENTER';
@@ -166,7 +166,7 @@ const LogisticaModule = () => {
 
             const getCoordinators = () => {
               if (isImprevistos) return formatName('DIANA AMIRTIRDAD');
-              if (isPedagogia) return formatName('MARIA ENITH');
+              if (isPedagogia) return formatName('MARIA ALEJANDRA');
               if (isVotacion) return formatName('CRISTIAN');
               if (isCallCenter) return formatName('PATRICIA AGUIRRE');
               if (isAlimentacion) return formatName('JOSE');
