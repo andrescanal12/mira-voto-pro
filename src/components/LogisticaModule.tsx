@@ -97,7 +97,9 @@ const LogisticaModule = () => {
             <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-5">
               <div className="flex items-center gap-2">
                 {getCategoryIcon(category)}
-                <CardTitle className="text-lg font-bold truncate">{category}</CardTitle>
+                <CardTitle className="text-lg font-bold truncate">
+                  {category === 'CALL CENTER' ? 'CALL CENTER (TODOS)' : category}
+                </CardTitle>
                 <span className="ml-auto bg-white/20 px-2 py-0.5 rounded-full text-xs font-medium">
                   {people.length}
                 </span>
