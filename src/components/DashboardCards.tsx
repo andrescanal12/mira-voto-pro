@@ -4,9 +4,10 @@ import { Voter } from "@/types/voter";
 
 interface Props {
   voters: Voter[];
+  onNavigate: (tab: "dashboard" | "pendientes" | "call_center" | "ya_llamados", filter?: string) => void;
 }
 
-const DashboardCards = ({ voters }: Props) => {
+const DashboardCards = ({ voters, onNavigate }: Props) => {
   const stats = useMemo(() => {
     const total = voters.length;
     const noVino = voters.filter((v) => v.estado === "Aún no ha venido").length;
@@ -24,6 +25,7 @@ const DashboardCards = ({ voters }: Props) => {
       icon: Users,
       color: "text-accent",
       bgColor: "bg-accent/10",
+      action: () => onNavigate("pendientes", ""),
     },
     {
       label: "Aún No Han Venido",
@@ -31,6 +33,7 @@ const DashboardCards = ({ voters }: Props) => {
       icon: Clock,
       color: "text-blue-400",
       bgColor: "bg-blue-400/10",
+      action: () => onNavigate("pendientes", "Aún no ha venido"),
     },
     {
       label: "Ya Votaron",
@@ -38,6 +41,7 @@ const DashboardCards = ({ voters }: Props) => {
       icon: CheckCircle2,
       color: "text-success",
       bgColor: "bg-success/10",
+      action: () => onNavigate("pendientes", "Ya votó"),
     },
     {
       label: "Ya Llamados",
@@ -45,6 +49,7 @@ const DashboardCards = ({ voters }: Props) => {
       icon: Phone,
       color: "text-purple-400",
       bgColor: "bg-purple-400/10",
+      action: () => onNavigate("ya_llamados"),
     },
     {
       label: "Falta Llamar",
@@ -52,6 +57,7 @@ const DashboardCards = ({ voters }: Props) => {
       icon: Phone,
       color: "text-warning",
       bgColor: "bg-warning/10",
+      action: () => onNavigate("call_center"),
     },
     {
       label: "No Van a Votar",
@@ -59,6 +65,7 @@ const DashboardCards = ({ voters }: Props) => {
       icon: XCircle,
       color: "text-destructive",
       bgColor: "bg-destructive/10",
+      action: () => onNavigate("pendientes", "No va votar"),
     },
   ];
 
@@ -68,9 +75,10 @@ const DashboardCards = ({ voters }: Props) => {
     <div className="space-y-6">
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {cards.map((card) => (
-          <div
+          <button
             key={card.label}
-            className="bg-card border border-border rounded-2xl p-4 md:p-5 flex flex-col gap-3 hover:border-accent/40 transition-colors"
+            onClick={card.action}
+            className="bg-card border border-border rounded-2xl p-4 md:p-5 flex flex-col gap-3 hover:border-accent/40 hover:bg-white/5 transition-all text-left group active:scale-95"
           >
             <div className="flex items-center justify-between">
               <span className="text-xs md:text-sm text-muted-foreground font-medium">
@@ -83,7 +91,7 @@ const DashboardCards = ({ voters }: Props) => {
             <span className="text-2xl md:text-3xl font-bold text-foreground">
               {card.value.toLocaleString()}
             </span>
-          </div>
+          </button>
         ))}
       </div>
 

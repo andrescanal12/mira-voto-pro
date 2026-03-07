@@ -37,6 +37,12 @@ const Index = () => {
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
   const [isAddingVoter, setIsAddingVoter] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [dashboardFilter, setDashboardFilter] = useState("");
+
+  const handleNavigate = (tab: Tab, filter: string = "") => {
+    setDashboardFilter(filter);
+    setActiveTab(tab);
+  };
   const handleSaveEdit = (id: string, status: VoterStatus, comment: string) => {
     updateVoterStatus(id, status);
     updateVoterComment(id, comment);
@@ -219,7 +225,7 @@ const Index = () => {
                   <button
                     key={tab.id}
                     type="button"
-                    onClick={() => setActiveTab(tab.id)}
+                    onClick={() => handleNavigate(tab.id, "")}
                     role="tab"
                     aria-selected={activeTab === tab.id}
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${activeTab === tab.id
@@ -286,12 +292,26 @@ const Index = () => {
           </div>
 
           <div>
-            {activeTab === "dashboard" && <DashboardCards voters={voters} />}
+            {activeTab === "dashboard" && <DashboardCards voters={voters} onNavigate={handleNavigate} />}
             {activeTab === "pendientes" && (
-              <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} onDeleteVoter={deleteVoter} forceStatus="" />
+              <PendientesModule 
+                key={`pendientes-${dashboardFilter}`}
+                voters={voters} 
+                onUpdateStatus={updateVoterStatus} 
+                onUpdateComment={updateVoterComment} 
+                onDeleteVoter={deleteVoter} 
+                forceStatus={dashboardFilter} 
+              />
             )}
             {activeTab === "call_center" && (
-              <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} onDeleteVoter={deleteVoter} forceStatus="pendientes" />
+              <PendientesModule 
+                key="call-center"
+                voters={voters} 
+                onUpdateStatus={updateVoterStatus} 
+                onUpdateComment={updateVoterComment} 
+                onDeleteVoter={deleteVoter} 
+                forceStatus="pendientes" 
+              />
             )}
             {activeTab === "ya_llamados" && (
               <div className="space-y-4">
