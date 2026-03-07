@@ -279,7 +279,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
                     onClick={() => handleStatusSelect(voter.id, s.v, voter.estado)}
                     className={`text-[12px] font-bold py-2.5 px-3 rounded-xl transition-all duration-150 border transform active:scale-95 ${currentStatus === s.v ? s.active : s.inactive}`}
                   >
-                    {s.label}
+                    {isSearchMode && s.v === "Aún no ha venido" ? "⏳ Aún no ha venido" : s.label}
                   </button>
                 ))}
               </div>
