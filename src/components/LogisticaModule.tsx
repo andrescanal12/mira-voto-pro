@@ -20,9 +20,27 @@ import {
   Edit2,
   Save,
   BookOpen,
-  X
+  X,
+  Plus,
+  Trash2,
+  Table as TableIcon
 } from 'lucide-react';
 import { toast } from 'sonner';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formatName = (name: string) => {
   if (!name) return '';
@@ -41,10 +59,21 @@ const getCategoryIcon = (category: string) => {
 };
 
 const LogisticaModule = () => {
-  const { items, loading, updateItem } = useLogistica();
+  const { items, loading, updateItem, insertItem, deleteItem } = useLogistica();
   const [searchTerm, setSearchTerm] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editValues, setEditValues] = useState<Partial<LogisticaItem>>({});
+  
+  // States for new items/categories
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isNewTableDialogOpen, setIsNewTableDialogOpen] = useState(false);
+  const [newItem, setNewItem] = useState({
+    nombre_manual: '',
+    categoria: '',
+    rol: '',
+    zona: ''
+  });
+  const [newTableName, setNewTableName] = useState('');
 
   const filteredItems = useMemo(() => {
     return items.filter(item => 
@@ -62,30 +91,150 @@ const LogisticaModule = () => {
     return grouped;
   }, [filteredItems]);
 
+  const categories = useMemo(() => {
+    return Array.from(new Set(items.map(i => i.categoria)));
+  }, [items]);
+
   const handleEdit = (item: LogisticaItem) => {
     setEditingId(item.id);
     setEditValues({
-      horario_inicio: item.horario_inicio || '',
-      horario_fin: item.horario_fin || '',
+      nombre_manual: item.nombre_manual,
       rol: item.rol || '',
-      zona: item.zona || ''
+      zona: item.zona || '',
+      categoria: item.categoria
     });
   };
 
   const handleSave = async (id: string) => {
+    if (!editValues.nombre_manual?.trim()) {
+      toast.error('El nombre es obligatorio');
+      return;
+    }
     await updateItem(id, editValues);
     setEditingId(null);
-    toast.success('Horario actualizado');
   };
 
-  if (loading) return <div className="p-8 text-center">Cargando logística...</div>;
+  const handleAddUser = async () => {
+    if (!newItem.nombre_manual.trim() || !newItem.categoria.trim()) {
+      toast.error('Nombre y Categoría son obligatorios');
+      return;
+    }
+    await insertItem(newItem);
+    setIsAddDialogOpen(false);
+    setNewItem({ nombre_manual: '', categoria: '', rol: '', zona: '' });
+  };
+
+  const handleCreateTable = async () => {
+    if (!newTableName.trim()) {
+      toast.error('El nombre de la tabla es obligatorio');
+      return;
+    }
+    // Para crear una tabla, añadimos un usuario "placeholder" o simplemente preparamos la categoría
+    await insertItem({
+      nombre_manual: 'Coordinador/Pendiente',
+      categoria: newTableName.toUpperCase(),
+      rol: 'COORDINADOR',
+      zona: 'GENERAL'
+    });
+    setIsNewTableDialogOpen(false);
+    setNewTableName('');
+    toast.success('Tabla creada');
+  };
+
+  if (loading) return <div className="p-8 text-center text-white">Cargando logística...</div>;
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto p-4 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Panel de Logística</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Organización de equipos y turnos</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white">Panel de Logística</h1>
+          <p className="text-white/70 mt-1">Organización de equipos y turnos</p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold gap-2">
+                <Plus className="w-4 h-4" /> Añadir Usuario
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+              <DialogHeader>
+                <DialogTitle>Añadir Nuevo Usuario</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold">Nombre Completo</label>
+                  <Input 
+                    placeholder="Ej: Maria Perez" 
+                    value={newItem.nombre_manual}
+                    onChange={e => setNewItem(prev => ({ ...prev, nombre_manual: e.target.value }))}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold">Categoría / Tabla</label>
+                  <Select 
+                    onValueChange={v => setNewItem(prev => ({ ...prev, categoria: v }))}
+                    value={newItem.categoria}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecciona tabla" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map(cat => (
+                        <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold">Rol / Cargo</label>
+                  <Input 
+                    placeholder="Ej: COORDINADOR" 
+                    value={newItem.rol}
+                    onChange={e => setNewItem(prev => ({ ...prev, rol: e.target.value }))}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold">Zona</label>
+                  <Input 
+                    placeholder="Ej: ALICANTE" 
+                    value={newItem.zona}
+                    onChange={e => setNewItem(prev => ({ ...prev, zona: e.target.value }))}
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button onClick={handleAddUser} className="bg-blue-600 hover:bg-blue-700 text-white">Guardar Usuario</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          <Dialog open={isNewTableDialogOpen} onOpenChange={setIsNewTableDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20 font-bold gap-2 backdrop-blur-sm">
+                <TableIcon className="w-4 h-4" /> Crear Tabla Extra
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+              <DialogHeader>
+                <DialogTitle>Crear Nueva Tabla de Logística</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold">Nombre de la Tabla (Categoría)</label>
+                  <Input 
+                    placeholder="Ej: SEGURIDAD" 
+                    value={newTableName}
+                    onChange={e => setNewTableName(e.target.value)}
+                  />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button onClick={handleCreateTable} className="bg-blue-600 hover:bg-blue-700 text-white">Crear Tabla</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
         
         <div className="relative w-full md:w-72">
@@ -263,7 +412,49 @@ const LogisticaModule = () => {
                                       </span>
                                     </div>
                                   </div>
-                                  <div className="flex items-center gap-3 pr-2" />
+                                  <div className="flex items-center gap-2 pr-2">
+                                    <Dialog open={editingId === person.id} onOpenChange={(open) => !open && setEditingId(null)}>
+                                      <DialogTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full hover:bg-white dark:hover:bg-slate-800" onClick={() => handleEdit(person)}>
+                                          <Edit2 className="w-3.5 h-3.5 text-slate-400 hover:text-blue-500" />
+                                        </Button>
+                                      </DialogTrigger>
+                                      <DialogContent className="bg-white dark:bg-slate-900">
+                                        <DialogHeader>
+                                          <DialogTitle>Editar Usuario</DialogTitle>
+                                        </DialogHeader>
+                                        <div className="space-y-4 py-4">
+                                          <div className="space-y-2">
+                                            <label className="text-sm font-bold">Nombre</label>
+                                            <Input 
+                                              value={editValues.nombre_manual}
+                                              onChange={e => setEditValues(prev => ({ ...prev, nombre_manual: e.target.value }))}
+                                            />
+                                          </div>
+                                          <div className="space-y-2">
+                                            <label className="text-sm font-bold">Rol</label>
+                                            <Input 
+                                              value={editValues.rol}
+                                              onChange={e => setEditValues(prev => ({ ...prev, rol: e.target.value }))}
+                                            />
+                                          </div>
+                                          <div className="space-y-2">
+                                            <label className="text-sm font-bold">Zona</label>
+                                            <Input 
+                                              value={editValues.zona}
+                                              onChange={e => setEditValues(prev => ({ ...prev, zona: e.target.value }))}
+                                            />
+                                          </div>
+                                        </div>
+                                        <DialogFooter className="flex gap-2">
+                                          <Button variant="destructive" onClick={() => { deleteItem(person.id); setEditingId(null); }} className="gap-2">
+                                            <Trash2 className="w-4 h-4" /> Eliminar
+                                          </Button>
+                                          <Button onClick={() => handleSave(person.id)}>Actualizar</Button>
+                                        </DialogFooter>
+                                      </DialogContent>
+                                    </Dialog>
+                                  </div>
                                 </div>
                               );
                             })}
@@ -360,7 +551,42 @@ const LogisticaModule = () => {
                           )}
                         </div>
   
-                        <div className="flex items-center pr-2" />
+                        <div className="flex items-center gap-2 pr-2">
+                          <Dialog open={editingId === person.id} onOpenChange={(open) => !open && setEditingId(null)}>
+                            <DialogTrigger asChild>
+                              <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full hover:bg-slate-100" onClick={() => handleEdit(person)}>
+                                <Edit2 className="w-3.5 h-3.5 text-slate-400" />
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="bg-white dark:bg-slate-900">
+                              <DialogHeader>
+                                <DialogTitle>Editar Registro</DialogTitle>
+                              </DialogHeader>
+                              <div className="space-y-4 py-4">
+                                <div className="space-y-2">
+                                  <label className="text-sm font-bold">Nombre</label>
+                                  <Input 
+                                    value={editValues.nombre_manual}
+                                    onChange={e => setEditValues(prev => ({ ...prev, nombre_manual: e.target.value }))}
+                                  />
+                                </div>
+                                <div className="space-y-2">
+                                  <label className="text-sm font-bold">Rol</label>
+                                  <Input 
+                                    value={editValues.rol}
+                                    onChange={e => setEditValues(prev => ({ ...prev, rol: e.target.value }))}
+                                  />
+                                </div>
+                              </div>
+                              <DialogFooter className="flex gap-2">
+                                <Button variant="destructive" onClick={() => { deleteItem(person.id); setEditingId(null); }} className="gap-2">
+                                  <Trash2 className="w-4 h-4" /> Eliminar
+                                </Button>
+                                <Button onClick={() => handleSave(person.id)}>Guardar Cambios</Button>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+                        </div>
                       </div>
                     </div>
                   ))}

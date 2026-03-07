@@ -45,9 +45,35 @@ export const useLogistica = () => {
         .eq('id', id);
 
       if (error) throw error;
-      // Optimistic update will be handled by realtime subscription or manual refetch
     } catch (error: any) {
       toast.error('Error al actualizar: ' + error.message);
+    }
+  };
+
+  const insertItem = async (item: Partial<LogisticaItem>) => {
+    try {
+      const { error } = await supabase
+        .from('logistica')
+        .insert([item]);
+
+      if (error) throw error;
+      toast.success('Registro añadido');
+    } catch (error: any) {
+      toast.error('Error al añadir: ' + error.message);
+    }
+  };
+
+  const deleteItem = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('logistica')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+      toast.success('Registro eliminado');
+    } catch (error: any) {
+      toast.error('Error al eliminar: ' + error.message);
     }
   };
 
@@ -70,5 +96,5 @@ export const useLogistica = () => {
     };
   }, []);
 
-  return { items, loading, updateItem, refetch: fetchLogistica };
+  return { items, loading, updateItem, insertItem, deleteItem, refetch: fetchLogistica };
 };
