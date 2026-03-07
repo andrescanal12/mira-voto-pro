@@ -58,7 +58,14 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
   // pendingChanges: id → { status?, comment?, saved? }
   const [pendingChanges, setPendingChanges] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
 
+  const isSearchMode = forceStatus === "";
+
   const filtered = useMemo(() => {
+    // Si estamos en "Buscar usuarios" y NO hay texto de búsqueda, devolvemos vacío
+    if (isSearchMode && search.trim() === "") {
+      return [];
+    }
+
     return voters.filter((v) => {
       const s = search.toLowerCase();
       const matchSearch =
@@ -123,7 +130,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
       <div className="flex flex-col gap-3">
         {/* Línea 1: Buscador Principal */}
         <form onSubmit={(e) => e.preventDefault()} className="relative w-full group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/40 group-focus-within:text-accent transition-colors pointer-events-none" />
+          <Search className={`absolute left-5 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-accent transition-colors pointer-events-none ${isSearchMode ? "h-6 w-6" : "h-5 w-5"}`} />
           <input
             type="search"
             inputMode="search"
@@ -132,60 +139,39 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck={false}
-            placeholder="Buscar por nombre, cédula o teléfono..."
+            placeholder={isSearchMode ? "Busca cualquier usuario por nombre, cédula o teléfono..." : "Buscar por nombre, cédula o teléfono..."}
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="w-full pl-12 pr-4 py-3.5 rounded-2xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-lg"
-            style={{ background: "rgba(255,255,255,0.08)" }}
+            className={`w-full pr-4 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-xl ${isSearchMode ? "pl-14 py-4 rounded-3xl text-lg backdrop-blur-md" : "pl-12 py-3.5 rounded-2xl"}`}
+            style={{ background: isSearchMode ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.08)" }}
           />
         </form>
 
-        {/* Línea 2: Filtro de Rol, Estado y Contador */}
-        <div className="flex items-center gap-2">
-          
-          {/* Solo mostrar select si NO hay forzado de status (vista 'Buscar usuarios') */}
-          {forceStatus === undefined && (
+        {/* Línea 2: Filtro de Rol, Estado y Contador (SOLO MODO CALL-CENTER) */}
+        {!isSearchMode && (
+          <div className="flex items-center gap-2">
+            
             <div className="relative flex-1">
               <select
-                value={filterEstado}
-                onChange={(e) => { setFilterEstado(e.target.value); setPage(0); }}
+                value={filterRole}
+                onChange={(e) => { setFilterRole(e.target.value); setPage(0); }}
                 className="w-full rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10 shadow-inner"
                 style={{
                   backgroundColor: "rgba(255,255,255,0.08)",
                   backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
                 }}
               >
-                <option value="" style={{ color: "black" }}>📋 Todos los Estados</option>
-                <option value="pendientes" style={{ color: "black" }}>📞 Solo Pendientes</option>
-                {STATUSES.map(s => (
-                  <option key={s.v} value={s.v} style={{ color: "black" }}>
-                    {s.label}
-                  </option>
-                ))}
+                <option value="" style={{ color: "black" }}>👥 Mostrar Todos</option>
+                <option value="lider" style={{ color: "black" }}>👑 Ver solo Líderes</option>
               </select>
             </div>
-          )}
-
-          <div className="relative flex-1">
-            <select
-              value={filterRole}
-              onChange={(e) => { setFilterRole(e.target.value); setPage(0); }}
-              className="w-full rounded-2xl px-4 py-3 text-sm text-white border border-white/15 focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1em_1em] pr-10 shadow-inner"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.08)",
-                backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`
-              }}
-            >
-              <option value="" style={{ color: "black" }}>👥 Mostrar Todos</option>
-              <option value="lider" style={{ color: "black" }}>👑 Ver solo Líderes</option>
-            </select>
+            
+            <div className="shrink-0 flex items-center gap-2 text-sm text-yellow-300 font-bold bg-yellow-500/20 border border-yellow-500/40 px-3 py-3 rounded-2xl shadow-inner">
+              <Phone className="h-4 w-4 animate-pulse" />
+              <span>{filtered.length}</span>
+            </div>
           </div>
-          
-          <div className="shrink-0 flex items-center gap-2 text-sm text-yellow-300 font-bold bg-yellow-500/20 border border-yellow-500/40 px-3 py-3 rounded-2xl shadow-inner">
-            <Phone className="h-4 w-4 animate-pulse" />
-            <span>{filtered.length}</span>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Cards */}
@@ -333,10 +319,21 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
 
         {pageData.length === 0 && (
           <div className="text-center py-16 text-white/40">
-            <Phone className="h-14 w-14 mx-auto mb-4 opacity-30" />
-            <p className="text-base font-semibold">
-              {search ? "Sin resultados para esa búsqueda" : "¡Sin pendientes!"}
-            </p>
+            {isSearchMode ? (
+              <>
+                <Search className={`h-16 w-16 mx-auto mb-4 ${search ? "opacity-30" : "opacity-20 animate-pulse"}`} />
+                <p className="text-lg font-semibold text-white/60">
+                  {search ? "No se encontró ningún usuario." : "Escribe para buscar cualquier usuario por nombre, documento o teléfono..."}
+                </p>
+              </>
+            ) : (
+              <>
+                <Phone className="h-14 w-14 mx-auto mb-4 opacity-30" />
+                <p className="text-base font-semibold">
+                  {search ? "Sin resultados para esa búsqueda" : "¡Sin pendientes!"}
+                </p>
+              </>
+            )}
           </div>
         )}
       </div>
