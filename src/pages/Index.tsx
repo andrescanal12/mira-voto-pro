@@ -21,11 +21,10 @@ const ALE_BALLOT = "https://candidatos2026.partidomira.com/archivos/default/arch
 const ANA_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-fd58e2984c78c17f&v=1772071197";
 const ALE_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-f63ec40a857cc934&v=1772072982";
 
-type Tab = "dashboard" | "base" | "pendientes" | "ya_llamados" | "reportes";
+type Tab = "dashboard" | "pendientes" | "ya_llamados" | "reportes";
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-  { id: "base", label: "Base de Datos", icon: Database },
   { id: "pendientes", label: "Call-Center", icon: Phone },
   { id: "ya_llamados", label: "Ya llamados", icon: CheckCircle2 },
   { id: "reportes", label: "Reportes", icon: FileDown },
@@ -282,7 +281,6 @@ const Index = () => {
 
           <div>
             {activeTab === "dashboard" && <DashboardCards voters={voters} />}
-            {activeTab === "base" && <TablaBaseDatos voters={voters} onEdit={setEditingVoter} onStatusChange={updateVoterStatus} onCommentChange={updateVoterComment} />}
             {activeTab === "pendientes" && (
               <PendientesModule voters={voters} onUpdateStatus={updateVoterStatus} onUpdateComment={updateVoterComment} />
             )}
