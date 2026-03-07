@@ -258,7 +258,7 @@ const LogisticaModule = () => {
                                           {person.rol}
                                         </span>
                                       )}
-                                      <span className={`font-bold text-sm md:text-base ${person.completado ? 'line-through text-slate-400' : isSpecial ? 'text-indigo-900 dark:text-indigo-200' : 'text-slate-800 dark:text-slate-200'}`}>
+                                      <span className={`font-bold text-sm md:text-base notranslate ${person.completado ? 'line-through text-slate-400' : isSpecial ? 'text-indigo-900 dark:text-indigo-200' : 'text-slate-800 dark:text-slate-200'}`} translate="no">
                                         {formatName(person.nombre_manual)}
                                       </span>
                                     </div>
@@ -311,7 +311,7 @@ const LogisticaModule = () => {
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1 space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className={`font-bold text-slate-900 dark:text-slate-100 ${person.completado ? 'line-through' : ''}`}>
+                            <span className={`font-bold text-slate-900 dark:text-slate-100 notranslate ${person.completado ? 'line-through' : ''}`} translate="no">
                               {formatName(person.nombre_manual)}
                             </span>
                             {person.voter_id && (
