@@ -98,12 +98,22 @@ const LogisticaModule = () => {
               'APOYO ELECTORAL': 1, 
               'TRANSPORTE': 2, 
               'JURADOS REMANENTES': 3,
-              'ALIMENTACIÓN': 4 
+              'ALIMENTACIÓN': 4,
+              'ENTREGA DE ALIMENTOS E IMPREVISTOS': 5,
+              'PEDAGOGÍA IGLESIA': 6,
+              'LLEVAR A PUNTO DE VOTACIÓN': 7,
+              'CALL CENTER': 8
             };
             return (order[a] || 99) - (order[b] || 99);
           })
           .map(([category, people]) => {
-          if (category === 'APOYO ELECTORAL' || category === 'TRANSPORTE' || category === 'JURADOS REMANENTES' || category === 'ALIMENTACIÓN') {
+          const premiumCategories = [
+            'APOYO ELECTORAL', 'TRANSPORTE', 'JURADOS REMANENTES', 'ALIMENTACIÓN',
+            'ENTREGA DE ALIMENTOS E IMPREVISTOS', 'PEDAGOGÍA IGLESIA', 
+            'LLEVAR A PUNTO DE VOTACIÓN', 'CALL CENTER'
+          ];
+
+          if (premiumCategories.includes(category)) {
             const subGroups = people.reduce((acc, p) => {
               const zone = p.zona || 'GENERAL';
               if (!acc[zone]) acc[zone] = [];
@@ -114,11 +124,19 @@ const LogisticaModule = () => {
             const isTransport = category === 'TRANSPORTE';
             const isRemanentes = category === 'JURADOS REMANENTES';
             const isAlimentacion = category === 'ALIMENTACIÓN';
+            const isImprevistos = category === 'ENTREGA DE ALIMENTOS E IMPREVISTOS';
+            const isPedagogia = category === 'PEDAGOGÍA IGLESIA';
+            const isVotacion = category === 'LLEVAR A PUNTO DE VOTACIÓN';
+            const isCallCenter = category === 'CALL CENTER';
             
             const getGradient = () => {
               if (isTransport) return 'from-emerald-700 via-teal-800 to-teal-950';
               if (isRemanentes) return 'from-amber-600 via-orange-700 to-orange-900';
               if (isAlimentacion) return 'from-cyan-600 via-sky-700 to-sky-900';
+              if (isImprevistos) return 'from-pink-600 via-rose-700 to-rose-900';
+              if (isPedagogia) return 'from-purple-600 via-violet-700 to-violet-900';
+              if (isVotacion) return 'from-red-600 via-red-700 to-red-900';
+              if (isCallCenter) return 'from-indigo-600 via-blue-700 to-blue-900';
               return 'from-blue-700 via-indigo-800 to-indigo-950';
             };
 
@@ -126,13 +144,30 @@ const LogisticaModule = () => {
               if (isTransport) return 'from-teal-400 to-emerald-500 text-emerald-950 ring-teal-300';
               if (isRemanentes) return 'from-yellow-400 to-amber-500 text-amber-950 ring-yellow-300';
               if (isAlimentacion) return 'from-cyan-300 to-sky-400 text-sky-950 ring-cyan-200';
+              if (isImprevistos) return 'from-rose-300 to-pink-400 text-rose-950 ring-rose-200';
+              if (isPedagogia) return 'from-violet-300 to-purple-400 text-purple-950 ring-purple-200';
+              if (isVotacion) return 'from-red-300 to-orange-400 text-red-950 ring-red-200';
+              if (isCallCenter) return 'from-blue-300 to-indigo-400 text-indigo-950 ring-blue-200';
               return 'from-amber-400 to-amber-500 text-amber-950 ring-amber-300';
             };
 
             const getIcon = () => {
               if (isTransport) return <Truck className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />;
-              if (isAlimentacion) return <Utensils className="w-5 h-5 md:w-6 md:h-6 text-cyan-200" />;
+              if (isAlimentacion || isImprevistos) return <Utensils className="w-5 h-5 md:w-6 md:h-6 text-cyan-200" />;
+              if (isPedagogia) return <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-purple-200" />;
+              if (isVotacion) return <MapPin className="w-5 h-5 md:w-6 md:h-6 text-red-200" />;
+              if (isCallCenter) return <Phone className="w-5 h-5 md:w-6 md:h-6 text-indigo-200" />;
               return <Users className="w-5 h-5 md:w-6 md:h-6 text-blue-200" />;
+            };
+
+            const getCoordinators = () => {
+              if (isImprevistos) return 'DIANA AMIRTIRDAD';
+              if (isPedagogia) return 'MARIA ENITH';
+              if (isVotacion) return 'CRISTIAN';
+              if (isCallCenter) return 'PATRICIA AGUIRRE';
+              if (isAlimentacion) return 'JOSE';
+              if (isTransport) return 'PATRICIA LONDOÑO';
+              return 'LUIS ARROYAVE Y SUGGEIN';
             };
 
             return (
@@ -144,7 +179,7 @@ const LogisticaModule = () => {
                         <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10 shadow-inner">
                           {getIcon()}
                         </div>
-                        <CardTitle className="text-lg md:text-2xl font-black tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 notranslate" translate="no">
+                        <CardTitle className="text-lg md:text-2xl font-black tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 notranslate leading-tight" translate="no">
                           {category}
                         </CardTitle>
                       </div>
@@ -161,10 +196,10 @@ const LogisticaModule = () => {
                         </div>
                         <div className="flex flex-col md:flex-row md:items-center md:gap-2">
                           <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
-                            {isAlimentacion ? 'COORDINADOR:' : 'COORDINADOR(A):'}
+                            {isPedagogia || isImprevistos || isCallCenter ? 'COORDINADORA:' : 'COORDINADOR:'}
                           </span>
                           <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
-                            {isAlimentacion ? 'JOSE' : isTransport ? 'PATRICIA LONDOÑO' : 'LUIS ARROYAVE Y SUGGEIN'}
+                            {getCoordinators()}
                           </span>
                         </div>
                       </div>
@@ -177,14 +212,16 @@ const LogisticaModule = () => {
                       {Object.keys(subGroups)
                         .filter(zone => zone !== 'COORD_GENERAL')
                         .sort((a, b) => {
-                          const orderZ: Record<string, number> = isTransport 
-                            ? { 'APOYO': 1, 'ALICANTE': 2, 'PETRER': 3, 'VALENCIA': 4, 'BENIDORM': 5 }
-                            : { 'TESTIGOS': 1, 'JURADOS': 2, 'CONSOLIDACIÓN ESCRUTINIOS': 3 };
+                          const orderZ: Record<string, number> = { 
+                            'APOYO': 1, 'ALICANTE': 2, 'PETRER': 3, 'VALENCIA': 4, 'BENIDORM': 5,
+                            'TESTIGOS': 1, 'JURADOS': 2, 'CONSOLIDACIÓN ESCRUTINIOS': 3,
+                            'IGLESIA': 1, 'HOTEL': 2
+                          };
                           return (orderZ[a] || 99) - (orderZ[orderZ[b] ? b : a] || 99);
                         })
                         .map(zone => (
                         <div key={zone} className="flex flex-col">
-                          {(!isRemanentes && !isAlimentacion || zone !== 'GENERAL') && (
+                          {(!isRemanentes && !isAlimentacion && !isImprevistos || zone !== 'GENERAL') && (
                             <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.05em] text-[11px] flex items-center gap-2">
                               <span className={`w-1.5 h-1.5 ${isRemanentes ? 'bg-amber-500' : isAlimentacion ? 'bg-cyan-500' : 'bg-blue-500'} rounded-full`} />
                               <span translate="no" className="notranslate">
@@ -196,10 +233,8 @@ const LogisticaModule = () => {
                             {(subGroups[zone] || []).sort((a, b) => {
                               const priority = (name: string) => {
                                 const n = name.toUpperCase();
-                                if (isTransport) {
-                                  if (n.includes('LILY ROJAS')) return 1;
-                                  return 100;
-                                }
+                                if (n.includes('MARIA ALEJANDRA')) return 1;
+                                if (n.includes('LILY ROJAS')) return 1;
                                 if (n.includes('CRISTIAN ARROYAVE')) return 1;
                                 if (n.includes('CARLOS RIVERA')) return 2;
                                 if (n.includes('JULIANA ARIAS')) return 3;
@@ -208,9 +243,9 @@ const LogisticaModule = () => {
                               return priority(a.nombre_manual || '') - priority(b.nombre_manual || '');
                             }).map(person => {
                               const n = person.nombre_manual?.toUpperCase() || '';
-                              const isSpecial = isTransport 
-                                ? n.includes('LILY ROJAS')
-                                : (n.includes('CRISTIAN ARROYAVE') || n.includes('CARLOS RIVERA') || n.includes('JULIANA ARIAS'));
+                              const isSpecial = n.includes('MARIA ALEJANDRA') || n.includes('LILY ROJAS') || 
+                                              n.includes('CRISTIAN ARROYAVE') || n.includes('CARLOS RIVERA') || 
+                                              n.includes('JULIANA ARIAS');
                               
                               return (
                                 <div key={person.id} className={`p-4 flex items-center justify-between transition-all duration-300 ${isSpecial ? 'bg-indigo-50/50 dark:bg-indigo-900/10 border-l-2 border-indigo-500 mt-px mb-px shadow-sm' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/20'}`}>
