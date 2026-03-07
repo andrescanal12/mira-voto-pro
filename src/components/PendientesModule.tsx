@@ -249,28 +249,30 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
                       <Trash2 className="h-4 w-4" />
                     </button>
                   )}
-                  {voter.celular ? (
-                    <a
-                      href={`tel:${voter.celular}`}
-                      className="flex flex-col items-center justify-center gap-1 rounded-2xl px-4 py-2.5 text-white shadow transition-all hover:scale-105 active:scale-95 text-center"
-                      style={{ background: "linear-gradient(135deg,#16a34a,#15803d)", minWidth: 88, boxShadow: "0 4px 14px rgba(22,163,74,0.35)" }}
-                    >
-                      <Phone className="h-5 w-5" />
-                      <span className="text-[11px] font-black tracking-wide">LLAMAR</span>
-                      <span className="text-[10px] font-bold opacity-90">{voter.celular}</span>
-                    </a>
-                  ) : (
-                    <div className="flex flex-col items-center gap-1 rounded-2xl px-4 py-2.5 bg-gray-100 text-gray-400" style={{ minWidth: 88 }}>
-                      <Phone className="h-5 w-5" />
-                      <span className="text-[10px]">Sin número</span>
-                    </div>
+                  {!isSearchMode && (
+                    voter.celular ? (
+                      <a
+                        href={`tel:${voter.celular}`}
+                        className="flex flex-col items-center justify-center gap-1 rounded-2xl px-4 py-2.5 text-white shadow transition-all hover:scale-105 active:scale-95 text-center"
+                        style={{ background: "linear-gradient(135deg,#16a34a,#15803d)", minWidth: 88, boxShadow: "0 4px 14px rgba(22,163,74,0.35)" }}
+                      >
+                        <Phone className="h-5 w-5" />
+                        <span className="text-[11px] font-black tracking-wide">LLAMAR</span>
+                        <span className="text-[10px] font-bold opacity-90">{voter.celular}</span>
+                      </a>
+                    ) : (
+                      <div className="flex flex-col items-center gap-1 rounded-2xl px-4 py-2.5 bg-gray-100 text-gray-400" style={{ minWidth: 88 }}>
+                        <Phone className="h-5 w-5" />
+                        <span className="text-[10px]">Sin número</span>
+                      </div>
+                    )
                   )}
                 </div>
               </div>
 
               {/* Botones de estado */}
-              <div className="grid grid-cols-2 gap-2">
-                {STATUSES.map((s) => (
+              <div className={`grid gap-2 ${isSearchMode ? "grid-cols-3" : "grid-cols-2"}`}>
+                {STATUSES.filter(s => isSearchMode ? ["Ya votó", "No va votar", "Aún no ha venido"].includes(s.v) : true).map((s) => (
                   <button
                     key={s.v}
                     type="button"
