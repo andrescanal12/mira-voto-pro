@@ -189,7 +189,9 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
           return (
             <div
               key={v.id}
-              className={`rounded-2xl p-4 space-y-3 border shadow-sm transition-all duration-300 ${hasPending ? "border-yellow-400 ring-1 ring-yellow-300" : "border-gray-200"}`}
+              className={`rounded-2xl p-4 space-y-3 shadow-sm transition-all duration-300 border-2 ${hasPending 
+                ? "border-yellow-400 ring-1 ring-yellow-300" 
+                : "border-transparent shadow-md"}`}
               style={{ background: "#fff" }}
             >
               {/* Nombre + badge */}
