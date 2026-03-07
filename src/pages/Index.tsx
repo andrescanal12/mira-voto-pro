@@ -240,11 +240,7 @@ const Index = () => {
                         {voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido").length}
                       </span>
                     )}
-                    {tab.id === "pendientes" && (
-                      <span className="bg-accent text-accent-foreground text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                        {voters.length}
-                      </span>
-                    )}
+
                     {tab.id === "ya_llamados" && (
                       <span className="bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                         {voters.filter((v) => v.estado === "Ya llamado").length}
