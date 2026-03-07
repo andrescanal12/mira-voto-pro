@@ -170,7 +170,7 @@ const LogisticaModule = () => {
                     <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                     <Input 
                       placeholder="Ej: Maria Perez" 
-                      className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                      className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 text-slate-900 dark:text-white font-medium"
                       value={newItem.nombre_manual}
                       onChange={e => setNewItem(prev => ({ ...prev, nombre_manual: e.target.value }))}
                     />
@@ -185,7 +185,7 @@ const LogisticaModule = () => {
                       onValueChange={v => setNewItem(prev => ({ ...prev, categoria: v }))}
                       value={newItem.categoria}
                     >
-                      <SelectTrigger className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus:ring-2 focus:ring-blue-500">
+                      <SelectTrigger className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus:ring-2 focus:ring-blue-500 text-slate-900 dark:text-white font-medium">
                         <SelectValue placeholder="Selecciona tabla" />
                       </SelectTrigger>
                       <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
@@ -204,7 +204,7 @@ const LogisticaModule = () => {
                       <ChevronRight className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                       <Input 
                         placeholder="Ej: COORDINADOR" 
-                        className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                        className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 text-slate-900 dark:text-white font-medium"
                         value={newItem.rol}
                         onChange={e => setNewItem(prev => ({ ...prev, rol: e.target.value }))}
                       />
@@ -216,7 +216,7 @@ const LogisticaModule = () => {
                       <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                       <Input 
                         placeholder="Ej: ALICANTE" 
-                        className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                        className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 text-slate-900 dark:text-white font-medium"
                         value={newItem.zona}
                         onChange={e => setNewItem(prev => ({ ...prev, zona: e.target.value }))}
                       />
@@ -250,7 +250,7 @@ const LogisticaModule = () => {
                     <TableIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                     <Input 
                       placeholder="Ej: SEGURIDAD PRIVADA" 
-                      className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500"
+                      className="pl-10 h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500 text-slate-900 dark:text-white font-medium"
                       value={newTableName}
                       onChange={e => setNewTableName(e.target.value)}
                     />
@@ -456,7 +456,7 @@ const LogisticaModule = () => {
                                           <div className="space-y-1.5">
                                             <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Nombre</label>
                                             <Input 
-                                              className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl"
+                                              className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white font-medium"
                                               value={editValues.nombre_manual}
                                               onChange={e => setEditValues(prev => ({ ...prev, nombre_manual: e.target.value }))}
                                             />
@@ -465,7 +465,7 @@ const LogisticaModule = () => {
                                             <div className="space-y-1.5">
                                               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Rol</label>
                                               <Input 
-                                                className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl"
+                                                className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white font-medium"
                                                 value={editValues.rol}
                                                 onChange={e => setEditValues(prev => ({ ...prev, rol: e.target.value }))}
                                               />
@@ -473,7 +473,7 @@ const LogisticaModule = () => {
                                             <div className="space-y-1.5">
                                               <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-1 notranslate" translate="no">Zona</label>
                                               <Input 
-                                                className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl"
+                                                className="h-12 bg-slate-50 dark:bg-slate-800/50 border-none rounded-xl text-slate-900 dark:text-white font-medium"
                                                 value={editValues.zona}
                                                 onChange={e => setEditValues(prev => ({ ...prev, zona: e.target.value }))}
                                               />
