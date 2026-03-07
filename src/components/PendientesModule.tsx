@@ -289,7 +289,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="💬 Nota post-llamada (opcional)..."
+                    placeholder="💬 Comentario..."
                     value={currentComment}
                     onChange={(e) => handleCommentEdit(voter.id, e.target.value)}
                     onKeyDown={(e) => {
