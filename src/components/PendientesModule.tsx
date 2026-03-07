@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard, CheckCircle2, Users } from "lucide-react";
+import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard, CheckCircle2, Users, Trash2 } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
 import LeaderReferralsDialog from "./LeaderReferralsDialog";
 
@@ -7,6 +7,7 @@ interface Props {
   voters: Voter[];
   onUpdateStatus: (id: string, status: VoterStatus) => void;
   onUpdateComment: (id: string, comment: string) => void;
+  onDeleteVoter: (id: string) => void;
 }
 
 const PAGE_SIZE = 15;
@@ -19,7 +20,7 @@ const STATUSES = [
   { v: "No va votar" as VoterStatus, label: "✗ No vota", active: "bg-red-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
 ];
 
-const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) => {
+const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter }: Props) => {
   const pendientes = useMemo(
     () => voters.filter((v) => v.estado === "Pendiente de llamar" || v.estado === "Aún no ha venido"),
     [voters]
@@ -213,23 +214,38 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                   </div>
                 </div>
 
-                {/* Botón LLAMAR */}
-                {voter.celular ? (
-                  <a
-                    href={`tel:${voter.celular}`}
-                    className="shrink-0 flex flex-col items-center justify-center gap-1 rounded-2xl px-4 py-2.5 text-white shadow transition-all hover:scale-105 active:scale-95 text-center"
-                    style={{ background: "linear-gradient(135deg,#16a34a,#15803d)", minWidth: 88, boxShadow: "0 4px 14px rgba(22,163,74,0.35)" }}
+                {/* Botón ELIMINAR y LLAMAR */}
+                <div className="shrink-0 flex flex-col items-center gap-2">
+                  <button
+                    onClick={() => {
+                      if (window.confirm("¿Seguro que deseas eliminar a esta persona?")) {
+                        if (window.confirm("🚨 ESTO ES IRREVERSIBLE. ¿Estás absolutamente seguro de eliminarlo permanentemente?")) {
+                          onDeleteVoter(voter.id);
+                        }
+                      }
+                    }}
+                    className="p-1.5 rounded-full text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                    title="Eliminar usuario"
                   >
-                    <Phone className="h-5 w-5" />
-                    <span className="text-[11px] font-black tracking-wide">LLAMAR</span>
-                    <span className="text-[10px] font-bold opacity-90">{voter.celular}</span>
-                  </a>
-                ) : (
-                  <div className="shrink-0 flex flex-col items-center gap-1 rounded-2xl px-4 py-2.5 bg-gray-100 text-gray-400" style={{ minWidth: 88 }}>
-                    <Phone className="h-5 w-5" />
-                    <span className="text-[10px]">Sin número</span>
-                  </div>
-                )}
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                  {voter.celular ? (
+                    <a
+                      href={`tel:${voter.celular}`}
+                      className="flex flex-col items-center justify-center gap-1 rounded-2xl px-4 py-2.5 text-white shadow transition-all hover:scale-105 active:scale-95 text-center"
+                      style={{ background: "linear-gradient(135deg,#16a34a,#15803d)", minWidth: 88, boxShadow: "0 4px 14px rgba(22,163,74,0.35)" }}
+                    >
+                      <Phone className="h-5 w-5" />
+                      <span className="text-[11px] font-black tracking-wide">LLAMAR</span>
+                      <span className="text-[10px] font-bold opacity-90">{voter.celular}</span>
+                    </a>
+                  ) : (
+                    <div className="flex flex-col items-center gap-1 rounded-2xl px-4 py-2.5 bg-gray-100 text-gray-400" style={{ minWidth: 88 }}>
+                      <Phone className="h-5 w-5" />
+                      <span className="text-[10px]">Sin número</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Botones de estado */}

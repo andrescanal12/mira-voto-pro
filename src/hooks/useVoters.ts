@@ -228,6 +228,20 @@ export function useVoters() {
     }
   }, [manualSync]);
 
+  const deleteVoter = useCallback(async (id: string) => {
+    pendingWrite.current = true;
+    setVoters((prev) => prev.filter((v) => v.id !== id));
+    try {
+      const { error } = await supabase.from("votantes").delete().eq("id", id);
+      if (error) throw error;
+    } catch (err) {
+      console.error("⚠️ Error eliminando votante:", err);
+      manualSync(); // Recargar si hubo error para restaurar UI congruente
+    } finally {
+      pendingWrite.current = false;
+    }
+  }, [manualSync]);
+
   return {
     voters,
     isLoading,
@@ -238,6 +252,7 @@ export function useVoters() {
     updateVoterStatus,
     updateVoterComment,
     addVoter,
+    deleteVoter,
     clearData,
     manualSync,
   };

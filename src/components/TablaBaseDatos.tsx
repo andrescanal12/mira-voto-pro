@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard, Save, CheckCircle2, Users } from "lucide-react";
+import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard, Save, CheckCircle2, Users, Trash2 } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
 import LeaderReferralsDialog from "./LeaderReferralsDialog";
 
@@ -8,6 +8,7 @@ interface Props {
   onEdit: (voter: Voter) => void;
   onStatusChange?: (id: string, status: VoterStatus) => void;
   onCommentChange?: (id: string, comment: string) => void;
+  onDeleteVoter?: (id: string) => void;
 }
 
 const PAGE_SIZE = 15;
@@ -36,7 +37,7 @@ const statusPill: Record<VoterStatus, string> = {
   "No va votar": "bg-red-600    text-white",
 };
 
-const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
+const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter, onEdit }: Props) => {
   const [search, setSearch] = useState("");
   const [filterEstado, setFilterEstado] = useState("");
   const [filterRole, setFilterRole] = useState("");
@@ -224,11 +225,28 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                     )}
                   </div>
                 </div>
-                <span className={`shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full ${statusBadge[currentStatus]}`}>
-                  {currentStatus === "Aún no ha venido" ? "Pendiente" :
-                    currentStatus === "Pendiente de llamar" ? "📞 Llamar" :
-                      currentStatus === "Ya votó" ? "✅ Votó" : "✗ No vota"}
-                </span>
+                <div className="flex flex-col gap-2 items-end">
+                  <span className={`shrink-0 text-[10px] font-bold px-2.5 py-1 rounded-full ${statusBadge[currentStatus]}`}>
+                    {currentStatus === "Aún no ha venido" ? "Pendiente" :
+                      currentStatus === "Pendiente de llamar" ? "📞 Llamar" :
+                        currentStatus === "Ya votó" ? "✅ Votó" : "✗ No vota"}
+                  </span>
+                  {onDeleteVoter && (
+                    <button
+                      onClick={() => {
+                        if (window.confirm("¿Seguro que deseas eliminar a esta persona?")) {
+                          if (window.confirm("🚨 ESTO ES IRREVERSIBLE. ¿Estás absolutamente seguro de eliminarlo permanentemente?")) {
+                            onDeleteVoter(v.id);
+                          }
+                        }
+                      }}
+                      className="p-1.5 rounded-full text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                      title="Eliminar usuario"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Info */}
@@ -398,6 +416,22 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                           <Save className="h-3 w-3" /> Guardar
                         </button>
                       ) : null}
+                      {onDeleteVoter && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (window.confirm("¿Seguro que deseas eliminar a esta persona?")) {
+                              if (window.confirm("🚨 ESTO ES IRREVERSIBLE. ¿Estás absolutamente seguro de eliminarlo permanentemente?")) {
+                                onDeleteVoter(v.id);
+                              }
+                            }
+                          }}
+                          className="ml-auto p-1.5 rounded-md text-red-400 hover:text-red-700 hover:bg-red-50 transition-colors"
+                          title="Eliminar usuario"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>
