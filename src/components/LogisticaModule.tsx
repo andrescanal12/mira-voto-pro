@@ -97,12 +97,13 @@ const LogisticaModule = () => {
             const order: Record<string, number> = { 
               'APOYO ELECTORAL': 1, 
               'TRANSPORTE': 2, 
-              'JURADOS REMANENTES': 3 
+              'JURADOS REMANENTES': 3,
+              'ALIMENTACIÓN': 4 
             };
             return (order[a] || 99) - (order[b] || 99);
           })
           .map(([category, people]) => {
-          if (category === 'APOYO ELECTORAL' || category === 'TRANSPORTE' || category === 'JURADOS REMANENTES') {
+          if (category === 'APOYO ELECTORAL' || category === 'TRANSPORTE' || category === 'JURADOS REMANENTES' || category === 'ALIMENTACIÓN') {
             const subGroups = people.reduce((acc, p) => {
               const zone = p.zona || 'GENERAL';
               if (!acc[zone]) acc[zone] = [];
@@ -112,17 +113,26 @@ const LogisticaModule = () => {
 
             const isTransport = category === 'TRANSPORTE';
             const isRemanentes = category === 'JURADOS REMANENTES';
+            const isAlimentacion = category === 'ALIMENTACIÓN';
             
             const getGradient = () => {
               if (isTransport) return 'from-emerald-700 via-teal-800 to-teal-950';
               if (isRemanentes) return 'from-amber-600 via-orange-700 to-orange-900';
+              if (isAlimentacion) return 'from-cyan-600 via-sky-700 to-sky-900';
               return 'from-blue-700 via-indigo-800 to-indigo-950';
             };
 
             const getHighlightColor = () => {
               if (isTransport) return 'from-teal-400 to-emerald-500 text-emerald-950 ring-teal-300';
               if (isRemanentes) return 'from-yellow-400 to-amber-500 text-amber-950 ring-yellow-300';
+              if (isAlimentacion) return 'from-cyan-300 to-sky-400 text-sky-950 ring-cyan-200';
               return 'from-amber-400 to-amber-500 text-amber-950 ring-amber-300';
+            };
+
+            const getIcon = () => {
+              if (isTransport) return <Truck className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" />;
+              if (isAlimentacion) return <Utensils className="w-5 h-5 md:w-6 md:h-6 text-cyan-200" />;
+              return <Users className="w-5 h-5 md:w-6 md:h-6 text-blue-200" />;
             };
 
             return (
@@ -132,7 +142,7 @@ const LogisticaModule = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10 shadow-inner">
-                          {isTransport ? <Truck className="w-5 h-5 md:w-6 md:h-6 text-emerald-200" /> : <Users className="w-5 h-5 md:w-6 md:h-6 text-blue-200" />}
+                          {getIcon()}
                         </div>
                         <CardTitle className="text-lg md:text-2xl font-black tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70 notranslate" translate="no">
                           {category}
@@ -151,10 +161,10 @@ const LogisticaModule = () => {
                         </div>
                         <div className="flex flex-col md:flex-row md:items-center md:gap-2">
                           <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
-                            {isTransport ? 'COORDINACIÓN:' : 'COORDINADORES:'}
+                            {isAlimentacion ? 'COORDINADOR:' : 'COORDINADOR(A):'}
                           </span>
                           <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
-                            {isTransport ? 'PATRICIA LONDOÑO' : 'LUIS ARROYAVE Y SUGGEIN'}
+                            {isAlimentacion ? 'JOSE' : isTransport ? 'PATRICIA LONDOÑO' : 'LUIS ARROYAVE Y SUGGEIN'}
                           </span>
                         </div>
                       </div>
@@ -167,16 +177,16 @@ const LogisticaModule = () => {
                       {Object.keys(subGroups)
                         .filter(zone => zone !== 'COORD_GENERAL')
                         .sort((a, b) => {
-                          const order: Record<string, number> = isTransport 
+                          const orderZ: Record<string, number> = isTransport 
                             ? { 'APOYO': 1, 'ALICANTE': 2, 'PETRER': 3, 'VALENCIA': 4, 'BENIDORM': 5 }
                             : { 'TESTIGOS': 1, 'JURADOS': 2, 'CONSOLIDACIÓN ESCRUTINIOS': 3 };
-                          return (order[a] || 99) - (order[order[b] ? b : a] || 99);
+                          return (orderZ[a] || 99) - (orderZ[orderZ[b] ? b : a] || 99);
                         })
                         .map(zone => (
                         <div key={zone} className="flex flex-col">
-                          {(!isRemanentes || zone !== 'GENERAL') && (
+                          {(!isRemanentes && !isAlimentacion || zone !== 'GENERAL') && (
                             <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.05em] text-[11px] flex items-center gap-2">
-                              <span className={`w-1.5 h-1.5 ${isRemanentes ? 'bg-amber-500' : 'bg-blue-500'} rounded-full`} />
+                              <span className={`w-1.5 h-1.5 ${isRemanentes ? 'bg-amber-500' : isAlimentacion ? 'bg-cyan-500' : 'bg-blue-500'} rounded-full`} />
                               <span translate="no" className="notranslate">
                                 {zone === 'TESTIGOS' ? 'Testigos' : zone === 'JURADOS' ? 'Jurados' : zone === 'GENERAL' ? 'Personal' : zone.charAt(0).toUpperCase() + zone.slice(1).toLowerCase()}
                               </span>
