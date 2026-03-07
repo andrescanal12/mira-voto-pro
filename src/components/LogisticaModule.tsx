@@ -19,6 +19,7 @@ import {
   Backpack,
   Edit2,
   Save,
+  BookOpen,
   X
 } from 'lucide-react';
 import { toast } from 'sonner';
