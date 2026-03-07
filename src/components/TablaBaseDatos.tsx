@@ -155,8 +155,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onUpdateName,
             placeholder="Buscar por nombre, cédula o teléfono..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className="w-full pl-12 pr-4 py-3.5 rounded-2xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-lg"
-            style={{ background: "rgba(255,255,255,0.08)" }}
+            className="w-full pl-12 pr-4 py-3.5 rounded-2xl !text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-lg"
+            style={{ background: "rgba(255,255,255,1)", color: 'black' }}
           />
         </form>
 
@@ -230,7 +230,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onUpdateName,
                           type="text"
                           value={tempName}
                           onChange={(e) => setTempName(e.target.value)}
-                          className="flex-1 bg-white border-2 border-blue-500 rounded-lg px-2 py-1 text-xs font-bold focus:outline-none shadow-sm"
+                          className="flex-1 bg-white border-2 border-blue-500 rounded-lg px-2 py-1 text-xs font-bold !text-black focus:outline-none shadow-sm"
+                          style={{ color: 'black' }}
                           autoFocus
                           onKeyDown={(e) => {
                             if (e.key === "Enter") handleSaveName(v.id);
@@ -335,7 +336,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onUpdateName,
                   value={currentComment}
                   onChange={(e) => handleCommentEdit(v.id, e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleSave(v.id); } }}
-                  className="flex-1 min-w-0 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="flex-1 min-w-0 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   style={{ background: "#f9fafb" }}
                 />
                 {justSaved ? (
@@ -399,7 +400,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onUpdateName,
                             type="text"
                             value={tempName}
                             onChange={(e) => setTempName(e.target.value)}
-                            className="flex-1 bg-white border-2 border-blue-500 rounded px-1.5 py-0.5 text-xs font-bold outline-none"
+                            className="flex-1 bg-white border-2 border-blue-500 rounded px-1.5 py-0.5 text-xs font-bold !text-black outline-none"
+                            style={{ color: 'black' }}
                             autoFocus
                             onKeyDown={(e) => {
                               if (e.key === "Enter") handleSaveName(v.id);
@@ -473,7 +475,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onUpdateName,
                         placeholder="Comentario..."
                         onChange={(e) => handleCommentEdit(v.id, e.target.value)}
                         onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleSave(v.id); } }}
-                        className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                        className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
                         style={{ maxWidth: 130 }}
                       />
                       {justSaved ? (

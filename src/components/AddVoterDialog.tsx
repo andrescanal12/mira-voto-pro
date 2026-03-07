@@ -48,7 +48,8 @@ const AddVoterDialog = ({ onClose, onAdd }: Props) => {
                             autoFocus
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
-                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm font-bold !text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            style={{ color: 'black' }}
                             placeholder="Ej. Juan Pérez"
                         />
                     </div>
@@ -59,7 +60,8 @@ const AddVoterDialog = ({ onClose, onAdd }: Props) => {
                             type="text"
                             value={cedula}
                             onChange={(e) => setCedula(e.target.value)}
-                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm font-bold !text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            style={{ color: 'black' }}
                             placeholder="Ej. 123456789"
                         />
                     </div>

@@ -158,8 +158,11 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onUpdateNam
             placeholder={isSearchMode ? "Busca cualquier usuario por nombre, cédula o teléfono..." : "Buscar por nombre, cédula o teléfono..."}
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-            className={`w-full pr-4 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-xl ${isSearchMode ? "pl-14 py-4 rounded-3xl text-lg backdrop-blur-md" : "pl-12 py-3.5 rounded-2xl"}`}
-            style={{ background: isSearchMode ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.08)" }}
+            className={`w-full pr-4 !text-black placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent border border-white/20 transition-all shadow-xl ${isSearchMode ? "pl-14 py-4 rounded-3xl text-lg backdrop-blur-md" : "pl-12 py-3.5 rounded-2xl"}`}
+            style={{ 
+              background: "rgba(255,255,255,1)",
+              color: 'black'
+            }}
           />
         </form>
 
@@ -218,7 +221,8 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onUpdateNam
                           type="text"
                           value={tempName}
                           onChange={(e) => setTempName(e.target.value)}
-                          className="flex-1 bg-white border-2 border-blue-500 rounded-lg px-2 py-1 text-sm font-bold focus:outline-none shadow-sm"
+                          className="flex-1 bg-white border-2 border-blue-500 rounded-lg px-2 py-1 text-sm font-bold !text-black focus:outline-none shadow-sm"
+                          style={{ color: 'black' }}
                           autoFocus
                           onKeyDown={(e) => {
                             if (e.key === "Enter") handleSaveName(voter.id);
@@ -353,7 +357,7 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onUpdateNam
                         handleSave(voter.id, currentComment);
                       }
                     }}
-                    className="flex-1 min-w-0 text-xs border border-gray-200 bg-[#f9fafb] rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="flex-1 min-w-0 text-xs border border-gray-200 bg-[#f9fafb] rounded-xl px-3 py-2 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                   {justSaved ? (
                     <span className="shrink-0 flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white bg-green-500 transition-all">
