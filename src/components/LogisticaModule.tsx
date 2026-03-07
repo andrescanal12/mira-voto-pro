@@ -103,70 +103,81 @@ const LogisticaModule = () => {
 
             return (
               <Card key={category} className="md:col-span-2 lg:col-span-3 overflow-hidden border-none shadow-2xl bg-white dark:bg-slate-900">
-                <CardHeader className="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-4 px-6">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="bg-white/20 p-2 rounded-lg">
-                        <Users className="w-6 h-6" />
-                      </div>
-                      <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4">
-                        <CardTitle className="text-xl font-bold tracking-wider uppercase">APOYO ELECTORAL</CardTitle>
-                        <div className="flex items-center gap-2 bg-amber-400/90 text-amber-950 px-3 py-1 rounded-full text-xs font-black shadow-lg animate-in fade-in slide-in-from-left-2">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>COORD: LUIS ARROYAVE Y SUGGEIN</span>
+                <CardHeader className="bg-gradient-to-br from-blue-700 via-indigo-800 to-indigo-950 text-white p-4 md:p-6 border-b border-white/5">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-white/10 backdrop-blur-sm p-2 rounded-xl border border-white/10 shadow-inner">
+                          <Users className="w-5 h-5 md:w-6 md:h-6 text-blue-200" />
                         </div>
+                        <CardTitle className="text-lg md:text-2xl font-black tracking-tight uppercase bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
+                          APOYO ELECTORAL
+                        </CardTitle>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 flex flex-col items-center">
+                        <span className="text-[10px] md:text-xs font-medium text-blue-200 uppercase tracking-tighter leading-none">Equipo</span>
+                        <span className="text-sm md:text-lg font-black leading-none">{people.length}</span>
                       </div>
                     </div>
-                    <span className="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-sm font-bold border border-white/10">
-                      {people.length} EQUIPO TOTAL
-                    </span>
+                    
+                    <div className="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 px-4 py-2 rounded-xl text-[11px] md:text-sm font-black shadow-xl shadow-amber-950/20 ring-1 ring-amber-300 animate-in fade-in zoom-in-95 duration-500">
+                      <div className="bg-amber-950/20 p-1 rounded-full">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      </div>
+                      <div className="flex flex-col md:flex-row md:items-center md:gap-2">
+                        <span className="opacity-70 text-[9px] md:text-[10px] uppercase tracking-widest leading-none">COORDINADORES GENERALES</span>
+                        <span className="tracking-tight leading-none md:mt-0">LUIS ARROYAVE Y SUGGEIN</span>
+                      </div>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
                   <div className="flex-1 flex flex-col divide-y divide-slate-100 dark:divide-slate-800">
-                    {/* Sección de equipo */}
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 divide-x divide-slate-100 dark:divide-slate-800">
+                    {/* Listado de Personal por Zona */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-100 dark:divide-slate-800">
                       {['TESTIGOS', 'JURADOS'].map(zone => (
                         <div key={zone} className="flex flex-col">
-                          <div className="bg-sky-500 text-white py-2 px-4 font-bold text-center tracking-widest uppercase text-sm">
+                          <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase text-[10px] flex items-center gap-2">
+                            <span className="w-1 h-3 bg-blue-500 rounded-full" />
                             {zone}
                           </div>
                           <div className="divide-y divide-slate-50 dark:divide-slate-800 flex-1">
                             {(subGroups[zone] || []).sort((a, b) => {
                               const priority = (name: string) => {
-                                if (name.includes('CARLOS RIVERA')) return 1;
-                                if (name.includes('JULIANA ARIAS')) return 2;
+                                if (name.toUpperCase().includes('CARLOS RIVERA')) return 1;
+                                if (name.toUpperCase().includes('JULIANA ARIAS')) return 2;
                                 return 100;
                               };
-                              return priority(a.nombre_manual) - priority(b.nombre_manual);
+                              return priority(a.nombre_manual || '') - priority(b.nombre_manual || '');
                             }).map(person => {
-                              const isSpecial = person.nombre_manual.includes('CARLOS RIVERA') || person.nombre_manual.includes('JULIANA ARIAS');
+                              const isSpecial = person.nombre_manual?.toUpperCase().includes('CARLOS RIVERA') || person.nombre_manual?.toUpperCase().includes('JULIANA ARIAS');
                               return (
-                                <div key={person.id} className={`p-3 flex items-center justify-between transition-colors ${isSpecial ? 'bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100/50' : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}>
+                                <div key={person.id} className={`p-4 flex items-center justify-between transition-all duration-300 ${isSpecial ? 'bg-indigo-50/50 dark:bg-indigo-900/10 border-l-2 border-indigo-500 mt-px mb-px shadow-sm' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/20'}`}>
                                   <div className="flex flex-col">
-                                    <span className={`font-bold text-sm ${person.completado ? 'line-through text-slate-400' : isSpecial ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-800 dark:text-slate-200'}`}>
-                                      {person.rol ? (
-                                        <span className={`px-1.5 py-0.5 rounded text-[10px] mr-2 font-black ${isSpecial ? 'bg-indigo-200 text-indigo-800 dark:bg-indigo-800 dark:text-indigo-100' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'}`}>
+                                    <div className="flex items-center gap-2">
+                                      {person.rol && (
+                                        <span className={`px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider ${isSpecial ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'}`}>
                                           {person.rol}
                                         </span>
-                                      ) : null}
-                                      {person.nombre_manual}
-                                    </span>
+                                      )}
+                                      <span className={`font-bold text-sm md:text-base ${person.completado ? 'line-through text-slate-400' : isSpecial ? 'text-indigo-900 dark:text-indigo-200' : 'text-slate-800 dark:text-slate-200'}`}>
+                                        {person.nombre_manual}
+                                      </span>
+                                    </div>
                                     {(person.horario_inicio || person.horario_fin) && (
-                                      <span className="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5">
-                                        <Clock className="w-3 h-3" /> {person.horario_inicio || '?'} - {person.horario_fin || '?'}
+                                      <span className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-1 font-medium italic">
+                                        <Clock className="w-3.5 h-3.5 text-blue-400" /> {person.horario_inicio || '00:00'} - {person.horario_fin || '00:00'}
                                       </span>
                                     )}
                                   </div>
-                                  <div className="flex items-center gap-2">
-                                    <Button variant="ghost" size="icon" className="w-7 h-7" onClick={() => handleEdit(person)}>
-                                      <Edit2 className="w-3.5 h-3.5 text-slate-400" />
+                                  <div className="flex items-center gap-3">
+                                    <Button variant="ghost" size="icon" className="w-10 h-10 rounded-full hover:bg-white dark:hover:bg-slate-800 shadow-sm md:shadow-none" onClick={() => handleEdit(person)}>
+                                      <Edit2 className="w-4 h-4 text-slate-400 hover:text-blue-500 transition-colors" />
                                     </Button>
                                     <Checkbox 
                                       checked={person.completado} 
                                       onCheckedChange={(checked) => updateItem(person.id, { completado: !!checked })}
-                                      className="w-4 h-4 border-slate-300"
+                                      className="w-5 h-5 md:w-6 md:h-6 rounded-md border-2 border-slate-200 dark:border-slate-700 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 transition-all duration-300 scale-110 md:scale-100"
                                     />
                                   </div>
                                 </div>
