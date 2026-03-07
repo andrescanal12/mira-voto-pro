@@ -189,13 +189,13 @@ export function useVoters() {
     manualSync();
   }, [manualSync]);
 
-  const addVoter = useCallback(async (nombre: string, cedula: string) => {
+  const addVoter = useCallback(async (nombre: string, cedula: string, status: VoterStatus) => {
     const id = `extra-${Date.now()}`;
     const newVoter: Voter = {
       id,
       nombre,
       cedula,
-      estado: "Aún no ha venido" as VoterStatus,
+      estado: status,
       comentario: "Agregado manualmente",
       pais: "España",
       ciudad: "ALICANTE",
