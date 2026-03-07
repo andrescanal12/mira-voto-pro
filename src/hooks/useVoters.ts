@@ -139,7 +139,6 @@ export function useVoters() {
     );
   }, []);
 
-  // ── Actualiza comentario local + persiste en Supabase ───────────
   const updateVoterComment = useCallback((id: string, comentario: string) => {
     pendingWrite.current = true;
     setVoters((prev) =>
@@ -156,6 +155,27 @@ export function useVoters() {
             pendingWrite.current = false;
           });
         return { ...v, comentario };
+      })
+    );
+  }, []);
+
+  // ── Actualiza nombre local + persiste en Supabase ───────────────
+  const updateVoterName = useCallback((id: string, nombre: string) => {
+    pendingWrite.current = true;
+    setVoters((prev) =>
+      prev.map((v) => {
+        if (v.id !== id) return v;
+        supabase
+          .from("votantes")
+          .update({ nombre })
+          .eq("id", id)
+          .then(({ error }) => {
+            if (error) console.warn("⚠️ Supabase update nombre:", error.message);
+          })
+          .finally(() => {
+            pendingWrite.current = false;
+          });
+        return { ...v, nombre };
       })
     );
   }, []);
@@ -251,6 +271,7 @@ export function useVoters() {
     loadVoters,
     updateVoterStatus,
     updateVoterComment,
+    updateVoterName,
     addVoter,
     deleteVoter,
     clearData,

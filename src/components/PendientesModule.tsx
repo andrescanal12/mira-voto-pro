@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard, CheckCircle2, Users, Trash2 } from "lucide-react";
+import { Phone, Save, Search, ChevronLeft, ChevronRight, MapPin, CreditCard, CheckCircle2, Users, Trash2, Pencil, Check, X } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
 import LeaderReferralsDialog from "./LeaderReferralsDialog";
 
@@ -7,6 +7,7 @@ interface Props {
   voters: Voter[];
   onUpdateStatus: (id: string, status: VoterStatus) => void;
   onUpdateComment: (id: string, comment: string) => void;
+  onUpdateName: (id: string, nombre: string) => void;
   onDeleteVoter: (id: string) => void;
   forceStatus?: string;
   isSearchOnly?: boolean;
@@ -22,12 +23,14 @@ const STATUSES = [
   { v: "No va votar" as VoterStatus, label: "✗ No vota", active: "bg-red-600 text-white border-transparent", inactive: "bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200" },
 ];
 
-const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVoter, forceStatus, isSearchOnly }: Props) => {
+const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onUpdateName, onDeleteVoter, forceStatus, isSearchOnly }: Props) => {
   const [search, setSearch] = useState("");
   const [filterRole, setFilterRole] = useState("");
   const [filterEstado, setFilterEstado] = useState(forceStatus ?? "");
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
+  const [editingNameId, setEditingNameId] = useState<string | null>(null);
+  const [tempName, setTempName] = useState("");
 
   // Mapa de líderes y cantidad de referidos (Optimizado O(N) - Performance Optimizer Skill)
   const referralsCountMap = useMemo(() => {
@@ -60,6 +63,18 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
   const [pendingChanges, setPendingChanges] = useState<Record<string, { status?: VoterStatus; comment?: string; saved?: boolean }>>({});
 
   const isSearchMode = !!isSearchOnly;
+
+  const handleStartEdit = (v: Voter) => {
+    setEditingNameId(v.id);
+    setTempName(v.nombre);
+  };
+
+  const handleSaveName = (id: string) => {
+    if (tempName.trim()) {
+      onUpdateName(id, tempName.trim());
+    }
+    setEditingNameId(null);
+  };
 
   const filtered = useMemo(() => {
     // En modo búsqueda, mostramos vacío solo si no hay texto Y no hay filtro forzado del dashboard
@@ -196,8 +211,47 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
               {/* Fila superior: info + llamar */}
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0 flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-bold text-gray-900 text-base leading-tight truncate">{voter.nombre}</p>
+                  <div className="flex items-center gap-2 flex-wrap min-w-0 flex-1">
+                    {editingNameId === voter.id ? (
+                      <div className="flex items-center gap-2 w-full">
+                        <input
+                          type="text"
+                          value={tempName}
+                          onChange={(e) => setTempName(e.target.value)}
+                          className="flex-1 bg-white border-2 border-blue-500 rounded-lg px-2 py-1 text-sm font-bold focus:outline-none shadow-sm"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSaveName(voter.id);
+                            if (e.key === "Escape") setEditingNameId(null);
+                          }}
+                        />
+                        <button 
+                          onClick={() => handleSaveName(voter.id)}
+                          className="p-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-sm"
+                        >
+                          <Check className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={() => setEditingNameId(null)}
+                          className="p-1.5 bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-colors shadow-sm"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <p className="font-bold text-gray-900 text-base leading-tight truncate">{voter.nombre}</p>
+                        {voter.id.startsWith("extra-") && (
+                          <button 
+                            onClick={() => handleStartEdit(voter)}
+                            className="p-1 text-blue-500 hover:bg-blue-50 rounded transition-colors"
+                            title="Editar nombre"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </>
+                    )}
                     {hasPending && (
                       <span className="shrink-0 text-[10px] font-bold bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded-full animate-pulse">
                         ⚠ Sin guardar

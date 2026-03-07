@@ -32,7 +32,7 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
 ];
 
 const Index = () => {
-  const { voters, isLoading, isSyncing, lastSync, manualSync, updateVoterStatus, updateVoterComment, addVoter, deleteVoter } = useVoters();
+  const { voters, isLoading, isSyncing, lastSync, manualSync, updateVoterStatus, updateVoterComment, updateVoterName, addVoter, deleteVoter } = useVoters();
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
   const [isAddingVoter, setIsAddingVoter] = useState(false);
@@ -295,6 +295,7 @@ const Index = () => {
                 voters={voters} 
                 onUpdateStatus={updateVoterStatus} 
                 onUpdateComment={updateVoterComment} 
+                onUpdateName={updateVoterName}
                 onDeleteVoter={deleteVoter} 
                 forceStatus={dashboardFilter} 
                 isSearchOnly={true}
@@ -306,6 +307,7 @@ const Index = () => {
                 voters={voters} 
                 onUpdateStatus={updateVoterStatus} 
                 onUpdateComment={updateVoterComment} 
+                onUpdateName={updateVoterName}
                 onDeleteVoter={deleteVoter} 
                 forceStatus="pendientes" 
               />
@@ -323,6 +325,7 @@ const Index = () => {
                   onEdit={setEditingVoter}
                   onStatusChange={updateVoterStatus}
                   onCommentChange={updateVoterComment}
+                  onUpdateName={updateVoterName}
                   onDeleteVoter={deleteVoter}
                 />
               </div>

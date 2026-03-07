@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard, Save, CheckCircle2, Users, Trash2 } from "lucide-react";
+import { Search, Phone, ChevronLeft, ChevronRight, MapPin, CreditCard, Save, CheckCircle2, Users, Trash2, Pencil, Check, X } from "lucide-react";
 import { Voter, VoterStatus } from "@/types/voter";
 import LeaderReferralsDialog from "./LeaderReferralsDialog";
 
@@ -8,6 +8,7 @@ interface Props {
   onEdit: (voter: Voter) => void;
   onStatusChange?: (id: string, status: VoterStatus) => void;
   onCommentChange?: (id: string, comment: string) => void;
+  onUpdateName?: (id: string, nombre: string) => void;
   onDeleteVoter?: (id: string) => void;
 }
 
@@ -37,12 +38,14 @@ const statusPill: Record<VoterStatus, string> = {
   "No va votar": "bg-red-600    text-white",
 };
 
-const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter, onEdit }: Props) => {
+const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onUpdateName, onDeleteVoter, onEdit }: Props) => {
   const [search, setSearch] = useState("");
   const [filterEstado, setFilterEstado] = useState("");
   const [filterRole, setFilterRole] = useState("");
   const [page, setPage] = useState(0);
   const [selectedLeader, setSelectedLeader] = useState<string | null>(null);
+  const [editingNameId, setEditingNameId] = useState<string | null>(null);
+  const [tempName, setTempName] = useState("");
 
   // Mapa de líderes y cantidad de referidos (Optimizado O(N) - Performance Optimizer Skill)
   const referralsCountMap = useMemo(() => {
@@ -119,6 +122,18 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter
         return n;
       });
     }, 1500);
+  };
+
+  const handleStartEdit = (v: Voter) => {
+    setEditingNameId(v.id);
+    setTempName(v.nombre);
+  };
+
+  const handleSaveName = (id: string) => {
+    if (tempName.trim() && onUpdateName) {
+      onUpdateName(id, tempName.trim());
+    }
+    setEditingNameId(null);
   };
 
   return (
@@ -208,7 +223,38 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter
               {/* Nombre + badge */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0 flex flex-col gap-1.5">
-                  <p className="font-bold text-gray-900 text-[15px] leading-tight truncate">{v.nombre}</p>
+                  <div className="flex items-center gap-2 flex-wrap min-w-0 flex-1">
+                    {editingNameId === v.id ? (
+                      <div className="flex items-center gap-2 w-full">
+                        <input
+                          type="text"
+                          value={tempName}
+                          onChange={(e) => setTempName(e.target.value)}
+                          className="flex-1 bg-white border-2 border-blue-500 rounded-lg px-2 py-1 text-xs font-bold focus:outline-none shadow-sm"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") handleSaveName(v.id);
+                            if (e.key === "Escape") setEditingNameId(null);
+                          }}
+                        />
+                        <button onClick={() => handleSaveName(v.id)} className="p-1 bg-green-500 text-white rounded hover:bg-green-600 transition-colors">
+                          <Check className="h-3 w-3" />
+                        </button>
+                        <button onClick={() => setEditingNameId(null)} className="p-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300 transition-colors">
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <p className="font-bold text-gray-900 text-[15px] leading-tight truncate">{v.nombre}</p>
+                        {v.id.startsWith("extra-") && (
+                          <button onClick={() => handleStartEdit(v)} className="p-1 text-blue-500 hover:bg-blue-50 rounded transition-colors">
+                            <Pencil className="h-3 w-3" />
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
                   <div className="flex flex-wrap gap-2">
                     {referralsCountMap.has(v.nombre) && (
                       <button
@@ -346,7 +392,35 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter
                 >
                   <td className="px-5 py-3">
                     <div className="flex flex-col gap-1.5 min-w-[200px]">
-                      <span className="font-semibold text-gray-900">{v.nombre}</span>
+                    <div className="flex items-center gap-1.5">
+                      {editingNameId === v.id ? (
+                        <div className="flex items-center gap-1.5 w-full">
+                          <input
+                            type="text"
+                            value={tempName}
+                            onChange={(e) => setTempName(e.target.value)}
+                            className="flex-1 bg-white border-2 border-blue-500 rounded px-1.5 py-0.5 text-xs font-bold outline-none"
+                            autoFocus
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") handleSaveName(v.id);
+                              if (e.key === "Escape") setEditingNameId(null);
+                            }}
+                          />
+                          <button onClick={() => handleSaveName(v.id)} className="p-1 bg-green-500 text-white rounded hover:bg-green-600">
+                            <Check className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <span className="font-semibold text-gray-900">{v.nombre}</span>
+                          {v.id.startsWith("extra-") && (
+                            <button onClick={() => handleStartEdit(v)} className="p-1 text-blue-500 hover:bg-blue-50 rounded">
+                              <Pencil className="h-3 w-3" />
+                            </button>
+                          )}
+                        </>
+                      )}
+                    </div>
                       {referralsCountMap.has(v.nombre) && (
                         <button
                           onClick={() => setSelectedLeader(v.nombre)}
