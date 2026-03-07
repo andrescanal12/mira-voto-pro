@@ -98,7 +98,6 @@ const LogisticaModule = () => {
             const order: Record<string, number> = { 
               'APOYO ELECTORAL': 1, 
               'TRANSPORTE': 2, 
-              'JURADOS REMANENTES': 3,
               'ALIMENTACIÓN': 4,
               'ENTREGA DE ALIMENTOS E IMPREVISTOS': 5,
               'PEDAGOGÍA IGLESIA': 6,
@@ -109,7 +108,7 @@ const LogisticaModule = () => {
           })
           .map(([category, people]) => {
           const premiumCategories = [
-            'APOYO ELECTORAL', 'TRANSPORTE', 'JURADOS REMANENTES', 'ALIMENTACIÓN',
+            'APOYO ELECTORAL', 'TRANSPORTE', 'ALIMENTACIÓN',
             'ENTREGA DE ALIMENTOS E IMPREVISTOS', 'PEDAGOGÍA IGLESIA', 
             'LLEVAR A PUNTO DE VOTACIÓN', 'CALL CENTER'
           ];
@@ -123,7 +122,6 @@ const LogisticaModule = () => {
             }, {} as Record<string, LogisticaItem[]>);
 
             const isTransport = category === 'TRANSPORTE';
-            const isRemanentes = category === 'JURADOS REMANENTES';
             const isAlimentacion = category === 'ALIMENTACIÓN';
             const isImprevistos = category === 'ENTREGA DE ALIMENTOS E IMPREVISTOS';
             const isPedagogia = category === 'PEDAGOGÍA IGLESIA';
@@ -132,7 +130,6 @@ const LogisticaModule = () => {
             
             const getGradient = () => {
               if (isTransport) return 'from-emerald-700 via-teal-800 to-teal-950';
-              if (isRemanentes) return 'from-amber-600 via-orange-700 to-orange-900';
               if (isAlimentacion) return 'from-cyan-600 via-sky-700 to-sky-900';
               if (isImprevistos) return 'from-pink-600 via-rose-700 to-rose-900';
               if (isPedagogia) return 'from-purple-600 via-violet-700 to-violet-900';
@@ -143,7 +140,6 @@ const LogisticaModule = () => {
 
             const getHighlightColor = () => {
               if (isTransport) return 'from-teal-400 to-emerald-500 text-emerald-950 ring-teal-300';
-              if (isRemanentes) return 'from-yellow-400 to-amber-500 text-amber-950 ring-yellow-300';
               if (isAlimentacion) return 'from-cyan-300 to-sky-400 text-sky-950 ring-cyan-200';
               if (isImprevistos) return 'from-rose-300 to-pink-400 text-rose-950 ring-rose-200';
               if (isPedagogia) return 'from-violet-300 to-purple-400 text-purple-950 ring-purple-200';
@@ -190,21 +186,19 @@ const LogisticaModule = () => {
                       </div>
                     </div>
                     
-                    {!isRemanentes && (
-                      <div className={`flex items-center gap-2 bg-gradient-to-r ${getHighlightColor()} px-4 py-2 rounded-xl text-[11px] md:text-sm font-black shadow-xl md:shadow-none ring-1 animate-in fade-in zoom-in-95 duration-500`}>
-                        <div className="bg-black/10 p-1 rounded-full">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                        </div>
-                        <div className="flex flex-col md:flex-row md:items-center md:gap-2">
-                          <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
-                            {isPedagogia || isImprevistos || isCallCenter ? 'COORDINADORA:' : 'COORDINADOR:'}
-                          </span>
-                          <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
-                            {getCoordinators()}
-                          </span>
-                        </div>
+                    <div className={`flex items-center gap-2 bg-gradient-to-r ${getHighlightColor()} px-4 py-2 rounded-xl text-[11px] md:text-sm font-black shadow-xl md:shadow-none ring-1 animate-in fade-in zoom-in-95 duration-500`}>
+                      <div className="bg-black/10 p-1 rounded-full">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
                       </div>
-                    )}
+                      <div className="flex flex-col md:flex-row md:items-center md:gap-2">
+                        <span className="opacity-70 text-[9px] md:text-[10px] tracking-widest leading-none notranslate" translate="no">
+                          {isPedagogia || isImprevistos || isCallCenter ? 'COORDINADORA:' : 'COORDINADOR:'}
+                        </span>
+                        <span className="tracking-tight leading-none md:mt-0 notranslate font-black uppercase" translate="no">
+                          {getCoordinators()}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -222,9 +216,9 @@ const LogisticaModule = () => {
                         })
                         .map(zone => (
                         <div key={zone} className="flex flex-col">
-                          {(!isRemanentes && !isAlimentacion && !isImprevistos || zone !== 'GENERAL') && (
+                          {(!isAlimentacion && !isImprevistos || zone !== 'GENERAL') && (
                             <div className="bg-slate-50/80 dark:bg-slate-900/50 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800/50 py-2.5 px-4 font-black text-slate-400 dark:text-slate-500 tracking-[0.05em] text-[11px] flex items-center gap-2">
-                              <span className={`w-1.5 h-1.5 ${isRemanentes ? 'bg-amber-500' : isAlimentacion ? 'bg-cyan-500' : 'bg-blue-500'} rounded-full`} />
+                              <span className={`w-1.5 h-1.5 ${isAlimentacion ? 'bg-cyan-500' : 'bg-blue-500'} rounded-full`} />
                               <span translate="no" className="notranslate">
                                 {zone === 'TESTIGOS' ? 'Testigos' : zone === 'JURADOS' ? 'Jurados' : zone === 'GENERAL' ? 'Personal' : zone.charAt(0).toUpperCase() + zone.slice(1).toLowerCase()}
                               </span>
@@ -236,7 +230,7 @@ const LogisticaModule = () => {
                                 const n = name.toUpperCase();
                                 if (n.includes('MARIA ALEJANDRA')) return 1;
                                 if (n.includes('LILY ROJAS')) return 1;
-                                if (n.includes('CRISTIAN ARROYAVE')) return 1;
+                                if (n.includes('CRISTIAN ARROYAVE')) return 999;
                                 if (n.includes('CARLOS RIVERA')) return 2;
                                 if (n.includes('JULIANA ARIAS')) return 3;
                                 return 100;
