@@ -216,19 +216,21 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment, onDeleteVot
 
                 {/* Botón ELIMINAR y LLAMAR */}
                 <div className="shrink-0 flex flex-col items-center gap-2">
-                  <button
-                    onClick={() => {
-                      if (window.confirm("¿Seguro que deseas eliminar a esta persona?")) {
-                        if (window.confirm("🚨 ESTO ES IRREVERSIBLE. ¿Estás absolutamente seguro de eliminarlo permanentemente?")) {
-                          onDeleteVoter(voter.id);
+                  {String(voter.id).startsWith("extra-") && (
+                    <button
+                      onClick={() => {
+                        if (window.confirm("¿Seguro que deseas eliminar a esta persona?")) {
+                          if (window.confirm("🚨 ESTO ES IRREVERSIBLE. ¿Estás absolutamente seguro de eliminarlo permanentemente?")) {
+                            onDeleteVoter(voter.id);
+                          }
                         }
-                      }
-                    }}
-                    className="p-1.5 rounded-full text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-                    title="Eliminar usuario"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </button>
+                      }}
+                      className="p-1.5 rounded-full text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                      title="Eliminar usuario manualmente agregado"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  )}
                   {voter.celular ? (
                     <a
                       href={`tel:${voter.celular}`}

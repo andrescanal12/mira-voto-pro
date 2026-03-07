@@ -231,7 +231,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter
                       currentStatus === "Pendiente de llamar" ? "📞 Llamar" :
                         currentStatus === "Ya votó" ? "✅ Votó" : "✗ No vota"}
                   </span>
-                  {onDeleteVoter && (
+                  {onDeleteVoter && String(v.id).startsWith("extra-") && (
                     <button
                       onClick={() => {
                         if (window.confirm("¿Seguro que deseas eliminar a esta persona?")) {
@@ -241,7 +241,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter
                         }
                       }}
                       className="p-1.5 rounded-full text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-                      title="Eliminar usuario"
+                      title="Eliminar usuario manualmente agregado"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -416,7 +416,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter
                           <Save className="h-3 w-3" /> Guardar
                         </button>
                       ) : null}
-                      {onDeleteVoter && (
+                      {onDeleteVoter && String(v.id).startsWith("extra-") && (
                         <button
                           type="button"
                           onClick={() => {
@@ -427,7 +427,7 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange, onDeleteVoter
                             }
                           }}
                           className="ml-auto p-1.5 rounded-md text-red-400 hover:text-red-700 hover:bg-red-50 transition-colors"
-                          title="Eliminar usuario"
+                          title="Eliminar usuario manualmente agregado"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
