@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BarChart3, Database, Phone, FileDown, CheckCircle2, UserPlus, Search, ExternalLink, Headset } from "lucide-react";
+import { BarChart3, Database, Phone, FileDown, CheckCircle2, UserPlus, Search, ExternalLink, Headset, Truck } from "lucide-react";
 import Header from "@/components/Header";
 import ContadorRegresivo from "@/components/ContadorRegresivo";
 import DashboardCards from "@/components/DashboardCards";
@@ -8,6 +8,7 @@ import PendientesModule from "@/components/PendientesModule";
 import Reportes from "@/components/Reportes";
 import EditVoterDialog from "@/components/EditVoterDialog";
 import AddVoterDialog from "@/components/AddVoterDialog";
+import LogisticaModule from "@/components/LogisticaModule";
 import { useVoters } from "@/hooks/useVoters";
 import { Voter, VoterStatus } from "@/types/voter";
 import miraBanner from "@/assets/mira-banner.png";
@@ -21,13 +22,14 @@ const ALE_BALLOT = "https://candidatos2026.partidomira.com/archivos/default/arch
 const ANA_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-fd58e2984c78c17f&v=1772071197";
 const ALE_NAME = "https://candidatos2026.partidomira.com/archivos/default/archivo-general?unique_id=archivo-f63ec40a857cc934&v=1772072982";
 
-type Tab = "dashboard" | "pendientes" | "call_center" | "ya_llamados" | "reportes";
+type Tab = "dashboard" | "pendientes" | "call_center" | "ya_llamados" | "reportes" | "logistica";
 
 const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
   { id: "dashboard", label: "Dashboard", icon: BarChart3 },
   { id: "pendientes", label: "Buscar usuarios", icon: Search },
   { id: "call_center", label: "Call-Center", icon: Headset },
   { id: "ya_llamados", label: "Ya llamados", icon: CheckCircle2 },
+  { id: "logistica", label: "Logística", icon: Truck },
   { id: "reportes", label: "Reportes", icon: FileDown },
 ];
 
@@ -330,6 +332,7 @@ const Index = () => {
                 />
               </div>
             )}
+            {activeTab === "logistica" && <LogisticaModule />}
             {activeTab === "reportes" && <Reportes voters={voters} />}
           </div>
         </main>
