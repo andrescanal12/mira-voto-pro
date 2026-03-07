@@ -206,8 +206,8 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
             >
               {/* Nombre + badge */}
               <div className="flex items-start justify-between gap-2">
-                <div className="flex flex-col gap-1.5">
-                  <p className="font-bold text-gray-900 text-[15px] leading-tight">{v.nombre}</p>
+                <div className="flex-1 min-w-0 flex flex-col gap-1.5">
+                  <p className="font-bold text-gray-900 text-[15px] leading-tight truncate">{v.nombre}</p>
                   <div className="flex flex-wrap gap-2">
                     {referralsCountMap.has(v.nombre) && (
                       <button
@@ -271,18 +271,18 @@ const TablaBaseDatos = ({ voters, onStatusChange, onCommentChange }: Props) => {
                   value={currentComment}
                   onChange={(e) => handleCommentEdit(v.id, e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleSave(v.id); } }}
-                  className="flex-1 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="flex-1 min-w-0 text-xs border border-gray-200 rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   style={{ background: "#f9fafb" }}
                 />
                 {justSaved ? (
-                  <span className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white bg-green-500 transition-all">
+                  <span className="shrink-0 flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white bg-green-500 transition-all">
                     <CheckCircle2 className="h-3.5 w-3.5" /> ¡Listo!
                   </span>
                 ) : hasPending ? (
                   <button
                     type="button"
                     onClick={() => handleSave(v.id)}
-                    className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white animate-pulse"
+                    className="shrink-0 flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white animate-pulse"
                     style={{ background: "#1a3a6e" }}
                   >
                     <Save className="h-3.5 w-3.5" /> Guardar

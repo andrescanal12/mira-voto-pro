@@ -175,34 +175,33 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
             >
               {/* Fila superior: info + llamar */}
               <div className="flex items-start justify-between gap-3">
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <p className="font-bold text-gray-900 text-base leading-tight">{voter.nombre}</p>
-                      {hasPending && (
-                        <span className="text-[10px] font-bold bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded-full animate-pulse">
-                          ⚠ Sin guardar
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Etiquetas de Líder y Referido */}
-                    <div className="flex flex-wrap gap-2">
-                      {referralsCountMap.has(voter.nombre) && (
-                        <button
-                          onClick={() => setSelectedLeader(voter.nombre)}
-                          className="flex items-center gap-1.5 text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-full hover:bg-indigo-100 transition-colors shadow-sm"
-                        >
-                          <Users className="h-3 w-3" /> Ver Referidos ({referralsCountMap.get(voter.nombre)})
-                        </button>
-                      )}
-                      {voter.lider && voter.lider !== "Líder Principal" && (
-                        <span className="flex items-center gap-1.5 text-[10px] font-bold bg-gray-50 text-gray-600 border border-gray-200 px-2.5 py-1 rounded-full">
-                          👤 Líder: {voter.lider}
-                        </span>
-                      )}
-                    </div>
+                <div className="flex-1 min-w-0 flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-bold text-gray-900 text-base leading-tight truncate">{voter.nombre}</p>
+                    {hasPending && (
+                      <span className="shrink-0 text-[10px] font-bold bg-yellow-100 text-yellow-700 border border-yellow-300 px-2 py-0.5 rounded-full animate-pulse">
+                        ⚠ Sin guardar
+                      </span>
+                    )}
                   </div>
+
+                  {/* Etiquetas de Líder y Referido */}
+                  <div className="flex flex-wrap gap-2">
+                    {referralsCountMap.has(voter.nombre) && (
+                      <button
+                        onClick={() => setSelectedLeader(voter.nombre)}
+                        className="flex items-center gap-1.5 text-[10px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-full hover:bg-indigo-100 transition-colors shadow-sm"
+                      >
+                        <Users className="h-3 w-3" /> Ver Referidos ({referralsCountMap.get(voter.nombre)})
+                      </button>
+                    )}
+                    {voter.lider && voter.lider !== "Líder Principal" && (
+                      <span className="flex items-center gap-1.5 text-[10px] font-bold bg-gray-50 text-gray-600 border border-gray-200 px-2.5 py-1 rounded-full">
+                        👤 Líder: {voter.lider}
+                      </span>
+                    )}
+                  </div>
+                  
                   <div className="flex flex-wrap gap-x-3 gap-y-0.5 mt-2 text-xs text-gray-500">
                     <span className="flex items-center gap-1">
                       <CreditCard className="h-3 w-3" /> {voter.cedula}
@@ -261,17 +260,17 @@ const PendientesModule = ({ voters, onUpdateStatus, onUpdateComment }: Props) =>
                         handleSave(voter.id, currentComment);
                       }
                     }}
-                    className="flex-1 text-xs border border-gray-200 bg-[#f9fafb] rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="flex-1 min-w-0 text-xs border border-gray-200 bg-[#f9fafb] rounded-xl px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                   {justSaved ? (
-                    <span className="flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white bg-green-500 transition-all">
+                    <span className="shrink-0 flex items-center gap-1 text-[11px] font-bold px-3 py-2 rounded-xl text-white bg-green-500 transition-all">
                       <CheckCircle2 className="h-3.5 w-3.5" /> ¡Listo!
                     </span>
                   ) : hasPending ? (
                     <button
                       type="button"
                       onClick={() => handleSave(voter.id, currentComment)}
-                      className="flex items-center gap-1 text-[11px] font-bold px-4 py-2 rounded-xl text-white whitespace-nowrap transition-all bg-[#1a3a6e] shadow-md animate-pulse hover:bg-[#12284c]"
+                      className="shrink-0 flex items-center gap-1 text-[11px] font-bold px-4 py-2 rounded-xl text-white whitespace-nowrap transition-all bg-[#1a3a6e] shadow-md animate-pulse hover:bg-[#12284c]"
                     >
                       <Save className="h-3.5 w-3.5" /> Guardar
                     </button>
