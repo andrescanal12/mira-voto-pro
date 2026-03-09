@@ -128,9 +128,6 @@ const Login = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -top-1 -right-1 bg-[#fbba00] p-2 rounded-full shadow-lg z-20 animate-pulse border-2 border-white/50">
-                <Sparkles className="h-4 w-4 text-[#00289f]" />
-              </div>
             </div>
             <div className="text-center space-y-2">
               <h1 className="text-3xl font-black text-white tracking-tighter drop-shadow-lg">
