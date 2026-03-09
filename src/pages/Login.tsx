@@ -121,12 +121,14 @@ const Login = () => {
           <CardHeader ref={headerRef} className="flex flex-col items-center space-y-4 pt-12 pb-6">
             <div className="relative group">
               <div className="absolute inset-0 bg-[#fbba00] blur-3xl opacity-30 rounded-full group-hover:opacity-50 transition-opacity duration-1000" />
-              <img
-                src={miraLogo}
-                alt="MIRA Logo"
-                className="w-28 h-28 rounded-full border-4 border-white/80 shadow-2xl relative z-10 transform scale-100 group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute -top-2 -right-2 bg-[#fbba00] p-2 rounded-full shadow-lg z-20 animate-pulse">
+              <div className="w-32 h-32 rounded-full border-4 border-white/80 shadow-2xl relative z-10 bg-white overflow-hidden flex items-center justify-center transform scale-100 group-hover:scale-105 transition-transform duration-700">
+                <img
+                  src={miraLogo}
+                  alt="MIRA Logo"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -top-1 -right-1 bg-[#fbba00] p-2 rounded-full shadow-lg z-20 animate-pulse border-2 border-white/50">
                 <Sparkles className="h-4 w-4 text-[#00289f]" />
               </div>
             </div>
