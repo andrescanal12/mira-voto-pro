@@ -10,7 +10,9 @@ import EditVoterDialog from "@/components/EditVoterDialog";
 import AddVoterDialog from "@/components/AddVoterDialog";
 import LogisticaModule from "@/components/LogisticaModule";
 import { useVoters } from "@/hooks/useVoters";
+import { useAuth } from "@/context/AuthContext";
 import { Voter, VoterStatus } from "@/types/voter";
+import { LogOut } from "lucide-react";
 import miraBanner from "@/assets/mira-banner.png";
 import miraLogo from "@/assets/mira-logo.jpg";
 
@@ -34,6 +36,7 @@ const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
 ];
 
 const Index = () => {
+  const { logout, user } = useAuth();
   const { voters, isLoading, isSyncing, lastSync, manualSync, updateVoterStatus, updateVoterComment, updateVoterName, addVoter, deleteVoter } = useVoters();
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [editingVoter, setEditingVoter] = useState<Voter | null>(null);
@@ -122,6 +125,23 @@ const Index = () => {
 
         {/* ── HEADER RESPONSIVO INSTITUCIONAL ── */}
         <div className="flex flex-col lg:flex-row items-center justify-center px-4 pt-6 lg:pt-8 w-full relative z-50">
+          
+          {/* Logout button top right on desktop, or appropriate place on mobile */}
+          <div className="absolute top-6 right-6 lg:top-8 lg:right-8 flex items-center gap-4">
+             <div className="hidden md:flex flex-col items-end">
+               <span className="text-white/50 text-[10px] font-bold uppercase tracking-widest">Usuario</span>
+               <span className="text-white font-bold text-sm tracking-tight">{user}</span>
+             </div>
+             <button 
+               onClick={logout}
+               className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white px-4 py-2 rounded-xl transition-all border border-white/10 backdrop-blur-sm group"
+             >
+               <LogOut className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+               <span className="text-sm font-bold">Salir</span>
+             </button>
+          </div>
+
+
 
           {/* Contador (Mobile: flujo centrado arriba, Desktop: Fijo arriba a la izquierda) */}
           <div className="flex justify-center w-full lg:w-auto lg:absolute lg:top-8 lg:left-8 mb-6 lg:mb-0">

@@ -1,10 +1,3 @@
-"Objetivo: Verificar puesto de votación y estado del votante para:
-
-1. Socializar la ruta de inscripción efectiva en el consulado.
-2. Hacer seguimiento al estado de inscripción de cédula
-
-Antes de iniciar, por favor verifique el lugar de votación de la persona a consultar, en el siguiente link:
-https://wsp.registraduria.gov.co/censo",,,,,,,,,,,
 ,,,DATOS DE LA PERSONA - SOBRE ESTADO DE INSCRIPCIÓN DE CÉDULA,,,,,,,SEGUIMIENTO,
 PAÍS,CIUDAD,NOMBRE IGLESIA,Nº DE CÉDULA,NOMBRES Y APELLIDOS,CELULAR (CON INDICATIVO),¿TIENE LA CÉDULA INSCRITA?,¿ACTIVO COMO LÌDER?,¿ACTIVO COMO REFERIDO?,,ESTADO DE INSCRIPCIÓN,
 ESPAÑA,ALICANTE,ALICANTE,6774089,Abelardo Ortiz Sandoval,660442292,Sí,,Sí,,,COMPLETO
@@ -380,5 +373,3 @@ ESPAÑA,ALICANTE,ALICANTE,67041868,Yuly Jimena Cano Aragon,643884825,Sí,,Sí,,,
 ESPAÑA,ALICANTE,ALICANTE,34065828,Yuri Andrea Buitrago,603256972,Sí,,Sí,,,COMPLETO
 ESPAÑA,ALICANTE,ALICANTE,1192791507,Zarich Lorena San Pedro Fernandez,,Sí,,Sí,,,COMPLETO
 ESPAÑA,ALICANTE,ALICANTE,1062318276,Zulay Alexandra Alvarado,34633756946,Sí,Sí,No,,,COMPLETO
-,,,,,Total Sí,#ERROR!,#ERROR!,#ERROR!,,COMPLETO,#ERROR!
-,,,,,Total No,#ERROR!,0,0,,EN PROCESO,#ERROR!
