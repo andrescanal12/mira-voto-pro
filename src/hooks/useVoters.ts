@@ -124,9 +124,20 @@ export function useVoters() {
     setVoters((prev) =>
       prev.map((v) => {
         if (v.id !== id) return v;
+
+        let newComment = v.comentario;
+        if (status === "Ya llamado" && !v.comentario.includes("[Llamado]")) {
+          newComment = v.comentario ? `${v.comentario} [Llamado]` : "[Llamado]";
+        }
+
+        const updates: Record<string, any> = { estado: status };
+        if (newComment !== v.comentario) {
+          updates.comentario = newComment;
+        }
+
         supabase
           .from("votantes")
-          .update({ estado: status })
+          .update(updates)
           .eq("id", id)
           .then(({ error }) => {
             if (error) console.warn("⚠️ Supabase update estado:", error.message);
@@ -134,7 +145,7 @@ export function useVoters() {
           .finally(() => {
             pendingWrite.current = false;
           });
-        return { ...v, estado: status };
+        return { ...v, estado: status, comentario: newComment };
       })
     );
   }, []);
