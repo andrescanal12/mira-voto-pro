@@ -56,9 +56,10 @@ const wasCalled = (v: Voter) => {
 
 interface RendicionProps {
   onBack?: () => void;
+  readOnly?: boolean;
 }
 
-export default function Rendicion({ onBack }: RendicionProps) {
+export default function Rendicion({ onBack, readOnly = false }: RendicionProps) {
   const navigate = useNavigate();
   const { voters, isLoading } = useVoters();
   const { user, logout } = useAuth();
@@ -236,29 +237,31 @@ export default function Rendicion({ onBack }: RendicionProps) {
     <div className="space-y-8 text-slate-800">
       
       {/* ── BARRA SUPERIOR DE ACCIONES (Volver + Usuario + Salir) ── */}
-      <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 hover:text-[#00289F] px-4 py-2 rounded-xl transition-all border border-slate-200 text-xs font-bold shadow-sm"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Volver</span>
-        </button>
-        
-        <div className="flex items-center gap-4">
-          <div className="flex flex-col items-end">
-            <span className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Usuario</span>
-            <span className="text-slate-700 font-bold text-sm tracking-tight">{user}</span>
-          </div>
+      {!readOnly && (
+        <div className="flex justify-between items-center pb-4 border-b border-slate-200">
           <button
-            onClick={logout}
-            className="flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-650 hover:text-[#00289F] px-4 py-2 rounded-xl transition-all border border-slate-200 group shadow-sm"
+            onClick={onBack}
+            className="flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 hover:text-[#00289F] px-4 py-2 rounded-xl transition-all border border-slate-200 text-xs font-bold shadow-sm"
           >
-            <LogOut className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            <span className="text-sm font-bold">Salir</span>
+            <ArrowLeft className="h-4 w-4" />
+            <span>Volver</span>
           </button>
+          
+          <div className="flex items-center gap-4">
+            <div className="flex flex-col items-end">
+              <span className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Usuario</span>
+              <span className="text-slate-700 font-bold text-sm tracking-tight">{user}</span>
+            </div>
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-650 hover:text-[#00289F] px-4 py-2 rounded-xl transition-all border border-slate-200 group shadow-sm"
+            >
+              <LogOut className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              <span className="text-sm font-bold">Salir</span>
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── SECCIÓN DE CABECERA (Estilo Editorial con Instrument Serif) ── */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-6 border-b border-slate-200">

@@ -37,6 +37,16 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/rendicion-publica"
+              element={
+                <div className="min-h-screen bg-[#F4F7FC] text-slate-800 transition-colors duration-500">
+                  <main className="container mx-auto px-4 py-12 space-y-6 max-w-7xl">
+                    <Rendicion readOnly={true} />
+                  </main>
+                </div>
+              }
+            />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
