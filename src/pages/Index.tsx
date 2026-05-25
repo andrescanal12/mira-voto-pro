@@ -150,10 +150,7 @@ const Index = () => {
 
 
 
-            {/* Contador (Mobile: flujo centrado arriba, Desktop: Fijo arriba a la izquierda) */}
-            <div className="flex justify-center w-full lg:w-auto lg:absolute lg:top-8 lg:left-8 mb-6 lg:mb-0">
-              <ContadorRegresivo />
-            </div>
+
 
             <div className="flex flex-col md:flex-row items-center gap-4 lg:gap-6 lg:mx-auto text-center md:text-left">
               {/* Logo de MIRA */}
